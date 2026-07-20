@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contributions - VitaSeed by Wolff</title>
+    <link rel="icon" href="seed.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Vis.js for Network Graph -->
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style>
+        #network-container {
+            width: 100%;
+            height: calc(100vh - 150px);
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            margin-top: 1rem;
+        }
+        .network-controls {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .graph-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <button id="mobile-menu-toggle" class="menu-toggle">☰</button>
+        <div class="logo">Vita<strong>Seed</strong> <span style="font-size:0.6rem; color:var(--text-muted);">by Wolff</span></div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar">
+        <div>
+            <div class="logo-container">
+                <div class="seed-icon"></div>
+                <div class="logo">VITA<strong style="font-weight: 800;">SEED</strong> <span style="font-size:0.6rem; color:var(--text-muted); font-weight: normal;">by Wolff</span></div>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="index.html"><span>MAIN MENU</span></a></li>
+                <li style="margin-top: 1rem;"><a href="category.html?cat=Ports"><span>PORTS</span></a></li>
+                <li><a href="category.html?cat=Original games"><span>ORIGINAL GAMES</span></a></li>
+                <li><a href="category.html?cat=Mods"><span>MODS</span></a></li>
+                <li><a href="contribution.html" class="active"><span>CONTRIBUTION</span></a></li>
+            </ul>
+        </div>
+        
+        <div class="sidebar-footer">
+            <ul>
+                <li><a href="settings.html"><i class="fas fa-cog"></i> <span>SETTINGS</span></a></li>
+                <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> <span>LOGIN</span></a></li>
+            </ul>
+            <div class="version">0.3.0 (beta)</div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <header>
+            <div class="header-content" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <div class="search-bar" style="visibility: hidden;">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Guest&background=0D8ABC&color=fff" alt="User">
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="graph-header">
+                <div>
+                    <h2><i class="fas fa-project-diagram" style="color: var(--accent-green);"></i> Contribution Tree</h2>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Explore as ramificações e colaborações entre os DEVs da comunidade.</p>
+                </div>
+            </div>
+            
+            <div id="network-container"></div>
+            
+            <div class="network-controls">
+                <span class="tag" style="background: rgba(0, 230, 118, 0.2); color: var(--accent-green);"><i class="fas fa-user"></i> Desenvolvedores</span>
+                <span class="tag" style="background: rgba(251, 191, 36, 0.2); color: #f59e0b;"><i class="fas fa-gamepad"></i> Projetos</span>
+                <span class="tag" style="background: var(--bg-card); color: var(--text-muted); border: 1px solid var(--border-color);"><i class="fas fa-mouse"></i> Arraste e dê Zoom para explorar</span>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/theme.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Mobile Menu Toggle
+            const toggle = document.getElementById('mobile-menu-toggle');
+            const sidebar = document.getElementById('sidebar');
+            if(toggle && sidebar) {
+                toggle.addEventListener('click', () => {
+                    sidebar.classList.toggle('active');
+                });
+            }
+
+            // --- Network Graph Data ---
+            const nodes = new vis.DataSet([
+                // DEVS (Group 1: Circle)
+                { id: 'wolff', label: 'Wolff', group: 'dev', shape: 'circularImage', image: 'https://ui-avatars.com/api/?name=Wolff&background=0D8ABC&color=fff' },
+                { id: 'meninosung', label: 'MeninoSung', group: 'dev', shape: 'circularImage', image: 'https://ui-avatars.com/api/?name=Menino+Sung&background=E53935&color=fff' },
+                { id: 'dayos', label: 'DayOS', group: 'dev', shape: 'circularImage', image: 'https://ui-avatars.com/api/?name=Day+OS&background=43A047&color=fff' },
+                { id: 'grarak', label: 'Grarak', group: 'dev', shape: 'circularImage', image: 'https://ui-avatars.com/api/?name=Grarak&background=8E24AA&color=fff' },
+                { id: 'bren', label: 'bren', group: 'dev', shape: 'circularImage', image: 'https://ui-avatars.com/api/?name=Bren&background=FDD835&color=000' },
+                { id: 'parindraaa', label: 'Parindraaa', group: 'dev', shape: 'circularImage', image: 'https://ui-avatars.com/api/?name=Parindraaa&background=3949AB&color=fff' },
+                
+                // PROJECTS (Group 2: Box)
+                { id: 'beach', label: 'Beach Buggy', group: 'project', shape: 'box' },
+                { id: 'zombie', label: 'Zombie Tsunami', group: 'project', shape: 'box' },
+                { id: 'greenvita', label: 'GreenVita', group: 'project', shape: 'box' },
+                { id: 'dsvita', label: 'DSVita', group: 'project', shape: 'box' },
+                { id: 'atelier', label: 'Atelier Ayesha PTBR', group: 'project', shape: 'box' },
+                { id: 'nodrt', label: 'NoDRTrophiesGODOT', group: 'project', shape: 'box' },
+                { id: 'ac', label: 'Animal Crossing', group: 'project', shape: 'box' },
+                { id: 'cards', label: 'Adventura Time - Cards', group: 'project', shape: 'box' }
+            ]);
+
+            const edges = new vis.DataSet([
+                // Collaborations (Based on user prompt: MeninoSung and Wolff (Beach e Zombie Tsunami))
+                { from: 'wolff', to: 'beach', label: 'Colaborou' },
+                { from: 'meninosung', to: 'beach', label: 'Colaborou' },
+                { from: 'wolff', to: 'zombie', label: 'Colaborou' },
+                { from: 'meninosung', to: 'zombie', label: 'Colaborou' },
+                
+                // Other relationships based on data.js responsibles
+                { from: 'wolff', to: 'atelier', label: 'Desenvolveu' },
+                { from: 'wolff', to: 'nodrt', label: 'Desenvolveu' },
+                { from: 'dayos', to: 'greenvita', label: 'Desenvolveu' },
+                { from: 'grarak', to: 'dsvita', label: 'Desenvolveu' },
+                { from: 'bren', to: 'ac', label: 'Desenvolveu' },
+                { from: 'parindraaa', to: 'cards', label: 'Desenvolveu' }
+            ]);
+
+            const container = document.getElementById('network-container');
+            const data = { nodes: nodes, edges: edges };
+            const options = {
+                nodes: {
+                    borderWidth: 2,
+                    size: 40,
+                    color: {
+                        border: '#00e676',
+                        background: '#1a1a1a'
+                    },
+                    font: { color: '#ffffff' }
+                },
+                edges: {
+                    color: '#666666',
+                    width: 2,
+                    font: {
+                        color: '#aaaaaa',
+                        size: 12,
+                        strokeWidth: 0,
+                        align: 'middle'
+                    },
+                    smooth: {
+                        type: 'continuous'
+                    }
+                },
+                groups: {
+                    dev: {
+                        color: { border: '#00e676' },
+                        font: { color: '#00e676', bold: true }
+                    },
+                    project: {
+                        color: { border: '#f59e0b', background: '#2d2d2d' },
+                        font: { color: '#f59e0b' },
+                        shapeProperties: { borderRadius: 6 }
+                    }
+                },
+                physics: {
+                    forceAtlas2Based: {
+                        gravitationalConstant: -100,
+                        centralGravity: 0.01,
+                        springLength: 200,
+                        springConstant: 0.08
+                    },
+                    maxVelocity: 50,
+                    solver: 'forceAtlas2Based',
+                    timestep: 0.35,
+                    stabilization: { iterations: 150 }
+                },
+                interaction: {
+                    hover: true,
+                    tooltipDelay: 200
+                }
+            };
+
+            const network = new vis.Network(container, data, options);
+        });
+    </script>
+</body>
+</html>
