@@ -145,17 +145,6 @@
                     <p id="install-text" style="color: var(--text-muted); line-height: 1.6; white-space: pre-line;"></p>
                 </div>
 
-                <div id="ai-alert" class="hidden mb-2 section-box" style="background: rgba(251, 191, 36, 0.05); border-color: #d97706;">
-                    <h3 style="color: #d97706;"><i class="fas fa-robot"></i> Transparência de IA</h3>
-                    <p><strong>IA Utilizada:</strong> <span id="ai-name"></span></p>
-                    <p><strong>Ação:</strong> <span id="ai-action"></span></p>
-                </div>
-
-                <div id="vibecoded-alert" class="hidden mb-2 section-box" style="background: rgba(239, 68, 68, 0.05); border-color: var(--danger-color);">
-                    <h3 style="color: var(--danger-color);"><i class="fas fa-bolt"></i> 100% Vibecoded</h3>
-                    <p>Este projeto foi gerado integralmente por Inteligência Artificial.</p>
-                </div>
-
             </div>
         </main>
     </div>
@@ -180,6 +169,9 @@
                 // Badges
                 let badgesHtml = `<span class="tag" style="background:var(--accent-green); color:#000;">${proj.category}</span>`;
                 badgesHtml += `<span class="tag" style="background:var(--bg-main); border:1px solid var(--border-color); color:var(--text-muted);"><i class="fas fa-user"></i> ${proj.responsibles}</span>`;
+                if (proj.ai_used || proj.vibecoded) {
+                    badgesHtml += `<span class="tag" style="background:var(--bg-main); border:1px solid var(--border-color);" title="Utiliza IA">🤖</span>`;
+                }
                 document.getElementById('proj-badges').innerHTML = badgesHtml;
 
                 // Media
@@ -208,15 +200,6 @@
                     document.getElementById('install-text').innerText = proj.install_instructions;
                 }
 
-                // AI alerts
-                if (proj.ai_used && proj.ai_details) {
-                    document.getElementById('ai-alert').classList.remove('hidden');
-                    document.getElementById('ai-name').innerText = proj.ai_details.name;
-                    document.getElementById('ai-action').innerText = proj.ai_details.action;
-                }
-                if (proj.vibecoded) {
-                    document.getElementById('vibecoded-alert').classList.remove('hidden');
-                }
             } else {
                 document.getElementById('proj-title').innerText = "Projeto não encontrado.";
             }

@@ -192,6 +192,9 @@
                         <div class="seed-icon"></div>
                         <h2 id="step-title">Junte-se à Comunidade</h2>
                         <p id="step-desc">Crie seu perfil de Desenvolvedor na VitaSeed.</p>
+                        <div style="margin-top: 1rem; padding: 0.5rem; background: rgba(251, 191, 36, 0.1); border-left: 3px solid #f59e0b; color: #d97706; font-size: 0.85rem; border-radius: 4px; text-align: left;">
+                            <strong>Aviso:</strong> A funcionalidade de registro é uma versão Beta (Protótipo). Dados não são salvos em nuvem.
+                        </div>
                     </div>
                     
                     <!-- STEP 1: Registration Form -->
@@ -199,7 +202,7 @@
                         <div class="form-group has-icon">
                             <label>Nome de Usuário / Dev</label>
                             <i class="fas fa-user-tag"></i>
-                            <input type="text" placeholder="Ex: Rinnegatamante" required />
+                            <input type="text" placeholder="Seu nome" required />
                         </div>
                         
                         <div class="form-group has-icon">
@@ -218,17 +221,6 @@
                             <label>Linguagens Principais</label>
                             <i class="fas fa-code"></i>
                             <input type="text" placeholder="Ex: C++, Lua, GDScript, Python" required />
-                        </div>
-                        
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="uses-ai"> Utilizo ferramentas de IA nos meus projetos
-                        </label>
-                        
-                        <div id="ai-info" class="hidden ai-box">
-                            <div class="form-group" style="margin-bottom: 0;">
-                                <label style="color: var(--accent-green);"><i class="fas fa-robot"></i> Especifique as IAs e Finalidade (Opcional)</label>
-                                <textarea placeholder="Ex: Claude 3.5 Sonnet para refatoração e otimização de matrizes."></textarea>
-                            </div>
                         </div>
                         
                         <button type="submit" class="btn-primary btn-auth">
@@ -269,10 +261,6 @@
 
     <script src="js/theme.js"></script>
     <script>
-        document.getElementById('uses-ai').addEventListener('change', (e) => {
-            document.getElementById('ai-info').classList.toggle('hidden', !e.target.checked);
-        });
-
         // OTP Input Auto-advance logic
         const otpInputs = document.querySelectorAll('.otp-inputs input');
         otpInputs.forEach((input, index) => {

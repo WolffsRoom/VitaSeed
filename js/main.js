@@ -24,10 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
             let tagClass = proj.category.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             let badgesHtml = `<span class="tag ${tagClass}">${proj.category}</span>`;
             
-            if (proj.ai_used && !proj.vibecoded) {
-                badgesHtml += `<span class="ai-indicator">AI Assisted</span>`;
-            } else if (proj.vibecoded) {
-                badgesHtml += `<span class="ai-indicator vibecoded-badge">100% Vibecoded</span>`;
+            if (proj.ai_used || proj.vibecoded) {
+                badgesHtml += `<span class="tag" style="background:var(--bg-main); border:1px solid var(--border-color);" title="Utiliza IA">🤖</span>`;
             }
 
             const bannerUrl = proj.bannerUrl || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400';
