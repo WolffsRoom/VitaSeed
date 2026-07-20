@@ -8,196 +8,249 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .auth-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 80vh;
+        body {
+            margin: 0;
+            overflow: hidden; /* Hide scrollbar for split screen */
+            animation: pageFadeIn 0.5s ease-out forwards;
         }
-        @keyframes slideUpFade {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes pageFadeIn {
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .auth-container {
-            width: 100%;
-            max-width: 420px;
-            background: var(--bg-card);
-            padding: 2.5rem;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        
+        /* Modern Split Screen Auth */
+        .auth-split {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+        
+        .auth-visual {
+            flex: 1;
+            background-image: url('https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-position: center;
             position: relative;
-            overflow: hidden;
-            animation: slideUpFade 0.6s ease forwards;
+            display: none;
         }
-        .auth-container::before {
-            content: '';
+        @media (min-width: 900px) {
+            .auth-visual { display: block; }
+        }
+        
+        .visual-overlay {
             position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent-green), var(--tag-port));
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 4rem;
         }
+        .visual-overlay h1 {
+            font-size: 3rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        .visual-overlay p {
+            color: #ccc;
+            font-size: 1.2rem;
+            max-width: 400px;
+            line-height: 1.5;
+        }
+
+        .auth-form-container {
+            flex: 1;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 2rem 4rem;
+            background: var(--bg-main);
+            position: relative;
+            z-index: 10;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+            overflow-y: auto;
+        }
+        @media (max-width: 900px) {
+            .auth-form-container { max-width: 100%; padding: 2rem; }
+        }
+
         .auth-header {
-            text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
         .auth-header .seed-icon {
-            margin: 0 auto 1rem auto;
-            width: 40px; height: 40px;
+            width: 48px;
+            height: 48px;
             background-color: var(--accent-green);
+            margin-bottom: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.3);
         }
         .auth-header h2 {
+            font-size: 2rem;
             font-weight: 700;
-            color: var(--text-main);
-            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
         }
         .auth-header p {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
+            font-size: 1rem;
         }
+
         .form-group {
-            margin-bottom: 1.25rem;
-            position: relative;
-        }
-        .form-group i {
-            position: absolute;
-            top: 50%; left: 1rem;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-        }
-        .form-group input {
-            width: 100%;
-            padding: 0.85rem 1rem 0.85rem 2.5rem;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-main);
-            color: var(--text-main);
-            transition: all 0.2s ease;
-            font-size: 0.95rem;
-        }
-        .form-group input:focus {
-            border-color: var(--accent-green);
-            box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.1);
-            outline: none;
-        }
-        .form-options {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
             margin-bottom: 1.5rem;
         }
-        .form-options a {
-            color: var(--accent-green);
-            text-decoration: none;
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
         }
-        .form-options a:hover {
-            text-decoration: underline;
+        .form-input-wrapper {
+            position: relative;
         }
+        .form-input-wrapper i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+        .form-input-wrapper input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border-radius: 10px;
+            border: 2px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-main);
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+        .form-input-wrapper input:focus {
+            border-color: var(--accent-green);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(0, 230, 118, 0.1);
+        }
+
         .btn-auth {
             width: 100%;
-            padding: 0.85rem;
-            border-radius: 8px;
+            padding: 1rem;
+            border-radius: 10px;
             font-size: 1rem;
             font-weight: 600;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 0.5rem;
-            transition: transform 0.1s ease, box-shadow 0.2s ease;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
         }
         .btn-auth:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 230, 118, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 230, 118, 0.25);
         }
+
         .auth-footer {
+            margin-top: 2rem;
             text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
             color: var(--text-muted);
         }
         .auth-footer a {
             color: var(--accent-green);
             font-weight: 600;
             text-decoration: none;
+            transition: 0.2s;
         }
         .auth-footer a:hover {
-            text-decoration: underline;
+            color: #fff;
+        }
+
+        .btn-back {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: 0.2s;
+        }
+        .btn-back:hover {
+            color: var(--text-main);
+        }
+        
+        .beta-warning {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(251, 191, 36, 0.05);
+            border-left: 4px solid #f59e0b;
+            color: #d97706;
+            border-radius: 6px;
+            font-size: 0.85rem;
         }
     </style>
 </head>
 <body>
     
-    <!-- Seed Loader -->
-    <div id="loader" class="loader-container">
-        <div class="loader-seed"></div>
-    </div>
-
-    <!-- Mobile Header -->
-    <div class="mobile-header">
-        <button id="mobile-menu-toggle" class="menu-toggle">☰</button>
-        <div class="logo">Vita<strong>Seed</strong> <span style="font-size:0.6rem; color:var(--text-muted);">by Wolff</span></div>
-    </div>
-
-    <!-- Sidebar -->
-    <aside id="sidebar">
-        <div>
-            <div class="logo-container">
-                <div class="seed-icon"></div>
-                <div class="logo">Vita<strong>Seed</strong> <span style="font-size:0.6rem; color:var(--text-muted);">by Wolff</span></div>
+    <div class="auth-split">
+        <div class="auth-visual">
+            <div class="visual-overlay">
+                <h1>VitaSeed</h1>
+                <p>O maior e mais moderno ecossistema de ports e projetos. Baixe, contribua e eleve sua experiência ao máximo.</p>
             </div>
-            
-            <ul class="nav-links">
-                <li><a href="index.html"><span>MAIN MENU</span></a></li>
-                <li style="margin-top: 1rem;"><a href="login.html" class="active"><span>Login</span></a></li>
-                <li><a href="register.html"><span>Register</span></a></li>
-            </ul>
         </div>
-    </aside>
 
-    <!-- Content Area -->
-    <div class="content-wrapper">
-        <main>
-            <div class="auth-wrapper">
-                <div class="auth-container">
-                    <div class="auth-header">
-                        <div class="seed-icon"></div>
-                        <h2>Bem-vindo de Volta</h2>
-                        <p>Acesse seu painel VitaSeed.</p>
-                        <div style="margin-top: 1rem; padding: 0.5rem; background: rgba(251, 191, 36, 0.1); border-left: 3px solid #f59e0b; color: #d97706; font-size: 0.85rem; border-radius: 4px; text-align: left;">
-                            <strong>Aviso:</strong> A funcionalidade de login é uma versão Beta (Protótipo). A autenticação real está em desenvolvimento.
-                        </div>
-                    </div>
-                    
-                    <form action="index.html">
-                        <div class="form-group">
-                            <i class="fas fa-user"></i>
-                            <input type="text" placeholder="Nome de Usuário ou E-mail" required />
-                        </div>
-                        
-                        <div class="form-group">
-                            <i class="fas fa-lock"></i>
-                            <input type="password" placeholder="Senha segura" required />
-                        </div>
-                        
-                        <div class="form-options">
-                            <label style="display:flex; align-items:center; gap:0.4rem; cursor:pointer; color:var(--text-muted);">
-                                <input type="checkbox"> Lembrar-me
-                            </label>
-                            <a href="#">Esqueceu a senha?</a>
-                        </div>
-                        
-                        <button type="submit" class="btn-primary btn-auth">
-                            Login <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </form>
-                    
-                    <div class="auth-footer">
-                        Ainda não faz parte? <a href="register.html">Criar uma conta</a>
-                    </div>
+        <div class="auth-form-container">
+            <a href="index.html" class="btn-back">Menu Principal <i class="fas fa-arrow-right"></i></a>
+            
+            <div class="auth-header">
+                <div class="seed-icon"></div>
+                <h2>Bem-vindo de Volta</h2>
+                <p>Faça login para gerenciar seus projetos.</p>
+                <div class="beta-warning">
+                    <strong>Aviso:</strong> O login é um protótipo Beta. Autenticação real está em desenvolvimento.
                 </div>
             </div>
-        </main>
+            
+            <form action="index.html">
+                <div class="form-group">
+                    <label>E-mail ou Usuário</label>
+                    <div class="form-input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" placeholder="exemplo@dev.com" required />
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Senha</label>
+                    <div class="form-input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="••••••••" required />
+                    </div>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; font-size: 0.9rem;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: var(--text-muted);">
+                        <input type="checkbox"> Lembrar de mim
+                    </label>
+                    <a href="#" style="color: var(--accent-green); text-decoration: none;">Esqueceu a senha?</a>
+                </div>
+                
+                <button type="submit" class="btn-primary btn-auth">
+                    Acessar Plataforma <i class="fas fa-sign-in-alt"></i>
+                </button>
+            </form>
+            
+            <div class="auth-footer">
+                Não possui uma conta? <a href="register.html">Criar uma agora</a>
+            </div>
+        </div>
     </div>
 
     <script src="js/theme.js"></script>
