@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details - VitaSeed by Wolff</title>
+    <link rel="icon" href="seed.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .project-header {
+            width: 100%;
+            height: 350px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            position: relative;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+        .project-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 60%;
+            background: linear-gradient(to top, var(--bg-card), transparent);
+            border-radius: 0 0 12px 12px;
+        }
+        .project-header-content {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            z-index: 10;
+        }
+        .project-header-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+        
+        .section-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .section-box h3 {
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .section-box h3 i { color: var(--accent-green); }
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        .media-grid img, .media-grid video {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .media-grid img:hover {
+            border-color: var(--accent-green);
+        }
+
+        .action-bar {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .action-bar .btn-primary, .action-bar .btn-secondary {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-header">
+        <button id="mobile-menu-toggle" class="menu-toggle">☰</button>
+        <div class="logo">Vita<strong>Seed</strong> <span style="font-size:0.6rem; color:var(--text-muted);">by Wolff</span></div>
+    </div>
+    
+    <aside id="sidebar">
+        <div>
+            <div class="logo-container">
+                <div class="seed-icon"></div>
+                <div class="logo">Vita<strong>Seed</strong> <span style="font-size:0.6rem; color:var(--text-muted);">by Wolff</span></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html"><span>MAIN MENU</span></a></li>
+                <li style="margin-top: 1rem;"><a href="category.html?cat=Ports"><span>Ports</span></a></li>
+                <li><a href="category.html?cat=Original games"><span>Original games</span></a></li>
+                <li><a href="category.html?cat=Mods"><span>Mods</span></a></li>
+                <li><a href="category.html?cat=Translations"><span>Translations</span></a></li>
+                <li><a href="category.html?cat=Tools"><span>Tools</span></a></li>
+                <li><a href="category.html?cat=PC Tools"><span>PC Tools</span></a></li>
+                <hr style="border-color: var(--border-color); margin: 1rem 0;">
+                <li><a href="login.html"><span>Login</span></a></li>
+                <li><a href="register.html"><span>Register</span></a></li>
+                <li><a href="settings.html"><span>Settings</span></a></li>
+            </ul>
+        </div>
+    </aside>
+
+    <div class="content-wrapper">
+        <main style="padding-top: 2rem;">
+            <div id="project-details" style="max-width: 1000px; margin: 0 auto;">
+                
+                <div id="proj-header-banner" class="project-header">
+                    <div class="project-header-content">
+                        <h1 id="proj-title">Loading...</h1>
+                        <div id="proj-badges" style="display: flex; gap: 0.5rem; flex-wrap: wrap;"></div>
+                    </div>
+                </div>
+
+                <div class="section-box">
+                    <h3><i class="fas fa-info-circle"></i> Descrição</h3>
+                    <p id="proj-desc" style="color: var(--text-main); line-height: 1.6;"></p>
+                    
+                    <div class="action-bar">
+                        <a id="btn-download" href="#" class="btn-primary"><i class="fas fa-download"></i> Download VPK</a>
+                        <a id="btn-source" href="#" class="btn-secondary" target="_blank"><i class="fab fa-github"></i> Source Code</a>
+                    </div>
+                </div>
+
+                <div id="media-section" class="section-box hidden">
+                    <h3><i class="fas fa-photo-video"></i> Mídia (Prints & Vídeos)</h3>
+                    <div id="media-container" class="media-grid"></div>
+                </div>
+
+                <div id="install-section" class="section-box hidden">
+                    <h3><i class="fas fa-wrench"></i> Instruções de Instalação</h3>
+                    <p id="install-text" style="color: var(--text-muted); line-height: 1.6; white-space: pre-line;"></p>
+                </div>
+
+                <div id="ai-alert" class="hidden mb-2 section-box" style="background: rgba(251, 191, 36, 0.05); border-color: #d97706;">
+                    <h3 style="color: #d97706;"><i class="fas fa-robot"></i> Transparência de IA</h3>
+                    <p><strong>IA Utilizada:</strong> <span id="ai-name"></span></p>
+                    <p><strong>Ação:</strong> <span id="ai-action"></span></p>
+                </div>
+
+                <div id="vibecoded-alert" class="hidden mb-2 section-box" style="background: rgba(239, 68, 68, 0.05); border-color: var(--danger-color);">
+                    <h3 style="color: var(--danger-color);"><i class="fas fa-bolt"></i> 100% Vibecoded</h3>
+                    <p>Este projeto foi gerado integralmente por Inteligência Artificial.</p>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/theme.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = parseInt(params.get('id'));
+            const proj = projectsData.find(p => p.id === id);
+            
+            if (proj) {
+                document.getElementById('proj-title').innerText = proj.title;
+                document.getElementById('proj-desc').innerText = proj.description;
+                document.getElementById('btn-source').href = proj.source_link;
+
+                // Cover Banner
+                const bannerUrl = proj.bannerUrl || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400';
+                document.getElementById('proj-header-banner').style.backgroundImage = `url('${bannerUrl}')`;
+
+                // Badges
+                let badgesHtml = `<span class="tag" style="background:var(--accent-green); color:#000;">${proj.category}</span>`;
+                badgesHtml += `<span class="tag" style="background:var(--bg-main); border:1px solid var(--border-color); color:var(--text-muted);"><i class="fas fa-user"></i> ${proj.responsibles}</span>`;
+                document.getElementById('proj-badges').innerHTML = badgesHtml;
+
+                // Media
+                const mediaContainer = document.getElementById('media-container');
+                let hasMedia = false;
+                
+                if (proj.videoUrl) {
+                    hasMedia = true;
+                    mediaContainer.innerHTML += `<video controls src="${proj.videoUrl}"></video>`;
+                }
+                
+                if (proj.screenshots && proj.screenshots.length > 0) {
+                    hasMedia = true;
+                    proj.screenshots.forEach(src => {
+                        mediaContainer.innerHTML += `<img src="${src}" alt="Screenshot">`;
+                    });
+                }
+                
+                if (hasMedia) {
+                    document.getElementById('media-section').classList.remove('hidden');
+                }
+
+                // Install Instructions
+                if (proj.install_instructions) {
+                    document.getElementById('install-section').classList.remove('hidden');
+                    document.getElementById('install-text').innerText = proj.install_instructions;
+                }
+
+                // AI alerts
+                if (proj.ai_used && proj.ai_details) {
+                    document.getElementById('ai-alert').classList.remove('hidden');
+                    document.getElementById('ai-name').innerText = proj.ai_details.name;
+                    document.getElementById('ai-action').innerText = proj.ai_details.action;
+                }
+                if (proj.vibecoded) {
+                    document.getElementById('vibecoded-alert').classList.remove('hidden');
+                }
+            } else {
+                document.getElementById('proj-title').innerText = "Projeto não encontrado.";
+            }
+        });
+    </script>
+</body>
+</html>

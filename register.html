@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - VitaSeed by Wolff</title>
+    <link rel="icon" href="seed.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .auth-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            padding: 2rem 0;
+        }
+        .auth-container {
+            width: 100%;
+            max-width: 500px;
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        .auth-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-green), var(--tag-translation));
+        }
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .auth-header .seed-icon {
+            margin: 0 auto 1rem auto;
+            width: 40px; height: 40px;
+            background-color: var(--accent-green);
+        }
+        .auth-header h2 {
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+        .auth-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        .form-group {
+            margin-bottom: 1.25rem;
+            position: relative;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        .form-group.has-icon i {
+            position: absolute;
+            top: 2.2rem; left: 1rem;
+            color: var(--text-muted);
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-main);
+            color: var(--text-main);
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+        .form-group.has-icon input {
+            padding-left: 2.5rem;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.1);
+            outline: none;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            cursor: pointer;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            margin-top: 1.5rem;
+        }
+        .ai-box {
+            margin-top: 1rem;
+            padding: 1.25rem;
+            background: rgba(0, 230, 118, 0.05);
+            border-left: 3px solid var(--accent-green);
+            border-radius: 4px;
+        }
+        .btn-auth {
+            width: 100%;
+            padding: 0.85rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.1s ease, box-shadow 0.2s ease;
+            margin-top: 1.5rem;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-auth:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 230, 118, 0.2);
+        }
+        .auth-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .auth-footer a {
+            color: var(--accent-green);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* OTP Styles */
+        .otp-inputs {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+        .otp-inputs input {
+            width: 50px;
+            height: 55px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Seed Loader -->
+    <div id="loader" class="loader-container">
+        <div class="loader-seed"></div>
+    </div>
+
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <button id="mobile-menu-toggle" class="menu-toggle">☰</button>
+        <div class="logo">Vita<strong>Seed</strong> <span style="font-size:0.6rem; color:var(--text-muted);">by Wolff</span></div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar">
+        <div>
+            <div class="logo-container">
+                <div class="seed-icon"></div>
+                <div class="logo">Vita<strong>Seed</strong> <span style="font-size:0.6rem; color:var(--text-muted);">by Wolff</span></div>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="index.html"><span>MAIN MENU</span></a></li>
+                <li style="margin-top: 1rem;"><a href="login.html"><span>Login</span></a></li>
+                <li><a href="register.html" class="active"><span>Register</span></a></li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Content Area -->
+    <div class="content-wrapper">
+        <main>
+            <div class="auth-wrapper">
+                <div class="auth-container">
+                    <div class="auth-header">
+                        <div class="seed-icon"></div>
+                        <h2 id="step-title">Junte-se à Comunidade</h2>
+                        <p id="step-desc">Crie seu perfil de Desenvolvedor na VitaSeed.</p>
+                    </div>
+                    
+                    <!-- STEP 1: Registration Form -->
+                    <form id="form-step-1" onsubmit="event.preventDefault(); nextStep();">
+                        <div class="form-group has-icon">
+                            <label>Nome de Usuário / Dev</label>
+                            <i class="fas fa-user-tag"></i>
+                            <input type="text" placeholder="Ex: Rinnegatamante" required />
+                        </div>
+                        
+                        <div class="form-group has-icon">
+                            <label>E-mail (Necessário para ativação)</label>
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="user-email" placeholder="dev@exemplo.com" required />
+                        </div>
+                        
+                        <div class="form-group has-icon">
+                            <label>URL do Ícone/Avatar (Opcional)</label>
+                            <i class="fas fa-image"></i>
+                            <input type="url" placeholder="https://..." />
+                        </div>
+                        
+                        <div class="form-group has-icon">
+                            <label>Linguagens Principais</label>
+                            <i class="fas fa-code"></i>
+                            <input type="text" placeholder="Ex: C++, Lua, GDScript, Python" required />
+                        </div>
+                        
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="uses-ai"> Utilizo ferramentas de IA nos meus projetos
+                        </label>
+                        
+                        <div id="ai-info" class="hidden ai-box">
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label style="color: var(--accent-green);"><i class="fas fa-robot"></i> Especifique as IAs e Finalidade (Opcional)</label>
+                                <textarea placeholder="Ex: Claude 3.5 Sonnet para refatoração e otimização de matrizes."></textarea>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary btn-auth">
+                            Enviar Código de Confirmação <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                    
+                    <!-- STEP 2: Activation Code -->
+                    <form id="form-step-2" class="hidden" onsubmit="event.preventDefault(); finishRegistration();">
+                        <div class="form-group" style="text-align: center;">
+                            <label>Insira o código de 6 dígitos enviado para o seu e-mail.</label>
+                            <div class="otp-inputs">
+                                <input type="text" maxlength="1" required />
+                                <input type="text" maxlength="1" required />
+                                <input type="text" maxlength="1" required />
+                                <input type="text" maxlength="1" required />
+                                <input type="text" maxlength="1" required />
+                                <input type="text" maxlength="1" required />
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary btn-auth">
+                            Ativar Conta <i class="fas fa-check-circle"></i>
+                        </button>
+                        
+                        <div class="auth-footer" style="margin-top: 1rem;">
+                            Não recebeu? <a href="#" onclick="alert('Código reenviado!');">Reenviar código</a>
+                        </div>
+                    </form>
+                    
+                    <div class="auth-footer" id="login-footer">
+                        Já tem uma conta? <a href="login.html">Fazer Login</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/theme.js"></script>
+    <script>
+        document.getElementById('uses-ai').addEventListener('change', (e) => {
+            document.getElementById('ai-info').classList.toggle('hidden', !e.target.checked);
+        });
+
+        // OTP Input Auto-advance logic
+        const otpInputs = document.querySelectorAll('.otp-inputs input');
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', () => {
+                if(input.value.length === 1 && index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+            });
+            input.addEventListener('keydown', (e) => {
+                if(e.key === 'Backspace' && input.value.length === 0 && index > 0) {
+                    otpInputs[index - 1].focus();
+                }
+            });
+        });
+
+        function nextStep() {
+            const email = document.getElementById('user-email').value;
+            document.getElementById('form-step-1').classList.add('hidden');
+            document.getElementById('login-footer').classList.add('hidden');
+            
+            document.getElementById('form-step-2').classList.remove('hidden');
+            
+            document.getElementById('step-title').innerText = "Confirme seu E-mail";
+            document.getElementById('step-desc').innerHTML = `Enviamos um código para <strong>${email}</strong>`;
+            
+            otpInputs[0].focus();
+        }
+
+        function finishRegistration() {
+            // In a real scenario, validate code with backend here.
+            alert('Conta ativada com sucesso! Redirecionando para o login...');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

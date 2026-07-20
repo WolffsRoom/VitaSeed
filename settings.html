@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - VitaSeed by Wolff</title>
+    <link rel="icon" href="seed.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .settings-container { max-width: 600px; margin: 2rem auto; background: var(--bg-card); padding: 2rem; border-radius: 8px; border: 1px solid var(--border-color); }
+        .theme-options { display: flex; gap: 1rem; margin-top: 1rem; }
+        .theme-btn { flex: 1; padding: 1rem; border: 2px solid var(--border-color); background: var(--bg-main); color: var(--text-main); border-radius: 8px; cursor: pointer; transition: 0.2s; font-weight: 600; }
+        .theme-btn:hover, .theme-btn.active { border-color: var(--accent-green); }
+    </style>
+</head>
+<body>
+    <div class="mobile-header">
+        <button id="mobile-menu-toggle" class="menu-toggle">☰</button>
+        <div class="logo">Vita<strong>Seed</strong> <span style="font-size:0.6rem; color:var(--text-muted);">by Wolff</span></div>
+    </div>
+
+    <aside id="sidebar">
+        <div>
+            <div class="logo-container">
+                <div class="seed-icon"></div>
+                <div class="logo">Vita<strong>Seed</strong> <span style="font-size:0.6rem; color:var(--text-muted);">by Wolff</span></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html"><span>MAIN MENU</span></a></li>
+                <li style="margin-top: 1rem;"><a href="settings.html" class="active"><span>Settings</span></a></li>
+            </ul>
+        </div>
+    </aside>
+
+    <div class="content-wrapper">
+        <main>
+            <div class="settings-container">
+                <h2 style="margin-bottom: 1.5rem;">Configurações</h2>
+                
+                <div>
+                    <h3 style="margin-bottom: 0.5rem; font-size: 1rem; color: var(--text-muted);">Aparência (Tema)</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Escolha o esquema de cores de sua preferência. Será salvo no seu navegador.</p>
+                    
+                    <div class="theme-options">
+                        <button class="theme-btn" data-theme-value="">Escuro (Padrão)</button>
+                        <button class="theme-btn" data-theme-value="light">Claro</button>
+                        <button class="theme-btn" data-theme-value="sony" style="background: #003399; color: #fff;">Azul Sony</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="js/theme.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btns = document.querySelectorAll('.theme-btn');
+            const current = localStorage.getItem('vita-theme') || '';
+            
+            btns.forEach(btn => {
+                if (btn.getAttribute('data-theme-value') === current) {
+                    btn.classList.add('active');
+                }
+                
+                btn.addEventListener('click', () => {
+                    const theme = btn.getAttribute('data-theme-value');
+                    localStorage.setItem('vita-theme', theme);
+                    document.documentElement.setAttribute('data-theme', theme);
+                    
+                    btns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

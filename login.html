@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - VitaSeed by Wolff</title>
+    <link rel="icon" href="seed.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .auth-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+        }
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .auth-container {
+            width: 100%;
+            max-width: 420px;
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+            animation: slideUpFade 0.6s ease forwards;
+        }
+        .auth-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-green), var(--tag-port));
+        }
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .auth-header .seed-icon {
+            margin: 0 auto 1rem auto;
+            width: 40px; height: 40px;
+            background-color: var(--accent-green);
+        }
+        .auth-header h2 {
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+        .auth-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        .form-group {
+            margin-bottom: 1.25rem;
+            position: relative;
+        }
+        .form-group i {
+            position: absolute;
+            top: 50%; left: 1rem;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+        .form-group input {
+            width: 100%;
+            padding: 0.85rem 1rem 0.85rem 2.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-main);
+            color: var(--text-main);
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+        .form-group input:focus {
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.1);
+            outline: none;
+        }
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+        .form-options a {
+            color: var(--accent-green);
+            text-decoration: none;
+        }
+        .form-options a:hover {
+            text-decoration: underline;
+        }
+        .btn-auth {
+            width: 100%;
+            padding: 0.85rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.1s ease, box-shadow 0.2s ease;
+        }
+        .btn-auth:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 230, 118, 0.2);
+        }
+        .auth-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .auth-footer a {
+            color: var(--accent-green);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Seed Loader -->
+    <div id="loader" class="loader-container">
+        <div class="loader-seed"></div>
+    </div>
+
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <button id="mobile-menu-toggle" class="menu-toggle">☰</button>
+        <div class="logo">Vita<strong>Seed</strong> <span style="font-size:0.6rem; color:var(--text-muted);">by Wolff</span></div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar">
+        <div>
+            <div class="logo-container">
+                <div class="seed-icon"></div>
+                <div class="logo">Vita<strong>Seed</strong> <span style="font-size:0.6rem; color:var(--text-muted);">by Wolff</span></div>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="index.html"><span>MAIN MENU</span></a></li>
+                <li style="margin-top: 1rem;"><a href="login.html" class="active"><span>Login</span></a></li>
+                <li><a href="register.html"><span>Register</span></a></li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Content Area -->
+    <div class="content-wrapper">
+        <main>
+            <div class="auth-wrapper">
+                <div class="auth-container">
+                    <div class="auth-header">
+                        <div class="seed-icon"></div>
+                        <h2>Bem-vindo de volta</h2>
+                        <p>Entre para gerenciar seus projetos e ferramentas.</p>
+                    </div>
+                    
+                    <form action="index.html">
+                        <div class="form-group">
+                            <i class="fas fa-user"></i>
+                            <input type="text" placeholder="Nome de Usuário ou E-mail" required />
+                        </div>
+                        
+                        <div class="form-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" placeholder="Senha segura" required />
+                        </div>
+                        
+                        <div class="form-options">
+                            <label style="display:flex; align-items:center; gap:0.4rem; cursor:pointer; color:var(--text-muted);">
+                                <input type="checkbox"> Lembrar-me
+                            </label>
+                            <a href="#">Esqueceu a senha?</a>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary btn-auth">
+                            Login <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+                    
+                    <div class="auth-footer">
+                        Ainda não faz parte? <a href="register.html">Criar uma conta</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/theme.js"></script>
+</body>
+</html>

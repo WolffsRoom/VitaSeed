@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitaSeed - by Wolff</title>
+    <link rel="icon" href="seed.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    
+    <!-- Seed Loader -->
+    <div id="loader" class="loader-container">
+        <div class="loader-seed"></div>
+    </div>
+
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <button id="mobile-menu-toggle" class="menu-toggle">☰</button>
+        <div class="logo">Vita<strong>Seed</strong> <span style="font-size:0.6rem; color:var(--text-muted);">by Wolff</span></div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar">
+        <div>
+            <div class="logo-container">
+                <div class="seed-icon"></div>
+                <div class="logo">Vita<strong>Seed</strong> <span style="font-size:0.6rem; color:var(--text-muted);">by Wolff</span></div>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="index.html" class="active"><span>MAIN MENU</span></a></li>
+                <li style="margin-top: 1rem;"><a href="category.html?cat=Ports"><span>Ports</span></a></li>
+                <li><a href="category.html?cat=Original games"><span>Original games</span></a></li>
+                <li><a href="category.html?cat=Mods"><span>Mods</span></a></li>
+                <li><a href="category.html?cat=Translations"><span>Translations</span></a></li>
+                <li><a href="category.html?cat=Tools"><span>Tools</span></a></li>
+                <li><a href="category.html?cat=PC Tools"><span>PC Tools</span></a></li>
+                
+                <hr style="border-color: var(--border-color); margin: 1rem 0;">
+                
+                <li><a href="login.html"><span>Login</span></a></li>
+                <li><a href="register.html"><span>Register</span></a></li>
+                <li><a href="settings.html"><span>Settings</span></a></li>
+            </ul>
+        </div>
+
+        <div class="sidebar-footer">
+            0.3.0 (beta)
+        </div>
+    </aside>
+
+    <!-- Content Area -->
+    <div class="content-wrapper">
+        <header>
+            <select id="category-filter" class="filter-select">
+                <option value="all">Todas as Categorias</option>
+                <option value="Ports">Ports</option>
+                <option value="Original games">Original games</option>
+                <option value="Mods">Mods</option>
+                <option value="Translations">Translations</option>
+                <option value="Tools">Tools</option>
+                <option value="PC Tools">PC Tools</option>
+            </select>
+            <select id="dev-filter" class="filter-select">
+                <option value="all">Todos os DEVs</option>
+            </select>
+            <input type="text" id="search-input" class="search-bar" placeholder="Buscar por título ou responsável...">
+        </header>
+
+        <main>
+            <h2 class="section-title">Fresh Seeds</h2>
+            
+            <div id="project-grid" class="grid">
+                <!-- Items will be dynamically injected here via JS -->
+            </div>
+        </main>
+    </div>
+
+    <!-- JS -->
+    <script src="js/data.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

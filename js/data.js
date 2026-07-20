@@ -1,0 +1,152 @@
+const projectsData = [
+    {
+        id: 1,
+        title: "Beach Buggy Racing",
+        category: "Ports",
+        responsibles: "MeninoSung",
+        description: "Um emocionante jogo de corrida estilo kart para passar o tempo.",
+        warnings: "Requer controle compatível para melhor experiência.",
+        source_link: "https://github.com/example/beach-buggy",
+        bannerUrl: "https://m.media-amazon.com/images/I/91ITdE2CVKL.png",
+        videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+        screenshots: [
+            "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=400",
+            "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=400"
+        ],
+        install_instructions: "1. Baixe o VPK.\n2. Transfira para o console via VitaShell.\n3. Instale e divirta-se!",
+        ai_used: false,
+        vibecoded: false
+    },
+    {
+        id: 2,
+        title: "Zombie Tsunami",
+        category: "Ports",
+        responsibles: "MeninoSung",
+        description: "Infecte toda a cidade com sua horda de zumbis neste divertido endless runner.",
+        warnings: "Nenhum aviso.",
+        source_link: "https://github.com/example/zombie-tsunami",
+        bannerUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIaYAw1lXstjmQJ2L12cBvYO7CmsLd3VQtrcDVA1BBkA&s=10",
+        screenshots: [
+            "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=400"
+        ],
+        install_instructions: "Basta instalar o VPK. É necessário possuir os arquivos do jogo original se quiser usar os mods de texturas.",
+        ai_used: true,
+        ai_details: {
+            name: "GitHub Copilot",
+            reason: "Acelerar criação de níveis procedurais.",
+            action: "Gerou o script base de spawn de obstáculos no mapa."
+        },
+        vibecoded: false
+    },
+    {
+        id: 3,
+        title: "The Case of Golden Idol",
+        category: "Ports",
+        responsibles: "Wolff",
+        description: "Investigue uma série de assassinatos misteriosos. Jogo de puzzle investigativo.",
+        warnings: "Pode conter temas pesados.",
+        source_link: "https://github.com/example/golden-idol",
+        bannerUrl: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1677770/capsule_616x353.jpg?t=1782893605",
+        ai_used: false,
+        vibecoded: false
+    },
+    {
+        id: 4,
+        title: "Adventura Time - Card Wars Hero",
+        category: "Ports",
+        responsibles: "Finn & Jake",
+        description: "Batalhas de cartas épicas no mundo de Ooo.",
+        warnings: "Servidores multiplayer em fase beta.",
+        source_link: "https://github.com/example/card-wars",
+        bannerUrl: "https://i.kickstarter.com/assets/047/562/572/26b1ab3c6572426167d2dce0fe0d12c2_original.png?anim=false&fit=cover&gravity=auto&height=576&origin=ugc&q=92&v=1734036739&width=1024&sig=OhUvWM7Uand1rarpMaHH%2FTZcKC8eG9Br7y60AQMEtZ8%3D",
+        ai_used: true,
+        ai_details: {
+            name: "Claude 3.5 Sonnet",
+            reason: "Balanceamento de status das cartas.",
+            action: "Criação de matrizes de dano e vida para o sistema de turnos em todo o projeto."
+        },
+        vibecoded: true
+    },
+    {
+        id: 5,
+        title: "Animal Crossing",
+        category: "Ports",
+        responsibles: "Ninty Port",
+        description: "Uma adaptação port de Animal Crossing para PC.",
+        warnings: "Ainda com alguns bugs visuais.",
+        source_link: "https://github.com/example/animal-crossing-port",
+        bannerUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR114TokKWQTPttQjRTX6EtyZL6-3HUl_do02LLOxPFwAwzLbbyogFxEls&s=10",
+        ai_used: false,
+        vibecoded: false
+    },
+    {
+        id: 6,
+        title: "Dont Starve PTBR",
+        category: "Translations",
+        responsibles: "TheAndre",
+        description: "Tradução completa de Don't Starve e DLCs.",
+        warnings: "Aplicar sobre a versão 1.4 do jogo.",
+        source_link: "https://github.com/example/dont-starve-ptbr",
+        bannerUrl: "https://upload.wikimedia.org/wikipedia/pt/2/29/Dont_Starve_capa.jpg",
+        ai_used: false,
+        vibecoded: false
+    },
+    {
+        id: 7,
+        title: "Atelier Ayesha PTBR",
+        category: "Translations",
+        responsibles: "Alquimistas BR",
+        description: "Tradução de textos e menus para Atelier Ayesha.",
+        warnings: "Faça backup do save antes de aplicar.",
+        source_link: "https://github.com/example/atelier-ayesha-ptbr",
+        bannerUrl: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1152300/capsule_616x353.jpg?t=1781064781",
+        ai_used: true,
+        ai_details: {
+            name: "GPT-4",
+            reason: "Tradução de arquivos de texto complexos de japonês para português.",
+            action: "Traduziu os arquivos JSON de diálogos principais."
+        },
+        vibecoded: false
+    },
+    {
+        id: 8,
+        title: "GreenVita",
+        category: "Tools",
+        responsibles: "Homebrew Club",
+        description: "Ferramenta essencial para gerenciamento do console.",
+        warnings: "Não execute durante atualizações do sistema.",
+        source_link: "https://github.com/example/greenvita",
+        bannerUrl: "https://www.notebookcheck.info/fileadmin/Notebooks/News/_nc5/XboxCloudGamingBanner.jpg",
+        ai_used: false,
+        vibecoded: false
+    },
+    {
+        id: 9,
+        title: "DSVita",
+        category: "Tools",
+        responsibles: "Emu Devs",
+        description: "Emulador para outra plataforma.",
+        warnings: "Bios necessárias.",
+        source_link: "https://github.com/example/dsvita",
+        bannerUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6p7Y6vS4t_7pXBXgsBDj3x79o6zEZm8Mp17EMHybKac4kX5tzKWOUuIR3&s=10",
+        ai_used: false,
+        vibecoded: false
+    },
+    {
+        id: 10,
+        title: "NoDRTrophiesGODOT",
+        category: "Mods",
+        responsibles: "Godot Masters",
+        description: "Plugin para contornar checagem de troféus nativa na Godot.",
+        warnings: "Uso experimental na versão 4.x da engine.",
+        source_link: "https://github.com/example/nodrtrophiesgodot",
+        bannerUrl: "https://images.wallpaperscraft.com/image/single/code_programming_it_152538_960x544.jpg",
+        ai_used: true,
+        ai_details: {
+            name: "Claude 3.5 Sonnet",
+            reason: "Escrita do plugin do zero com GDScript.",
+            action: "Desenvolveu o addon inteiro baseado nas documentações recentes."
+        },
+        vibecoded: true
+    }
+];

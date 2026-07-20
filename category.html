@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category - VitaSeed by Wolff</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="mobile-header">
+        <button id="mobile-menu-toggle" class="menu-toggle">☰</button>
+        <div class="logo">Vita<strong>Seed</strong> <span style="font-size:0.6rem; color:var(--text-muted);">by Wolff</span></div>
+    </div>
+    
+    <aside id="sidebar">
+        <div>
+            <div class="logo-container">
+                <div class="seed-icon"></div>
+                <div class="logo">Vita<strong>Seed</strong> <span style="font-size:0.6rem; color:var(--text-muted);">by Wolff</span></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html"><span>MAIN MENU</span></a></li>
+                <li style="margin-top: 1rem;"><a href="category.html?cat=Ports"><span>Ports</span></a></li>
+                <li><a href="category.html?cat=Original games"><span>Original games</span></a></li>
+                <li><a href="category.html?cat=Mods"><span>Mods</span></a></li>
+                <li><a href="category.html?cat=Translations"><span>Translations</span></a></li>
+                <li><a href="category.html?cat=Tools"><span>Tools</span></a></li>
+                <li><a href="category.html?cat=PC Tools"><span>PC Tools</span></a></li>
+                <hr style="border-color: var(--border-color); margin: 1rem 0;">
+                <li><a href="login.html"><span>Login</span></a></li>
+                <li><a href="register.html"><span>Register</span></a></li>
+                <li><a href="settings.html"><span>Settings</span></a></li>
+            </ul>
+        </div>
+    </aside>
+
+    <div class="content-wrapper">
+        <main style="padding-top: 3rem;">
+            <h2 id="cat-title" class="section-title">Category</h2>
+            <div id="project-grid" class="grid"></div>
+        </main>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/theme.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const cat = params.get('cat') || '';
+            document.getElementById('cat-title').innerText = cat.toUpperCase();
+            
+            const grid = document.getElementById('project-grid');
+            const filtered = projectsData.filter(p => p.category.toLowerCase() === cat.toLowerCase());
+            
+            filtered.forEach(proj => {
+                const card = document.createElement('a');
+                card.href = `project.html?id=${proj.id}`;
+                card.className = 'card';
+                let tagClass = proj.category.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                let badgesHtml = `<span class="tag ${tagClass}">${proj.category}</span>`;
+                
+                if (proj.ai_used && !proj.vibecoded) badgesHtml += `<span class="ai-indicator">AI Assisted</span>`;
+                else if (proj.vibecoded) badgesHtml += `<span class="ai-indicator vibecoded-badge">100% Vibecoded</span>`;
+
+                const bannerUrl = proj.bannerUrl || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400';
+                card.innerHTML = `
+                    <div class="card-banner" style="background-image: url('${bannerUrl}');"></div>
+                    <div class="card-content">
+                        <div class="card-tags">${badgesHtml}</div>
+                        <h3 class="card-title">${proj.title}</h3>
+                        <div class="card-meta">
+                            <span>${proj.responsibles}</span>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        });
+    </script>
+</body>
+</html>
