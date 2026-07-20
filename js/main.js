@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
             let badgesHtml = `<span class="tag ${tagClass}">${proj.category}</span>`;
             
             if (proj.ai_used || proj.vibecoded) {
-                badgesHtml += `<span class="tag" style="background:var(--bg-main); border:1px solid var(--border-color);" title="Utiliza IA">🤖</span>`;
+                badgesHtml += `<span class="tag" style="background:var(--bg-main); border:1px solid var(--border-color);" title="Utiliza IA">IA</span>`;
             }
 
             const bannerUrl = proj.bannerUrl || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400';

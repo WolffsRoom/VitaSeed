@@ -170,7 +170,7 @@
                 let badgesHtml = `<span class="tag" style="background:var(--accent-green); color:#000;">${proj.category}</span>`;
                 badgesHtml += `<span class="tag" style="background:var(--bg-main); border:1px solid var(--border-color); color:var(--text-muted);"><i class="fas fa-user"></i> ${proj.responsibles}</span>`;
                 if (proj.ai_used || proj.vibecoded) {
-                    badgesHtml += `<span class="tag" style="background:var(--bg-main); border:1px solid var(--border-color);" title="Utiliza IA">🤖</span>`;
+                    badgesHtml += `<span class="tag" style="background:var(--bg-main); border:1px solid var(--border-color);" title="Utiliza IA">IA</span>`;
                 }
                 document.getElementById('proj-badges').innerHTML = badgesHtml;
 
