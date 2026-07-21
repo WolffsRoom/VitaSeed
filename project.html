@@ -142,10 +142,10 @@
     <div class="content-wrapper">
         <header style="display: flex; gap: 1rem; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 2rem;">
             <div style="display: flex; gap: 1rem; flex: 1; min-width: 200px;">
-                <input type="text" id="search-input" class="search-bar" placeholder="Buscar por título ou responsável..." style="flex: 1;" oninput="if(window.location.pathname.indexOf('index')===-1&&this.value.length>0){window.location.href='index.html?q='+encodeURIComponent(this.value);}">
+                <input type="text" id="search-input" class="search-bar" placeholder="Buscar por título ou responsável..." style="flex: 1;">
             </div>
             <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-                <select id="category-filter" class="filter-select" onchange="if(this.value!=='all'){window.location.href='category.html?cat='+this.value;}">
+                <select id="category-filter" class="filter-select">
                     <option value="all">Todas as Categorias</option>
                     <option value="Ports">Ports</option>
                     <option value="Original games">Original games</option>

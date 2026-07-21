@@ -61,10 +61,10 @@
     <div class="content-wrapper">
         <header style="display: flex; gap: 1rem; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 2rem;">
             <div style="display: flex; gap: 1rem; flex: 1; min-width: 200px;">
-                <input type="text" id="search-input" class="search-bar" placeholder="Buscar por título ou responsável..." style="flex: 1;" oninput="if(window.location.pathname.indexOf('index')===-1&&this.value.length>0){window.location.href='index.html?q='+encodeURIComponent(this.value);}">
+                <input type="text" id="search-input" class="search-bar" placeholder="Buscar por título ou responsável..." style="flex: 1;">
             </div>
             <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-                <select id="category-filter" class="filter-select" onchange="if(this.value!=='all'){window.location.href='category.html?cat='+this.value;}">
+                <select id="category-filter" class="filter-select">
                     <option value="all">Todas as Categorias</option>
                     <option value="Ports">Ports</option>
                     <option value="Original games">Original games</option>
@@ -106,15 +106,17 @@
             const grid = document.getElementById('project-grid');
             const filtered = projectsData.filter(p => p.category.toLowerCase() === cat.toLowerCase());
             
+            // Store all cards for filtering
+            let allProjects = [];
             filtered.forEach(proj => {
+                allProjects.push(proj);
                 const card = document.createElement('a');
                 card.href = `project.html?id=${proj.id}`;
                 card.className = 'card';
+                card.dataset.title = proj.title.toLowerCase();
+                card.dataset.responsible = (proj.responsibles || '').toLowerCase();
                 let tagClass = proj.category.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
                 let badgesHtml = `<span class="tag ${tagClass}">${proj.category}</span>`;
-                
-                
-
                 const bannerUrl = proj.bannerUrl || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400';
                 card.innerHTML = `
                     <div class="card-banner" style="background-image: url('${bannerUrl}'); background-position: ${proj.bgPosition || 'center'};"></div>
@@ -130,7 +132,35 @@
                 `;
                 grid.appendChild(card);
             });
-            
+
+            // Pre-select the current category in the dropdown
+            const catSelect = document.getElementById('category-filter');
+            if (catSelect) {
+                Array.from(catSelect.options).forEach(opt => {
+                    if (opt.value.toLowerCase() === cat.toLowerCase()) opt.selected = true;
+                });
+                // Category change: reload with new category
+                catSelect.addEventListener('change', () => {
+                    if (catSelect.value !== 'all') {
+                        window.location.href = 'category.html?cat=' + catSelect.value;
+                    } else {
+                        window.location.href = 'index.html';
+                    }
+                });
+            }
+
+            // Live search filter within the page
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) {
+                searchInput.addEventListener('input', () => {
+                    const q = searchInput.value.toLowerCase().trim();
+                    document.querySelectorAll('#project-grid .card').forEach(card => {
+                        const match = card.dataset.title.includes(q) || card.dataset.responsible.includes(q);
+                        card.style.display = match ? '' : 'none';
+                    });
+                });
+            }
+
             if (typeof VanillaTilt !== 'undefined') {
                 VanillaTilt.init(document.querySelectorAll('.card'), {
                     max: 10,
