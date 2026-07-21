@@ -523,7 +523,7 @@ main {
     text-decoration: none;
     color: #fff;
     background-size: cover;
-    background-position: center;
+    background-position: center 60%;
     transform-style: preserve-3d;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     transition: transform 0.3s ease;
