@@ -559,6 +559,8 @@ main {
 /* Top 10 Container */
 .top10-scroll {
     display: flex;
+    -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+    mask-image: linear-gradient(to right, black 85%, transparent 100%);
     gap: 1.5rem;
     overflow-x: auto;
     padding-top: 1rem;
