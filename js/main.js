@@ -59,14 +59,27 @@ document.addEventListener("DOMContentLoaded", async () => {
                     `;
                 });
                 
+                
+                // Clona para criar um loop infinito visual
+                const cards = Array.from(top10Container.children);
+                cards.forEach(card => {
+                    let clone = card.cloneNode(true);
+                    top10Container.appendChild(clone);
+                });
+                
+                // Agora top10Container tem 20 itens (1-10, 1-10)
+                
                 // Scroll Logic
+
                 const scrollLeftBtn = document.querySelector('.scroll-left');
                 const scrollRightBtn = document.querySelector('.scroll-right');
                 if(scrollLeftBtn && scrollRightBtn) {
                     scrollRightBtn.addEventListener('click', () => {
                         const maxScrollLeft = top10Container.scrollWidth - top10Container.clientWidth;
-                        if (top10Container.scrollLeft >= maxScrollLeft - 10) {
-                            top10Container.scrollTo({ left: 0, behavior: 'smooth' });
+                        if (top10Container.scrollLeft >= maxScrollLeft - 50) {
+                            // Volta silenciosamente para o começo do segundo bloco (item 11) ou do primeiro bloco (item 1)
+                            top10Container.scrollTo({ left: 0, behavior: 'auto' }); // Pula invisivelmente
+                            setTimeout(() => { top10Container.scrollBy({ left: 300, behavior: 'smooth' }); }, 50);
                         } else {
                             top10Container.scrollBy({ left: 300, behavior: 'smooth' });
                         }
@@ -75,18 +88,27 @@ document.addEventListener("DOMContentLoaded", async () => {
                     scrollLeftBtn.addEventListener('click', () => {
                         if (top10Container.scrollLeft <= 10) {
                             const maxScrollLeft = top10Container.scrollWidth - top10Container.clientWidth;
-                            top10Container.scrollTo({ left: maxScrollLeft, behavior: 'smooth' });
+                            top10Container.scrollTo({ left: maxScrollLeft / 2, behavior: 'auto' }); // Pula invisivelmente para o meio
+                            setTimeout(() => { top10Container.scrollBy({ left: -300, behavior: 'smooth' }); }, 50);
                         } else {
                             top10Container.scrollBy({ left: -300, behavior: 'smooth' });
                         }
                     });
                     
+                    let scrollTimeout;
                     top10Container.addEventListener('scroll', () => {
+                        // Sempre que estiver rolando (e não estiver no início absoluto), mostra o fade
                         if (top10Container.scrollLeft > 10) {
                             top10Container.classList.add('scrolled');
                         } else {
                             top10Container.classList.remove('scrolled');
                         }
+                        
+                        // Quando parar de rolar, remove o fade da esquerda
+                        clearTimeout(scrollTimeout);
+                        scrollTimeout = setTimeout(() => {
+                            top10Container.classList.remove('scrolled');
+                        }, 250);
                     });
                 }
             }
