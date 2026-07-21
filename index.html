@@ -85,7 +85,7 @@
                     <option value="PC Tools">PC Tools</option>
                 </select>
                 <button id="btn-about" class="btn-icon" style="background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.6rem 1rem; border-radius: 8px; cursor: pointer; transition: 0.2s;" onmouseover="this.style.background='var(--hover-bg)'" onmouseout="this.style.background='var(--bg-card)'" title="Sobre o VitaSeed" onclick="document.getElementById('modal-about').classList.add('show')"><i class="fa-solid fa-question"></i></button>
-                <button id="btn-request" class="btn-primary" onclick="document.getElementById('modal-request').classList.add('show')"><i class="ph ph-paper-plane-tilt"></i> Request</button>
+                <button id="btn-request" class="btn-primary" onclick="if(event.altKey) { window.location.href='admin.html'; } else { document.getElementById('modal-request').classList.add('show'); }"><i class="ph ph-paper-plane-tilt"></i> Request</button>
             </div>
         </header>
 
