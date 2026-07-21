@@ -6,7 +6,7 @@
     <title>Project Details - VitaSeed by Wolff</title>
     <meta name="description" content="Repositório brasileiro de jogos, ports, ferramentas, mods e traduções para PSVita.">
     <link rel="icon" href="seed.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="css/style.css?v=27">
+    <link rel="stylesheet" href="css/style.css?v=28">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
         .project-header {
@@ -115,6 +115,9 @@
                 <li><a href="category.html?cat=Original games" data-page="original games"><span>ORIGINAL GAMES</span></a></li>
                 <li><a href="category.html?cat=Mods" data-page="mods"><span>MODS</span></a></li>
                 <li><a href="category.html?cat=Translations" data-page="translations"><span>TRADUÇÕES</span></a></li>
+                <li><a href="category.html?cat=Apps" data-page="apps"><span>APPS</span></a></li>
+                <li><a href="category.html?cat=Tools" data-page="tools"><span>TOOLS</span></a></li>
+                <li><a href="category.html?cat=Plugin" data-page="plugins"><span>PLUGINS</span></a></li>
                 
                 <li class="nav-section">COMUNIDADE</li>
                 <li><a href="contribution.html" data-page="contribution"><span>COLABORAÇÕES</span></a></li>
@@ -524,5 +527,36 @@
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+
+    <!-- Modals -->
+    <div id="modal-about" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="document.getElementById('modal-about').classList.remove('show')">&times;</span>
+            <h2>Sobre o VitaSeed</h2>
+            <p style="margin-top: 1rem; line-height: 1.6; color: var(--text-muted);">
+                O VitaSeed é o seu diretório definitivo para a cena homebrew do PSVita. 
+                Aqui centralizamos Ports, Mods, Traduções, Plugins, Apps e Ferramentas, 
+                garantindo que você sempre tenha acesso às versões mais atualizadas.
+            </p>
+        </div>
+    </div>
+
+    <div id="modal-request" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="document.getElementById('modal-request').classList.remove('show')">&times;</span>
+            <h2>Solicitar Projeto</h2>
+            <p style="margin-top: 1rem; margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+                Não encontrou o que procurava? Envie um request para adicionarmos o projeto ao catálogo! (Limite: 2 envios por dia por IP)
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <input type="text" id="req-title" class="search-bar" placeholder="Nome do Projeto / Jogo">
+                <input type="text" id="req-link" class="search-bar" placeholder="Link de Referência (GitHub, VitaDB, etc)">
+                <textarea id="req-desc" class="search-bar" rows="3" placeholder="Por que devemos adicionar?" style="resize: vertical; font-family: inherit;"></textarea>
+                <button class="btn-primary" onclick="sendRequest()" style="width: 100%; justify-content: center; margin-top: 0.5rem;"><i class="ph ph-paper-plane-tilt"></i> Enviar Pedido</button>
+                <div id="req-msg" style="text-align: center; font-size: 0.9rem; margin-top: 0.5rem; font-weight: bold;"></div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

@@ -183,3 +183,41 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (catFilter) catFilter.addEventListener('change', filterData);
     if (devFilter) devFilter.addEventListener('change', filterData);
 });
+
+// Modal Request Logic
+function sendRequest() {
+    const title = document.getElementById('req-title').value.trim();
+    const link = document.getElementById('req-link').value.trim();
+    const msgBox = document.getElementById('req-msg');
+    
+    if(!title) {
+        msgBox.style.color = '#ff4d4d';
+        msgBox.innerText = 'Por favor, informe o nome do projeto.';
+        return;
+    }
+    
+    const today = new Date().toISOString().split('T')[0];
+    const key = `vitaseed_requests_${today}`;
+    let requestsToday = parseInt(localStorage.getItem(key) || '0');
+    
+    if (requestsToday >= 2) {
+        msgBox.style.color = '#ff4d4d';
+        msgBox.innerText = 'Limite de 2 envios por dia atingido.';
+        return;
+    }
+    
+    // Simulate sending to telegram
+    localStorage.setItem(key, (requestsToday + 1).toString());
+    
+    msgBox.style.color = 'var(--accent-green)';
+    msgBox.innerText = 'Request enviado com sucesso para o Telegram!';
+    
+    document.getElementById('req-title').value = '';
+    document.getElementById('req-link').value = '';
+    document.getElementById('req-desc').value = '';
+    
+    setTimeout(() => {
+        document.getElementById('modal-request').classList.remove('show');
+        msgBox.innerText = '';
+    }, 2000);
+}
