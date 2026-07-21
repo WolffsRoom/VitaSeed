@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contributions - VitaSeed</title>
+    <title>Colaborações - VitaSeed</title>
     <meta name="description" content="Repositório brasileiro de jogos, ports, ferramentas, mods e traduções para PSVita.">
     <link rel="icon" href="seed.svg" type="image/svg+xml">
     <link rel="stylesheet" href="css/style.css?v=31">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <!-- lottie removed: unused performance cost -->
     <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
     <style>
         #network-container {
@@ -115,7 +115,7 @@
         <main>
             <div class="graph-header">
                 <div>
-                    <h2 style="display:flex; align-items:center; gap:0.5rem;"><i class="ph ph-graph" style="color: var(--accent-green); font-size:1.5rem;"></i> Contribution Tree</h2>
+                    <h2 style="display:flex; align-items:center; gap:0.5rem;"><i class="ph ph-graph" style="color: var(--accent-green); font-size:1.5rem;"></i> Colaborações</h2>
                     <p style="color: var(--text-muted); margin-top: 0.5rem;">Explore as ramificações e colaborações entre os DEVs da comunidade.</p>
                 </div>
             </div>
@@ -154,7 +154,12 @@
     <script src="js/theme.js?v=2"></script>
     <script>
         document.addEventListener("DOMContentLoaded", async () => {
-            
+
+            // Device detection: low-power mode for mobile/Android
+            const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const lowPower = isMobile || prefersReduced;
+
             const projectsData = await window.fetchCatalog();
             
             // Generate nodes from projectsData
@@ -170,10 +175,11 @@
                     id: proj.id,
                     label: proj.title,
                     group: 'project',
-                    shape: 'circularImage',
-                    image: banner,
-                    size: 25,
-                    projData: proj // Save data for tooltip
+                    // On mobile: skip circularImage to avoid loading dozens of remote images
+                    shape: lowPower ? 'dot' : 'circularImage',
+                    image: lowPower ? undefined : banner,
+                    size: lowPower ? 12 : 25,
+                    projData: proj
                 });
 
                 // Add dev node if not exists
@@ -223,7 +229,14 @@
                     dev: { color: { background: '#9d7cd8', border: '#7a5cb8' }, font: { color: '#c0a0ff' } },
                     project: { color: { background: '#4fd6be', border: '#39a895' }, font: { color: '#70e0d0' } }
                 },
-                physics: {
+                physics: lowPower ? {
+                    // Simplified physics for Android/mobile
+                    barnesHut: { gravitationalConstant: -3000, centralGravity: 0.3, springLength: 120, springConstant: 0.05, damping: 0.3 },
+                    maxVelocity: 30,
+                    solver: 'barnesHut',
+                    timestep: 0.5,
+                    stabilization: { iterations: 80, onlyDynamicEdges: false, fit: true }
+                } : {
                     forceAtlas2Based: { gravitationalConstant: -120, centralGravity: 0.005, springLength: 150, springConstant: 0.04 },
                     maxVelocity: 50,
                     solver: 'forceAtlas2Based',
@@ -234,6 +247,11 @@
             };
 
             const network = new vis.Network(container, data, options);
+
+            // After stabilization, disable physics to stop constant re-render (big perf win)
+            network.on('stabilizationIterationsDone', () => {
+                network.setOptions({ physics: false });
+            });
 
             
             // Tooltip Logic Improved
