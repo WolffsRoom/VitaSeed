@@ -41,3 +41,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 });
+
+    const path = window.location.pathname;
+    const params = new URLSearchParams(window.location.search);
+    const cat = params.get('cat')?.toLowerCase();
+    
+    document.querySelectorAll('.nav-links a, .sidebar-footer a').forEach(link => {
+        const dataPage = link.getAttribute('data-page');
+        if (!dataPage) return;
+        
+        if (cat && dataPage === cat) {
+            link.classList.add('active');
+        } else if (!cat && path.includes(dataPage)) {
+            link.classList.add('active');
+        } else if (!cat && (path.endsWith('/') || path.endsWith('index.html')) && dataPage === 'index') {
+            link.classList.add('active');
+        }
+    });

@@ -465,3 +465,25 @@ main > .section-box:nth-of-type(1) { animation-delay: 0.2s; }
 main > .section-box:nth-of-type(2) { animation-delay: 0.3s; }
 main > .section-box:nth-of-type(3) { animation-delay: 0.4s; }
 main > .section-box:nth-of-type(4) { animation-delay: 0.5s; }
+
+.nav-section {
+    color: #666;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    margin-top: 1.5rem;
+    margin-bottom: 0.2rem;
+    padding-left: 1rem;
+    text-transform: uppercase;
+}
+
+.nav-links li a.active {
+    color: #000;
+    background: var(--accent-green);
+    box-shadow: 0 4px 15px rgba(0, 230, 118, 0.4);
+    font-weight: 700;
+}
+
+.nav-links li a.active i {
+    color: #000;
+}
