@@ -87,6 +87,7 @@
     </style>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
     <div class="mobile-header">
@@ -96,10 +97,12 @@
     
     <aside id="sidebar">
         <div>
-            <div class="logo-container">
-                <div class="seed-icon"></div>
-                                <div class="logo">VITA<strong style="font-weight: 800;">SEED</strong> <span style="font-size:0.6rem; color:var(--text-muted); font-weight: normal;">by Wolff</span></div>
-                <div style="font-size: 0.65rem; color: var(--text-muted); line-height: 1.4; margin-top: 0.5rem; text-transform: none; letter-spacing: 0;">Repositório brasileiro de jogos, ports, ferramentas, mods e traduções para PSVita.</div>
+            <div class="logo-container" style="flex-direction: column; align-items: flex-start; gap: 0.2rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <div class="seed-icon"></div>
+                    <div class="logo">VITA<strong style="font-weight: 800;">SEED</strong> <span style="font-size:0.6rem; color:var(--text-muted); font-weight: normal;">by Wolff</span></div>
+                </div>
+                <div style="font-size: 0.65rem; color: var(--text-muted); line-height: 1.2; padding-left: 0.2rem;">Repositório brasileiro de jogos, ports, ferramentas, mods e traduções para PSVita.</div>
             </div>
             
             <ul class="nav-links">
@@ -127,7 +130,8 @@
 
     <div class="content-wrapper">
         <main style="padding-top: 2rem;">
-            <div id="project-details" style="max-width: 1000px; margin: 0 auto;">
+            
+            <div id="project-details" style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 2rem;">
                 
                 <div id="proj-header-banner" class="project-header">
                     <div class="project-header-content">
@@ -136,28 +140,72 @@
                     </div>
                 </div>
 
-                <div class="section-box">
-                    <h3><i class="ph ph-info"></i> Descrição</h3>
-                    <p id="proj-desc" style="color: var(--text-main); line-height: 1.6;"></p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
                     
-                    <div class="action-bar">
-                        <a id="btn-download" href="#" class="btn-primary"><i class="ph ph-download-simple"></i> Download VPK</a>
-                        <a id="btn-source" href="#" class="btn-secondary" target="_blank"><i class="ph ph-github-logo"></i> Source Code</a>
+                    <div style="display: flex; flex-direction: column; gap: 2rem;">
+                        <div class="section-box" style="margin-bottom: 0;">
+                            <h3><i class="ph ph-info"></i> Descrição</h3>
+                            <p id="proj-desc" style="color: var(--text-main); line-height: 1.6;"></p>
+                            
+                            <div class="action-bar" style="align-items: center; justify-content: space-between;">
+                                <div style="display:flex; gap:1rem;">
+                                    <a id="btn-download" href="#" class="btn-primary"><i class="ph ph-download-simple"></i> Download VPK</a>
+                                    <a id="btn-source" href="#" class="btn-secondary" target="_blank"><i class="ph ph-github-logo"></i> Source Code</a>
+                                </div>
+                                <div class="qr-container" title="Escaneie para baixar no Vita">
+                                    <div id="qrcode"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="install-section" class="section-box hidden" style="margin-bottom: 0;">
+                            <h3><i class="ph ph-wrench"></i> Instruções de Instalação</h3>
+                            <p id="install-text" style="color: var(--text-muted); line-height: 1.6; white-space: pre-line;"></p>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 2rem;">
+                        <div class="meta-grid">
+                            <div class="meta-item">
+                                <div class="meta-label">Publicação Original</div>
+                                <div id="meta-pub" class="meta-val">--/--/--</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Última Atualização</div>
+                                <div id="meta-upd" class="meta-val">--/--/--</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Total Downloads</div>
+                                <div id="meta-down" class="meta-val">---</div>
+                            </div>
+                        </div>
+
+                        <div class="section-box support-panel" style="margin-bottom: 0;">
+                            <h3><i class="ph ph-heart"></i> Apoie o Desenvolvedor</h3>
+                            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Gostou do projeto? Considere apoiar o responsável para que ele continue trazendo novidades para o PSVita!</p>
+                            <a id="btn-support" href="#" target="_blank" class="btn-primary" style="background: var(--accent-green); color: #000; width: 100%; justify-content: center;"><i class="ph ph-coffee"></i> Apoiar Projeto</a>
+                        </div>
                     </div>
                 </div>
 
-                <div id="media-section" class="section-box hidden">
+                <div id="media-section" class="section-box hidden" style="margin-bottom: 0;">
                     <h3><i class="ph ph-image"></i> Mídia (Prints & Vídeos)</h3>
                     <div id="media-container" class="media-grid"></div>
                 </div>
 
-                <div id="install-section" class="section-box hidden">
-                    <h3><i class="ph ph-wrench"></i> Instruções de Instalação</h3>
-                    <p id="install-text" style="color: var(--text-muted); line-height: 1.6; white-space: pre-line;"></p>
-                </div>
-
             </div>
+
         </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <p>&copy; 2026 VitaSeed. Todos os direitos reservados.</p>
+        <p style="margin-top:0.5rem; font-size:0.75rem;">Repositório não oficial. Todos os jogos, ports e marcas pertencem aos seus respectivos donos.</p>
+        <div style="margin-top:1rem;">
+            <a href="https://github.com/WolffsRoom/VitaSeed" target="_blank"><i class="fa-brands fa-github"></i> GitHub do Projeto</a>
+        </div>
+    </footer>
+
     </div>
 
     <script src="js/api.js"></script>
@@ -173,8 +221,28 @@
                 document.getElementById('proj-title').innerText = proj.title;
                 document.getElementById('proj-desc').innerText = proj.description;
                 document.getElementById('btn-source').href = proj.source_link;
+                
+                // Metadados
+                if(proj.publish_date) document.getElementById('meta-pub').innerText = proj.publish_date;
+                if(proj.update_date) document.getElementById('meta-upd').innerText = proj.update_date;
+                if(proj.downloads) document.getElementById('meta-down').innerText = proj.downloads.toLocaleString('pt-BR');
+                if(proj.support_link) {
+                    document.getElementById('btn-support').href = proj.support_link;
+                }
+
+                // Gerar QR Code (Link Fake para o demo)
+                const downloadLink = "https://vita.hacks.guide"; // VPK URL simulada
+                new QRCode(document.getElementById("qrcode"), {
+                    text: downloadLink,
+                    width: 60,
+                    height: 60,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.L
+                });
 
                 // Cover Banner
+
                 const bannerUrl = proj.bannerUrl || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400';
                 document.getElementById('proj-header-banner').style.backgroundImage = `url('${bannerUrl}')`;
 

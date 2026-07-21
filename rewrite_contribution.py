@@ -1,103 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contributions - VitaSeed</title>
-    <link rel="icon" href="seed.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="css/style.css?v=3">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
-    <style>
-        #network-container {
-            width: 100%;
-            height: calc(100vh - 180px);
-            background-color: #111;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
-            margin-top: 1rem;
-            position: relative;
-        }
-        .network-controls {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-        }
-        .graph-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-    
-    <!-- Mobile Header -->
-    <div class="mobile-header">
-        <button id="mobile-menu-toggle" class="menu-toggle"><i class="ph ph-list"></i></button>
-        <div class="logo">Vita<strong>Seed</strong> <span style="font-size:0.6rem; color:var(--text-muted);">by Wolff</span></div>
-    </div>
+import re
 
-            <!-- Sidebar -->
-    <aside id="sidebar">
-        <div>
-            <div class="logo-container" style="flex-direction: column; align-items: flex-start; gap: 0.2rem;">
-                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                    <div class="seed-icon"></div>
-                    <div class="logo">VITA<strong style="font-weight: 800;">SEED</strong> <span style="font-size:0.6rem; color:var(--text-muted); font-weight: normal;">by Wolff</span></div>
-                </div>
-                <div style="font-size: 0.65rem; color: var(--text-muted); line-height: 1.2; padding-left: 0.2rem;">Repositório brasileiro de jogos, ports, ferramentas, mods e traduções para PSVita.</div>
-            </div>
-            
-            <ul class="nav-links">
-                <li class="nav-section">GERAL</li>
-                <li><a href="index.html" data-page="index"><span>Menu Principal</span></a></li>
-                
-                <li class="nav-section">BIBLIOTECA</li>
-                <li><a href="category.html?cat=Ports" data-page="ports"><span>Ports</span></a></li>
-                <li><a href="category.html?cat=Original games" data-page="original games"><span>Original Games</span></a></li>
-                <li><a href="category.html?cat=Mods" data-page="mods"><span>Mods</span></a></li>
-                <li><a href="category.html?cat=Translations" data-page="translations"><span>Translations</span></a></li>
-                
-                <li class="nav-section">COMUNIDADE</li>
-                <li><a href="contribution.html" data-page="contribution"><span>Contribution Tree</span></a></li>
-            </ul>
-        </div>
-        
-        <div class="sidebar-footer">
-            <ul>
-                <li><a href="settings.html" data-page="settings"><span>Configurações</span></a></li>
-            </ul>
-            <div class="version">0.3.0 (beta)</div>
-        </div>
-    </aside>
+with open('contribution.html', 'r', encoding='utf-8') as f:
+    content = f.read()
 
-    <!-- Main Content -->
-    <div class="content-wrapper">
-        <header>
-            <div class="header-content" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                <div class="search-bar" style="visibility: hidden;">
-                    <i class="ph ph-magnifying-glass"></i>
-                    <input type="text" placeholder="Search...">
-                </div>
-                <div class="user-profile">
-                    </div>
-            </div>
-        </header>
-
-        <main>
-            <div class="graph-header">
-                <div>
-                    <h2 style="display:flex; align-items:center; gap:0.5rem;"><i class="ph ph-graph" style="color: var(--accent-green); font-size:1.5rem;"></i> Contribution Tree</h2>
-                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Explore as ramificações e colaborações entre os DEVs da comunidade.</p>
-                </div>
-            </div>
-            
-            
+# Add a tooltip div to the HTML
+tooltip_html = """
             <div id="network-container"></div>
             
             <div id="custom-tooltip" style="display:none; position:absolute; z-index:100; background:var(--bg-card); border:1px solid var(--border-color); border-radius:12px; padding:1rem; box-shadow:0 10px 20px rgba(0,0,0,0.5); width:220px; pointer-events:auto; transition: opacity 0.2s;">
@@ -106,32 +13,12 @@
                 <div id="tt-cat" style="font-size:0.75rem; color:var(--text-muted); margin-bottom:1rem;">Category</div>
                 <a id="tt-btn" href="#" class="btn-primary" style="display:block; text-align:center; padding:0.5rem; text-decoration:none; font-size:0.8rem;"><i class="ph ph-arrow-square-out"></i> Ver Projeto</a>
             </div>
+"""
 
-            
-            <div class="network-controls">
-                <span class="tag" style="background: rgba(0, 230, 118, 0.2); color: var(--accent-green);"><i class="ph ph-user"></i> Desenvolvedores</span>
-                <span class="tag" style="background: rgba(251, 191, 36, 0.2); color: #f59e0b;"><i class="ph ph-game-controller"></i> Projetos</span>
-                <span class="tag" style="background: var(--bg-card); color: var(--text-muted); border: 1px solid var(--border-color);"><i class="ph ph-mouse"></i> Arraste e dê Zoom para explorar</span>
-            </div>
-        </main>
+content = content.replace('<div id="network-container"></div>', tooltip_html)
 
-    <!-- Footer -->
-    <footer class="app-footer">
-        <p>&copy; 2026 VitaSeed. Todos os direitos reservados.</p>
-        <p style="margin-top:0.5rem; font-size:0.75rem;">Repositório não oficial. Todos os jogos, ports e marcas pertencem aos seus respectivos donos.</p>
-        <div style="margin-top:1rem;">
-            <a href="https://github.com/WolffsRoom/VitaSeed" target="_blank"><i class="fa-brands fa-github"></i> GitHub do Projeto</a>
-        </div>
-    </footer>
-
-    </div>
-
-    <!-- Scripts -->
-    <script src="js/api.js"></script>
-    <script src="js/theme.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", async () => {
-            
+# Rewrite the JS logic for nodes and events
+js_logic = """
             const projectsData = await window.fetchCatalog();
             
             // Generate nodes from projectsData
@@ -255,9 +142,10 @@
                 tooltip.style.opacity = '0';
                 setTimeout(() => tooltip.style.display = 'none', 200);
             });
+"""
 
-        });
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
-</body>
-</html>
+# We need to replace the old script logic
+content = re.sub(r'const projectsData = await window\.fetchCatalog\(\);.*?const network = new vis\.Network\(container, data, options\);', js_logic, content, flags=re.DOTALL)
+
+with open('contribution.html', 'w', encoding='utf-8') as f:
+    f.write(content)

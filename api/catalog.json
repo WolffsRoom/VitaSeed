@@ -16,7 +16,11 @@
       ],
       "install_instructions": "1. Baixe o VPK.\n2. Transfira para o console via VitaShell.\n3. Instale e divirta-se!",
       "ai_used": false,
-      "vibecoded": false
+      "vibecoded": false,
+      "downloads": 6647,
+      "publish_date": "30/05/2023",
+      "update_date": "10/07/2023",
+      "support_link": "https://ko-fi.com/wolffsroom"
     },
     {
       "id": 2,
@@ -37,7 +41,11 @@
         "reason": "Acelerar criação de níveis procedurais.",
         "action": "Gerou o script base de spawn de obstáculos no mapa."
       },
-      "vibecoded": false
+      "vibecoded": false,
+      "downloads": 1514,
+      "publish_date": "25/01/2023",
+      "update_date": "20/11/2025",
+      "support_link": "https://ko-fi.com/wolffsroom"
     },
     {
       "id": 3,
@@ -49,7 +57,11 @@
       "source_link": "https://github.com/example/golden-idol",
       "bannerUrl": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1677770/capsule_616x353.jpg?t=1782893605",
       "ai_used": false,
-      "vibecoded": false
+      "vibecoded": false,
+      "downloads": 17044,
+      "publish_date": "06/04/2026",
+      "update_date": "12/07/2026",
+      "support_link": "https://ko-fi.com/wolffsroom"
     },
     {
       "id": 4,
@@ -66,7 +78,11 @@
         "reason": "Balanceamento de status das cartas.",
         "action": "Criação de matrizes de dano e vida para o sistema de turnos em todo o projeto."
       },
-      "vibecoded": true
+      "vibecoded": true,
+      "downloads": 18044,
+      "publish_date": "22/01/2025",
+      "update_date": "18/04/2025",
+      "support_link": "https://ko-fi.com/wolffsroom"
     },
     {
       "id": 5,
@@ -78,7 +94,11 @@
       "source_link": "https://github.com/example/animal-crossing-port",
       "bannerUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR114TokKWQTPttQjRTX6EtyZL6-3HUl_do02LLOxPFwAwzLbbyogFxEls&s=10",
       "ai_used": false,
-      "vibecoded": false
+      "vibecoded": false,
+      "downloads": 12183,
+      "publish_date": "21/02/2024",
+      "update_date": "16/08/2024",
+      "support_link": "https://ko-fi.com/wolffsroom"
     },
     {
       "id": 6,
@@ -90,7 +110,11 @@
       "source_link": "https://github.com/example/dont-starve-ptbr",
       "bannerUrl": "https://upload.wikimedia.org/wikipedia/pt/2/29/Dont_Starve_capa.jpg",
       "ai_used": false,
-      "vibecoded": false
+      "vibecoded": false,
+      "downloads": 18760,
+      "publish_date": "26/08/2023",
+      "update_date": "06/07/2024",
+      "support_link": "https://ko-fi.com/wolffsroom"
     },
     {
       "id": 7,
@@ -107,7 +131,11 @@
         "reason": "Tradução de arquivos de texto complexos de japonês para português.",
         "action": "Traduziu os arquivos JSON de diálogos principais."
       },
-      "vibecoded": false
+      "vibecoded": false,
+      "downloads": 16937,
+      "publish_date": "27/01/2023",
+      "update_date": "08/08/2025",
+      "support_link": "https://ko-fi.com/wolffsroom"
     },
     {
       "id": 8,
@@ -119,7 +147,11 @@
       "source_link": "https://github.com/example/greenvita",
       "bannerUrl": "https://www.notebookcheck.info/fileadmin/Notebooks/News/_nc5/XboxCloudGamingBanner.jpg",
       "ai_used": false,
-      "vibecoded": false
+      "vibecoded": false,
+      "downloads": 2172,
+      "publish_date": "24/09/2024",
+      "update_date": "31/12/2025",
+      "support_link": "https://ko-fi.com/wolffsroom"
     },
     {
       "id": 9,
@@ -131,7 +163,11 @@
       "source_link": "https://github.com/example/dsvita",
       "bannerUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6p7Y6vS4t_7pXBXgsBDj3x79o6zEZm8Mp17EMHybKac4kX5tzKWOUuIR3&s=10",
       "ai_used": false,
-      "vibecoded": false
+      "vibecoded": false,
+      "downloads": 17065,
+      "publish_date": "11/06/2025",
+      "update_date": "15/09/2025",
+      "support_link": "https://ko-fi.com/wolffsroom"
     },
     {
       "id": 10,
@@ -148,7 +184,11 @@
         "reason": "Escrita do plugin do zero com GDScript.",
         "action": "Desenvolveu o addon inteiro baseado nas documentações recentes."
       },
-      "vibecoded": true
+      "vibecoded": true,
+      "downloads": 6341,
+      "publish_date": "05/03/2024",
+      "update_date": "30/09/2024",
+      "support_link": "https://ko-fi.com/wolffsroom"
     }
   ]
 }

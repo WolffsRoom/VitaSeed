@@ -6,14 +6,10 @@
     <title>Settings - VitaSeed by Wolff</title>
     <link rel="icon" href="seed.svg" type="image/svg+xml">
     <link rel="stylesheet" href="css/style.css?v=3">
-    <style>
-        .settings-container { max-width: 600px; margin: 2rem auto; background: var(--bg-card); padding: 2rem; border-radius: 8px; border: 1px solid var(--border-color); }
-        .theme-options { display: flex; gap: 1rem; margin-top: 1rem; }
-        .theme-btn { flex: 1; padding: 1rem; border: 2px solid var(--border-color); background: var(--bg-main); color: var(--text-main); border-radius: 8px; cursor: pointer; transition: 0.2s; font-weight: 600; }
-        .theme-btn:hover, .theme-btn.active { border-color: var(--accent-green); }
-    </style>
+    
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
     <div class="mobile-header">
@@ -23,10 +19,12 @@
 
     <aside id="sidebar">
         <div>
-            <div class="logo-container">
-                <div class="seed-icon"></div>
-                                <div class="logo">VITA<strong style="font-weight: 800;">SEED</strong> <span style="font-size:0.6rem; color:var(--text-muted); font-weight: normal;">by Wolff</span></div>
-                <div style="font-size: 0.65rem; color: var(--text-muted); line-height: 1.4; margin-top: 0.5rem; text-transform: none; letter-spacing: 0;">Repositório brasileiro de jogos, ports, ferramentas, mods e traduções para PSVita.</div>
+            <div class="logo-container" style="flex-direction: column; align-items: flex-start; gap: 0.2rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <div class="seed-icon"></div>
+                    <div class="logo">VITA<strong style="font-weight: 800;">SEED</strong> <span style="font-size:0.6rem; color:var(--text-muted); font-weight: normal;">by Wolff</span></div>
+                </div>
+                <div style="font-size: 0.65rem; color: var(--text-muted); line-height: 1.2; padding-left: 0.2rem;">Repositório brasileiro de jogos, ports, ferramentas, mods e traduções para PSVita.</div>
             </div>
             
             <ul class="nav-links">
@@ -54,6 +52,7 @@
 
     <div class="content-wrapper">
         <main>
+            
             <div class="settings-container">
                 <h2 style="margin-bottom: 1.5rem;">Configurações</h2>
                 
@@ -61,14 +60,37 @@
                     <h3 style="margin-bottom: 0.5rem; font-size: 1rem; color: var(--text-muted);">Aparência (Tema)</h3>
                     <p style="font-size: 0.85rem; color: var(--text-muted);">Escolha o esquema de cores de sua preferência. Será salvo no seu navegador.</p>
                     
-                    <div class="theme-options">
-                        <button class="theme-btn" data-theme-value="">Escuro (Padrão)</button>
-                        <button class="theme-btn" data-theme-value="light">Claro</button>
-                        <button class="theme-btn" data-theme-value="sony" style="background: #003399; color: #fff;">Azul Sony</button>
+                    <div class="settings-grid">
+                        <div class="settings-card theme-btn" data-theme-value="">
+                            <i class="ph ph-moon"></i>
+                            <div style="font-weight: 700;">Dark Mode</div>
+                            <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.3rem;">Padrão elegante</div>
+                        </div>
+                        <div class="settings-card theme-btn" data-theme-value="light">
+                            <i class="ph ph-sun"></i>
+                            <div style="font-weight: 700;">Light Mode</div>
+                            <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.3rem;">Visual claro</div>
+                        </div>
+                        <div class="settings-card theme-btn" data-theme-value="sony" style="border-bottom: 4px solid #003399;">
+                            <i class="ph ph-gamepad"></i>
+                            <div style="font-weight: 700;">Sony Blue</div>
+                            <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.3rem;">Inspirado no console</div>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <p>&copy; 2026 VitaSeed. Todos os direitos reservados.</p>
+        <p style="margin-top:0.5rem; font-size:0.75rem;">Repositório não oficial. Todos os jogos, ports e marcas pertencem aos seus respectivos donos.</p>
+        <div style="margin-top:1rem;">
+            <a href="https://github.com/WolffsRoom/VitaSeed" target="_blank"><i class="fa-brands fa-github"></i> GitHub do Projeto</a>
+        </div>
+    </footer>
+
     </div>
     
     <script src="js/theme.js"></script>

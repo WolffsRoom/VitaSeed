@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         
         // Inicializa animação 3D estilo Apple TV em todos os cards e hero
         if (typeof VanillaTilt !== 'undefined') {
-            VanillaTilt.init(document.querySelectorAll('.card, .hero-card, .top10-card'), {
+            VanillaTilt.init(document.querySelectorAll('.card, .top10-card'), {
                 max: 10,
                 speed: 400,
                 glare: true,
