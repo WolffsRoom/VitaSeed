@@ -65,8 +65,10 @@ async function getUser(request, env) {
   
   try {
     const token = authHeader.split(" ")[1];
-    const payloadBase64 = token.split('.')[1];
-    const payloadDecoded = JSON.parse(atob(payloadBase64.replace(/-/g, '+').replace(/_/g, '/')));
+    let payloadBase64 = token.split('.')[1];
+    payloadBase64 = payloadBase64.replace(/-/g, '+').replace(/_/g, '/');
+    while (payloadBase64.length % 4) { payloadBase64 += '='; }
+    const payloadDecoded = JSON.parse(atob(payloadBase64));
     
     if (!payloadDecoded.email) return null;
     
