@@ -146,10 +146,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
     <script src="js/auth.js"></script>
     <script>
-        const API_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost" 
-            ? "http://127.0.0.1:8787" 
-            : "https://vitaseed-api.seunome.workers.dev"; // <-- MUDAR PARA SEU LINK REAL
-
+        
         let authKey = ""; // Mantendo para retrocompatibilidade do resolveRequest
 
         
@@ -186,7 +183,7 @@
             authKey = pass;
             
             // Testa carregamento para validar senha
-            await loadRequests();
+            await fetchRequests(authKey);
         }
 
         function logout() {
@@ -196,7 +193,7 @@
             document.getElementById('admin-pass').value = '';
         }
 
-            
+        async function fetchRequests(token) {
             try {
                 const res = await fetch(`${API_URL}/api/admin/requests`, {
                     headers: { "Authorization": token }
@@ -251,7 +248,7 @@
         async function resolveRequest(id) {
             if (API_URL.includes("seunome")) {
                 alert("Simulação: item marcado como resolvido e deletado do banco!");
-                await loadRequests(); // mock refresh
+                await fetchRequests(authKey); // mock refresh
                 return;
             }
 
@@ -261,7 +258,7 @@
                         method: "DELETE",
                         headers: { "Authorization": authKey }
                     });
-                    loadRequests(); // Recarrega a tabela
+                    fetchRequests(authKey); // Recarrega a tabela
                 } catch(e) {
                     alert("Erro ao resolver request.");
                 }

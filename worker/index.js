@@ -1,6 +1,6 @@
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, POST, OPTIONS, DELETE",
+  "Access-Control-Allow-Methods": "GET, POST, OPTIONS, DELETE, PUT",
   "Access-Control-Allow-Headers": "Content-Type, Authorization"
 };
 

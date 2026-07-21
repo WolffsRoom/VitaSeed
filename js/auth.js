@@ -1,3 +1,4 @@
+const API_URL = "https://vitaseed-api.9h9rnjjcrf.workers.dev";
 // JS para gerenciar a Autenticação com Firebase
 // IMPORTANTE: O usuário deve substituir essa configuração pelas credenciais do seu projeto Firebase.
 const firebaseConfig = {
