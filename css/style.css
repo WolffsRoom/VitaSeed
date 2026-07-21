@@ -562,8 +562,9 @@ main {
 /* Top 10 Container */
 .top10-scroll {
     display: flex;
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+    mask-image: linear-gradient(to right, black 85%, transparent 100%);
+    transition: mask-image 0.3s ease, -webkit-mask-image 0.3s ease;
     gap: 1.5rem;
     overflow-x: auto;
     padding-top: 1rem;
@@ -872,3 +873,8 @@ main {
 }
 .scroll-left { left: 10px; }
 .scroll-right { right: 10px; }
+
+.top10-scroll.scrolled {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+}
