@@ -222,6 +222,10 @@
                                 <div id="meta-playable-label" class="meta-label">Jogável?</div>
                                 <div id="meta-playable" class="meta-val">Sim</div>
                             </div>
+                            <div class="meta-item" id="meta-support-item" style="display:none;">
+                                <div class="meta-label">Apoio</div>
+                                <div id="meta-support" class="meta-val" style="color: var(--accent-green);">--</div>
+                            </div>
                         </div>
 
                         <div class="section-box support-panel" style="margin-bottom: 0;">
@@ -454,6 +458,16 @@
                 // Badges
                 let badgesHtml = `<span class="tag" style="background:var(--accent-green); color:#000;">${proj.category}</span>`;
                 badgesHtml += `<span class="tag" style="background:var(--bg-main); border:1px solid var(--border-color); color:var(--text-muted);"><i class="ph ph-user"></i> ${proj.responsibles}</span>`;
+
+                // Apoio/Colaboradores
+                if (proj.collaborators && proj.collaborators.length > 0) {
+                    badgesHtml += `<span class="tag" style="background:rgba(0,230,118,0.1); border:1px solid var(--accent-green); color:var(--accent-green);"><i class="ph ph-handshake"></i> Apoio: ${proj.collaborators.join(', ')}</span>`;
+                    const supportEl = document.getElementById('meta-support-item');
+                    if (supportEl) {
+                        supportEl.style.display = '';
+                        document.getElementById('meta-support').innerText = proj.collaborators.join(', ');
+                    }
+                }
                 
                 document.getElementById('proj-badges').innerHTML = badgesHtml;
 
