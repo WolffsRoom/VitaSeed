@@ -658,5 +658,64 @@
         </div>
     </div>
 
+<!-- Profile Modal -->
+<div id="modal-profile" class="modal" onclick="if(event.target===this)closeModal('modal-profile')">
+    <div class="modal-content" style="max-width: 500px;">
+        <span class="close-btn" onclick="closeModal('modal-profile')">&times;</span>
+        <h2>Editar Perfil</h2>
+        <div style="display: flex; flex-direction: column; gap: 1rem; text-align: left; margin-top: 1.5rem;">
+            
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                <img id="profile-edit-avatar-preview" src="https://via.placeholder.com/64" style="width:64px; height:64px; border-radius:50%; border:2px solid var(--accent-green);">
+                <div style="flex: 1;">
+                    <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">URL da Foto de Perfil</label>
+                    <input type="text" id="profile-edit-avatar" class="search-bar" placeholder="https://..." style="width: 100%; box-sizing: border-box;" onchange="document.getElementById('profile-edit-avatar-preview').src = this.value || 'https://via.placeholder.com/64'">
+                </div>
+            </div>
+
+            <div>
+                <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Nome de Exibição</label>
+                <input type="text" id="profile-edit-name" class="search-bar" placeholder="Seu nome ou nick" style="width: 100%; box-sizing: border-box;">
+            </div>
+            
+            <div>
+                <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Linguagens (ex: C++, Lua, C#)</label>
+                <input type="text" id="profile-edit-langs" class="search-bar" placeholder="Linguagens que domina" style="width: 100%; box-sizing: border-box;">
+            </div>
+            
+            <div>
+                <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Site Pessoal / Portfólio</label>
+                <input type="text" id="profile-edit-site" class="search-bar" placeholder="https://seusite.com" style="width: 100%; box-sizing: border-box;">
+            </div>
+            
+            <div>
+                <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Links de Apoio (Patreon, Ko-fi, PayPal)</label>
+                <input type="text" id="profile-edit-donations" class="search-bar" placeholder="Separe por vírgula. Ex: https://ko-fi.com/wolff, https://paypal.me/..." style="width: 100%; box-sizing: border-box;">
+            </div>
+
+            <button id="btn-save-profile" class="btn-primary" onclick="saveProfile()" style="justify-content: center; margin-top: 1rem; width: 100%;">
+                <i class="fa-solid fa-floppy-disk"></i> Salvar Alterações
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Settings Modal -->
+<div id="modal-settings" class="modal" onclick="if(event.target===this)closeModal('modal-settings')">
+    <div class="modal-content" style="max-width: 400px;">
+        <span class="close-btn" onclick="closeModal('modal-settings')">&times;</span>
+        <h2 data-i18n="settings_title">Configurações</h2>
+        <div style="display: flex; flex-direction: column; gap: 1rem; text-align: left; margin-top: 1.5rem;">
+            <div>
+                <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem;" data-i18n="settings_lang">Idioma do Site</label>
+                <select id="settings-lang-select" class="filter-select" style="width: 100%;" onchange="changeLanguage(this.value)">
+                    <option value="pt-BR">Português (Brasil)</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
