@@ -1,0 +1,20 @@
+name = "vitaseed-api"
+main = "index.js"
+compatibility_date = "2024-03-20"
+
+# Rate limiting simple using KV
+# [[kv_namespaces]]
+# binding = "RATE_LIMIT"
+# id = "create_this_later"
+
+# Database binding for requests
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "vitaseed_db"
+# database_id = "create_this_later"
+
+[vars]
+# Placeholder variables - set the real ones via `wrangler secret put`
+# ADMIN_PASSWORD = "change_me"
+# GITHUB_TOKEN = "ghp_..."
+# GITHUB_REPO = "WolffsRoom/VitaSeed"

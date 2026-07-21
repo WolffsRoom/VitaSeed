@@ -196,9 +196,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 // Modal Request Logic
-function sendRequest() {
+const API_URL = "https://vitaseed-api.seunome.workers.dev"; // A SER SUBSTITUIDO
+
+async function sendRequest() {
     const title = document.getElementById('req-title').value.trim();
     const link = document.getElementById('req-link').value.trim();
+    const desc = document.getElementById('req-desc').value.trim();
     const msgBox = document.getElementById('req-msg');
     
     if(!title) {
@@ -207,28 +210,51 @@ function sendRequest() {
         return;
     }
     
-    const today = new Date().toISOString().split('T')[0];
-    const key = `vitaseed_requests_${today}`;
-    let requestsToday = parseInt(localStorage.getItem(key) || '0');
+    // Desabilitar o botão temporariamente
+    const btn = document.querySelector('#modal-request .btn-primary');
+    const oldHtml = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
+    btn.style.pointerEvents = 'none';
     
-    if (requestsToday >= 2) {
+    try {
+        if (API_URL.includes("seunome")) {
+            // Se ainda não configurou a API, simula sucesso para visualização
+            await new Promise(r => setTimeout(r, 1000));
+            msgBox.style.color = 'var(--accent-green)';
+            msgBox.innerText = 'Simulação: Request enviado com sucesso!';
+        } else {
+            // Envia para a API real no Cloudflare
+            const res = await fetch(`${API_URL}/api/request`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ title, link, desc })
+            });
+            
+            const data = await res.json();
+            
+            if (!res.ok) {
+                throw new Error(data.error || "Erro ao enviar request.");
+            }
+            
+            msgBox.style.color = 'var(--accent-green)';
+            msgBox.innerText = 'Request enviado com sucesso!';
+        }
+        
+        // Limpar campos
+        document.getElementById('req-title').value = '';
+        document.getElementById('req-link').value = '';
+        document.getElementById('req-desc').value = '';
+        
+        setTimeout(() => {
+            closeModal('modal-request');
+            msgBox.innerText = '';
+        }, 2000);
+        
+    } catch (e) {
         msgBox.style.color = '#ff4d4d';
-        msgBox.innerText = 'Limite de 2 envios por dia atingido.';
-        return;
+        msgBox.innerText = e.message;
+    } finally {
+        btn.innerHTML = oldHtml;
+        btn.style.pointerEvents = 'auto';
     }
-    
-    // Simulate sending to telegram
-    localStorage.setItem(key, (requestsToday + 1).toString());
-    
-    msgBox.style.color = 'var(--accent-green)';
-    msgBox.innerText = 'Request enviado com sucesso para o Telegram!';
-    
-    document.getElementById('req-title').value = '';
-    document.getElementById('req-link').value = '';
-    document.getElementById('req-desc').value = '';
-    
-    setTimeout(() => {
-        closeModal('modal-request');
-        msgBox.innerText = '';
-    }, 2000);
 }

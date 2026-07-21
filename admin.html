@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitaSeed Admin</title>
+    <link rel="icon" href="seed.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .admin-container {
+            max-width: 1000px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        th, td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            background: rgba(255,255,255,0.02);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .login-box {
+            max-width: 400px;
+            margin: 10vh auto;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <!-- Header padrão do site -->
+    <header class="desktop-header">
+        <a href="index.html" style="text-decoration: none; color: inherit; display:flex; align-items:center; gap:0.5rem;">
+            <div class="seed-icon" style="width:24px; height:24px;"></div>
+            <div class="logo">Vita<strong>Seed</strong></div>
+        </a>
+    </header>
+
+    <!-- Tela de Login -->
+    <div id="login-screen" class="login-box">
+        <div class="seed-icon" style="width: 48px; height: 48px; margin: 0 auto 1rem auto;"></div>
+        <h2>Admin Access</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.9rem;">Insira a senha para ver as solicitações.</p>
+        <input type="password" id="admin-pass" class="search-bar" placeholder="Senha do painel" style="width: 100%; box-sizing: border-box; text-align:center; margin-bottom: 1rem;" onkeydown="if(event.key==='Enter') login()">
+        <button class="btn-primary" onclick="login()" style="width: 100%; justify-content: center;">
+            <i class="fa-solid fa-lock-open"></i> Entrar
+        </button>
+        <div id="login-err" style="color: #ff4d4d; font-size: 0.85rem; margin-top: 1rem;"></div>
+    </div>
+
+    <!-- Painel Dashboard -->
+    <div id="dashboard-screen" class="admin-container hidden">
+        <div class="admin-header">
+            <div>
+                <h2 style="display:flex; align-items:center; gap:0.5rem;"><i class="fa-solid fa-inbox" style="color:var(--accent-green)"></i> Inbox de Requests</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Gerencie os jogos solicitados pela comunidade.</p>
+            </div>
+            <button class="btn-secondary" onclick="logout()"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</button>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Projeto / Jogo</th>
+                        <th>Motivo</th>
+                        <th>Link / Ref</th>
+                        <th>Data</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="requests-tbody">
+                    <!-- Preenchido via JS -->
+                </tbody>
+            </table>
+            <div id="loading-msg" style="text-align:center; padding: 2rem; color: var(--text-muted);">
+                <i class="fa-solid fa-circle-notch fa-spin"></i> Carregando dados do banco...
+            </div>
+            <div id="empty-msg" class="hidden" style="text-align:center; padding: 2rem; color: var(--text-muted);">
+                Nenhuma solicitação pendente. Tudo limpo! ✨
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = "https://vitaseed-api.seunome.workers.dev"; // A SER SUBSTITUIDO
+        let authKey = "";
+
+        async function login() {
+            const pass = document.getElementById('admin-pass').value;
+            if (!pass) return;
+            
+            document.getElementById('login-err').innerText = "";
+            authKey = pass;
+            
+            // Testa carregamento para validar senha
+            await loadRequests();
+        }
+
+        function logout() {
+            authKey = "";
+            document.getElementById('dashboard-screen').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('admin-pass').value = '';
+        }
+
+        async function loadRequests() {
+            try {
+                // MOCK DATA APENAS PARA DEMONSTRAÇÃO VISUAL ATÉ A API ESTAR NO AR
+                if (API_URL.includes("seunome")) {
+                    renderTable([
+                        { id: 1, title: "Zelda Ocarina of Time Port", description: "O port está perfeito e não tá no site!", link: "https://github.com/zelda", created_at: "2026-07-21" },
+                        { id: 2, title: "Dead Space Mobile", description: "Lançou ontem o port de android", link: "https://vitadb.com", created_at: "2026-07-20" }
+                    ]);
+                    document.getElementById('login-screen').classList.add('hidden');
+                    document.getElementById('dashboard-screen').classList.remove('hidden');
+                    return;
+                }
+
+                const res = await fetch(`${API_URL}/api/admin/requests`, {
+                    headers: { "Authorization": authKey }
+                });
+
+                if (res.status === 401) {
+                    document.getElementById('login-err').innerText = "Senha incorreta.";
+                    return;
+                }
+                
+                if (!res.ok) throw new Error("Erro ao carregar");
+                
+                const data = await res.json();
+                renderTable(data);
+
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('dashboard-screen').classList.remove('hidden');
+            } catch (e) {
+                document.getElementById('login-err').innerText = "Erro de conexão com o banco de dados D1.";
+            }
+        }
+
+        function renderTable(requests) {
+            document.getElementById('loading-msg').classList.add('hidden');
+            const tbody = document.getElementById('requests-tbody');
+            tbody.innerHTML = "";
+
+            if (requests.length === 0) {
+                document.getElementById('empty-msg').classList.remove('hidden');
+                return;
+            }
+
+            document.getElementById('empty-msg').classList.add('hidden');
+
+            requests.forEach(req => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-weight:bold; color:var(--text-main);">${req.title}</td>
+                    <td style="color:var(--text-muted); font-size:0.9rem; max-width: 300px;">${req.description || '-'}</td>
+                    <td>${req.link ? `<a href="${req.link}" target="_blank" style="color:var(--accent-green); text-decoration:none;"><i class="fa-solid fa-link"></i> Abrir Link</a>` : '-'}</td>
+                    <td style="color:var(--text-muted); font-size:0.85rem;">${req.created_at ? req.created_at.substring(0,10) : ''}</td>
+                    <td>
+                        <button class="btn-primary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;" onclick="resolveRequest(${req.id})">
+                            <i class="fa-solid fa-check"></i> Resolvido
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        async function resolveRequest(id) {
+            if (API_URL.includes("seunome")) {
+                alert("Simulação: item marcado como resolvido e deletado do banco!");
+                await loadRequests(); // mock refresh
+                return;
+            }
+
+            if(confirm("Marcar esta requisição como resolvida?")) {
+                try {
+                    await fetch(`${API_URL}/api/admin/requests/${id}`, {
+                        method: "DELETE",
+                        headers: { "Authorization": authKey }
+                    });
+                    loadRequests(); // Recarrega a tabela
+                } catch(e) {
+                    alert("Erro ao resolver request.");
+                }
+            }
+        }
+    </script>
+</body>
+</html>
