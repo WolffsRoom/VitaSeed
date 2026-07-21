@@ -1,3 +1,14 @@
+
+// Modal Utility
+function closeModal(id) {
+    document.getElementById(id).classList.remove('show');
+}
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        document.querySelectorAll('.modal.show').forEach(m => m.classList.remove('show'));
+    }
+});
+
 document.addEventListener("DOMContentLoaded", async () => {
     // ---- DOM Elements ----
     const grid = document.getElementById('project-grid');
@@ -217,7 +228,7 @@ function sendRequest() {
     document.getElementById('req-desc').value = '';
     
     setTimeout(() => {
-        document.getElementById('modal-request').classList.remove('show');
+        closeModal('modal-request');
         msgBox.innerText = '';
     }, 2000);
 }

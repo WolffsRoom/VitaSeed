@@ -6,7 +6,7 @@
     <title>VitaSeed - by Wolff</title>
     <meta name="description" content="Repositório brasileiro de jogos, ports, ferramentas, mods e traduções para PSVita.">
     <link rel="icon" href="seed.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="css/style.css?v=30">
+    <link rel="stylesheet" href="css/style.css?v=31">
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -128,33 +128,35 @@
     <!-- JS -->
     <script src="js/api.js?v=2"></script>
     <script src="js/theme.js?v=2"></script>
-    <script src="js/main.js?v=14"></script>
+    <script src="js/main.js?v=15"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 
     <!-- Modals -->
-    <div id="modal-about" class="modal">
+    <div id="modal-about" class="modal" onclick="if(event.target===this)closeModal('modal-about')">
         <div class="modal-content">
-            <span class="close-btn" onclick="document.getElementById('modal-about').classList.remove('show')">&times;</span>
-            <h2>Sobre o VitaSeed</h2>
-            <p style="margin-top: 1rem; line-height: 1.6; color: var(--text-muted);">
+            <span class="close-btn" onclick="closeModal('modal-about')">&times;</span>
+            <h2>Sobre o VitaSeed <span style="color:var(--accent-green)">?</span></h2>
+            <p style="margin-top: 1rem; line-height: 1.7; color: var(--text-muted);">
                 O VitaSeed é um centralizador para a cena brasileira homebrew do PSVita. Aqui centralizamos Ports, Mods, Traduções, Plugins, Apps e Ferramentas, garantindo um acesso centralizado.
             </p>
         </div>
     </div>
 
-    <div id="modal-request" class="modal">
+    <div id="modal-request" class="modal" onclick="if(event.target===this)closeModal('modal-request')">
         <div class="modal-content">
-            <span class="close-btn" onclick="document.getElementById('modal-request').classList.remove('show')">&times;</span>
+            <span class="close-btn" onclick="closeModal('modal-request')">&times;</span>
             <h2>Solicitar Projeto</h2>
-            <p style="margin-top: 1rem; margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
-                Não encontrou o que procurava? Envie um request para adicionarmos o projeto ao catálogo!
+            <p style="margin-top: 0.75rem; margin-bottom: 1.25rem; font-size: 0.9rem; color: var(--text-muted); line-height: 1.5;">
+                Não encontrou o que procurava?<br>Envie um request para adicionarmos o projeto ao catálogo!
             </p>
-            <div style="display: flex; flex-direction: column; gap: 1rem;">
-                <input type="text" id="req-title" class="search-bar" placeholder="Nome do Projeto / Jogo">
-                <input type="text" id="req-link" class="search-bar" placeholder="Link de Referência (GitHub, VitaDB, etc)">
-                <textarea id="req-desc" class="search-bar" rows="3" placeholder="Por que devemos adicionar?" style="resize: vertical; font-family: inherit;"></textarea>
-                <button class="btn-primary" onclick="sendRequest()" style="width: 100%; justify-content: center; margin-top: 0.5rem;"><i class="ph ph-paper-plane-tilt"></i> Enviar Pedido</button>
-                <div id="req-msg" style="text-align: center; font-size: 0.9rem; margin-top: 0.5rem; font-weight: bold;"></div>
+            <div style="display: flex; flex-direction: column; gap: 0.85rem; text-align: left;">
+                <input type="text" id="req-title" class="search-bar" placeholder="Nome do Projeto / Jogo" style="width: 100%; box-sizing: border-box;">
+                <input type="text" id="req-link" class="search-bar" placeholder="Link de Referência (GitHub, VitaDB, etc)" style="width: 100%; box-sizing: border-box;">
+                <textarea id="req-desc" class="search-bar" rows="3" placeholder="Por que devemos adicionar?" style="resize: vertical; font-family: inherit; width: 100%; box-sizing: border-box;"></textarea>
+                <button class="btn-primary" onclick="sendRequest()" style="width: 100%; justify-content: center; margin-top: 0.25rem;">
+                    <i class="ph ph-paper-plane-tilt"></i> Enviar Pedido
+                </button>
+                <div id="req-msg" style="text-align: center; font-size: 0.9rem; font-weight: bold;"></div>
             </div>
         </div>
     </div>
