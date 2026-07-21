@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VitaSeed Admin</title>
-    <link rel="icon" href="seed.svg" type="image/svg+xml">
+    <link rel="icon" href="seed.png" type="image/png">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -58,13 +58,29 @@
 </head>
 <body>
 
-    <!-- Header padrão do site -->
-    <header class="desktop-header">
-        <a href="index.html" style="text-decoration: none; color: inherit; display:flex; align-items:center; gap:0.5rem;">
-            <div class="seed-icon" style="width:24px; height:24px;"></div>
-            <div class="logo">Vita<strong>Seed</strong></div>
-        </a>
-    </header>
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <button id="mobile-menu-toggle" class="menu-toggle">☰</button>
+        <a href="index.html" style="text-decoration: none; color: inherit;"><div class="logo">Vita<strong>Seed</strong> <span style="font-size:0.6rem; color:var(--text-muted);">by Wolff</span></div></a>
+    </div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar">
+        <div>
+            <div class="logo-container" style="flex-direction: column; align-items: flex-start; gap: 0.2rem;">
+                <a href="index.html" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <div class="seed-icon"></div>
+                    <div class="logo">VITA<strong style="font-weight: 800;">SEED</strong></div>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html"><span>Voltar ao Site</span></a></li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Content Area -->
+    <div class="content-wrapper">
 
     <!-- Tela de Login -->
     <div id="login-screen" class="login-box">
@@ -217,5 +233,6 @@
             }
         }
     </script>
+    </div> <!-- End Content Wrapper -->
 </body>
 </html>
