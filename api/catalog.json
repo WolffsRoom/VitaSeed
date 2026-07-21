@@ -59,7 +59,10 @@
             "downloads": 6647,
             "publish_date": "30/05/2023",
             "update_date": "10/07/2023",
-            "support_link": "https://ko-fi.com/wolffsroom"
+            "support_link": "https://ko-fi.com/wolffsroom",
+            "collaborators": [
+                "Wolff"
+            ]
         },
         {
             "id": 2,
@@ -84,7 +87,10 @@
             "downloads": 1514,
             "publish_date": "25/01/2023",
             "update_date": "20/11/2025",
-            "support_link": "https://ko-fi.com/wolffsroom"
+            "support_link": "https://ko-fi.com/wolffsroom",
+            "collaborators": [
+                "Wolff"
+            ]
         },
         {
             "id": 3,

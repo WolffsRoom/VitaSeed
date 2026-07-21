@@ -231,11 +231,37 @@
                     });
                 }
 
-                // Add edge between dev and project
+                // Main edge: solid
                 edgeList.push({
                     from: devName,
-                    to: proj.id
+                    to: proj.id,
+                    dashes: false,
+                    color: { color: '#444444', highlight: '#888888', hover: '#666666' },
+                    width: 1
                 });
+
+                // Collaborator edges: dashed
+                if (proj.collaborators && Array.isArray(proj.collaborators)) {
+                    proj.collaborators.forEach(collab => {
+                        if (!devsMap.has(collab)) {
+                            devsMap.set(collab, {
+                                id: collab,
+                                label: collab,
+                                group: 'dev',
+                                shape: 'dot',
+                                size: 15
+                            });
+                        }
+                        edgeList.push({
+                            from: collab,
+                            to: proj.id,
+                            dashes: true,
+                            color: { color: '#666666', highlight: '#aaaaaa', hover: '#999999' },
+                            width: 1,
+                            title: 'Colaboração'
+                        });
+                    });
+                }
             });
 
             const nodesArray = Array.from(devsMap.values()).concat(projectNodes);
@@ -280,14 +306,28 @@
                     timestep: 0.35,
                     stabilization: { iterations: 150 }
                 },
-                interaction: { hover: true, tooltipDelay: 100, zoomView: true, dragView: true }
+                interaction: { hover: true, tooltipDelay: 100, zoomView: true, dragView: true, dragNodes: true }
             };
 
             const network = new vis.Network(container, data, options);
 
-            // After stabilization, disable physics to stop constant re-render (big perf win)
+            // After stabilization: reduce physics to a soft level so dragging still pulls connected nodes
             network.on('stabilizationIterationsDone', () => {
-                network.setOptions({ physics: false });
+                network.setOptions({
+                    physics: {
+                        barnesHut: {
+                            gravitationalConstant: -800,
+                            centralGravity: 0.1,
+                            springLength: 150,
+                            springConstant: 0.02,
+                            damping: 0.6
+                        },
+                        maxVelocity: 10,
+                        solver: 'barnesHut',
+                        timestep: 0.5,
+                        stabilization: false
+                    }
+                });
             });
 
             
