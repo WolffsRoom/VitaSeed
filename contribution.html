@@ -58,12 +58,7 @@
                 <li><a href="index.html" data-page="index"><span>HOME</span></a></li>
                 
                 
-                <li id="sidebar-login-container">
-                    <a href="#" id="login-btn" onclick="document.getElementById('modal-login').classList.add('show'); return false;"><span style="color: var(--accent-green);"><i class="fa-solid fa-right-to-bracket"></i> Login / Register</span></a>
-                    <div id="user-profile" class="hidden" style="padding: 1rem; padding-left: 2rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted); font-size: 0.85rem;">
-                        <!-- Avatar will go here -->
-                    </div>
-                </li>
+                
                 <li class="nav-section">BIBLIOTECA</li>
                 <li><a href="category.html?cat=Ports" data-page="ports"><span>PORTS</span></a></li>
                 <li><a href="category.html?cat=Original games" data-page="original games"><span>ORIGINAL GAMES</span></a></li>
@@ -94,15 +89,7 @@
 
     <!-- Main Content -->
     <div class="content-wrapper">
-        <!-- Top Right Auth Bar -->
-        <div id="top-right-profile" style="position: absolute; top: 1.5rem; right: 2rem; display: flex; align-items: center; gap: 1rem; z-index: 100;">
-            <button id="tr-login-btn" class="btn-secondary" onclick="document.getElementById('modal-login').classList.add('show')" style="padding: 0.4rem 1rem; font-size: 0.85rem;">
-                <i class="fa-solid fa-right-to-bracket"></i> Entrar
-            </button>
-            <div id="tr-user-avatar" class="hidden" style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted); font-size: 0.85rem; background: var(--bg-card); padding: 0.3rem 0.8rem 0.3rem 0.3rem; border-radius: 50px; border: 1px solid var(--border-color);">
-                <!-- Avatar image here -->
-            </div>
-        </div>
+        
 
         
 
@@ -125,6 +112,20 @@
                 </select>
                 <button id="btn-about" class="btn-icon" style="background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.6rem 1rem; border-radius: 8px; cursor: pointer; transition: 0.2s;" onmouseover="this.style.background='var(--hover-bg)'" onmouseout="this.style.background='var(--bg-card)'" title="Sobre o VitaSeed" onclick="document.getElementById('modal-about').classList.add('show')"><i class="fa-solid fa-question"></i></button>
                 <button id="btn-request" class="btn-primary" onclick="handleRequestButtonClick(event)"><i class="ph ph-paper-plane-tilt"></i> Request</button>
+
+                <div id="user-profile-dropdown" class="profile-dropdown hidden" style="margin-left: 0.5rem;">
+                    <!-- Avatar will be injected here -->
+                    <div id="profile-menu" class="profile-menu">
+                        <div style="padding: 1rem; text-align: center; border-bottom: 1px solid var(--border-color);">
+                            <strong id="menu-user-name" style="color: var(--text-main);">User</strong><br>
+                            <span id="menu-user-email" style="font-size: 0.8rem; color: var(--text-muted);">email</span>
+                        </div>
+                        <a href="#" onclick="alert('Funcionalidade em breve: Alterar dados'); return false;"><i class="fa-solid fa-pen-to-square"></i> Editar Perfil</a>
+                        <a href="#" onclick="alert('Funcionalidade em breve: Meus Projetos'); return false;"><i class="fa-solid fa-folder"></i> Meus Projetos</a>
+                        <hr>
+                        <button onclick="logout()"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</button>
+                    </div>
+                </div>
             </div>
         </header>
 

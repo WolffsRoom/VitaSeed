@@ -29,29 +29,27 @@ if (firebaseConfig.apiKey !== "Sua_API_Key_Aqui") {
 }
 
 function updateAuthUI(user) {
-    const loginBtn = document.getElementById('login-btn');
-    const userProfile = document.getElementById('user-profile');
-    const trLoginBtn = document.getElementById('tr-login-btn');
-    const trUserAvatar = document.getElementById('tr-user-avatar');
-    
-    // Atualizar botões de Request
+    const dropdownContainers = document.querySelectorAll('#user-profile-dropdown');
     const requestBtns = document.querySelectorAll('#btn-request');
     
     if (user) {
-        if (loginBtn) loginBtn.classList.add('hidden');
-        if (trLoginBtn) trLoginBtn.classList.add('hidden');
+        const avatarHtml = `<img src="${user.photoURL || 'https://via.placeholder.com/32'}" alt="Avatar" style="width:36px; height:36px; border-radius:50%; border:2px solid var(--accent-green); cursor:pointer;" onclick="toggleProfileMenu(event)" title="Opções da Conta">`;
         
-        const avatarHtml = `<img src="${user.photoURL || 'https://via.placeholder.com/32'}" alt="Avatar" style="width:28px; height:28px; border-radius:50%; border:2px solid var(--accent-green); cursor:pointer;" onclick="logout()" title="Clique para sair">`;
-        
-        if (userProfile) {
-            userProfile.classList.remove('hidden');
-            userProfile.innerHTML = avatarHtml;
-        }
-        
-        if (trUserAvatar) {
-            trUserAvatar.classList.remove('hidden');
-            trUserAvatar.innerHTML = avatarHtml + `<span>${user.displayName ? user.displayName.split(' ')[0] : 'Viteiro'}</span>`;
-        }
+        dropdownContainers.forEach(container => {
+            container.classList.remove('hidden');
+            // Insert avatar before the menu
+            let avatarImg = container.querySelector('img');
+            if (!avatarImg) {
+                container.insertAdjacentHTML('afterbegin', avatarHtml);
+            } else {
+                avatarImg.src = user.photoURL || 'https://via.placeholder.com/32';
+            }
+            
+            const menuName = container.querySelector('#menu-user-name');
+            const menuEmail = container.querySelector('#menu-user-email');
+            if(menuName) menuName.innerText = user.displayName || 'Viteiro';
+            if(menuEmail) menuEmail.innerText = user.email || '';
+        });
         
         // Destravar botões de Request
         requestBtns.forEach(btn => {
@@ -62,20 +60,35 @@ function updateAuthUI(user) {
         });
 
     } else {
-        if (loginBtn) loginBtn.classList.remove('hidden');
-        if (userProfile) userProfile.classList.add('hidden');
-        if (trLoginBtn) trLoginBtn.classList.remove('hidden');
-        if (trUserAvatar) trUserAvatar.classList.add('hidden');
+        dropdownContainers.forEach(container => container.classList.add('hidden'));
         
         // Travar botões de Request
         requestBtns.forEach(btn => {
             btn.innerHTML = `<i class="fa-solid fa-lock"></i> Entrar para Request`;
             btn.classList.add('btn-locked');
             btn.style.opacity = '0.5';
-            btn.style.cursor = 'not-allowed';
+            btn.style.cursor = 'pointer';
         });
     }
 }
+
+function toggleProfileMenu(event) {
+    event.stopPropagation();
+    const menu = event.target.nextElementSibling;
+    if(menu && menu.classList.contains('profile-menu')) {
+        menu.classList.toggle('show');
+    }
+}
+
+// Fechar dropdown ao clicar fora
+document.addEventListener('click', (e) => {
+    const menus = document.querySelectorAll('.profile-menu.show');
+    menus.forEach(menu => {
+        if(!menu.contains(e.target)) {
+            menu.classList.remove('show');
+        }
+    });
+});
 
 async function loginWithGoogle() {
     if (!auth) {

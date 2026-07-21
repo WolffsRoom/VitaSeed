@@ -944,3 +944,48 @@ main {
     transition: color 0.2s;
 }
 .close-btn:hover { color: white; }
+/* Profile Dropdown */
+.profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+.profile-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 0.5rem;
+    background: var(--bg-card);
+    min-width: 200px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    z-index: 1000;
+    overflow: hidden;
+}
+.profile-menu.show {
+    display: block;
+    animation: fadeInDown 0.2s ease;
+}
+.profile-menu a, .profile-menu button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.8rem 1rem;
+    color: var(--text-main);
+    text-decoration: none;
+    background: transparent;
+    border: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.profile-menu a:hover, .profile-menu button:hover {
+    background: var(--hover-bg);
+    color: var(--accent-green);
+}
+.profile-menu hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 0;
+}
