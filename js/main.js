@@ -46,9 +46,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             heroSection.innerHTML = `
                 <a href="project.html?id=${heroProj.id}" class="hero-card" style="background-image: url('${heroBanner}'); background-position: ${heroProj.bgPosition || 'center bottom'};">
                     <div class="hero-overlay">
-                        <span class="tag" style="background:var(--accent-green); color:#000; width:max-content; margin-bottom:0.5rem;">Lançamento em Destaque</span>
+                        <span class="tag" style="background:var(--accent-green); color:#000; width:max-content; margin-bottom:0.5rem;">LanÃÂ§amento em Destaque</span>
                         <h2 class="hero-title">${window.formatTitle(heroProj.title)}</h2>
-                        <div class="hero-meta">${heroProj.category} • Por ${heroProj.responsibles}</div>
+                        <div class="hero-meta">${heroProj.category} Ã¢ÂÂ¢ Por ${heroProj.responsibles}</div>
                     </div>
                 </a>
             `;
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     scrollRightBtn.addEventListener('click', () => {
                         const maxScrollLeft = top10Container.scrollWidth - top10Container.clientWidth;
                         if (top10Container.scrollLeft >= maxScrollLeft - 50) {
-                            // Volta silenciosamente para o começo do segundo bloco (item 11) ou do primeiro bloco (item 1)
+                            // Volta silenciosamente para o comeÃÂ§o do segundo bloco (item 11) ou do primeiro bloco (item 1)
                             top10Container.scrollTo({ left: 0, behavior: 'auto' }); // Pula invisivelmente
                             setTimeout(() => { top10Container.scrollBy({ left: 300, behavior: 'smooth' }); }, 50);
                         } else {
@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     
                     let scrollTimeout;
                     top10Container.addEventListener('scroll', () => {
-                        // Sempre que estiver rolando (e não estiver no início absoluto), mostra o fade
+                        // Sempre que estiver rolando (e nÃÂ£o estiver no inÃÂ­cio absoluto), mostra o fade
                         if (top10Container.scrollLeft > 10) {
                             top10Container.classList.add('scrolled');
                         } else {
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 }
             }
             
-            // O catálogo completo exibe do 2º em diante (ou todos) para não parecer vazio
+            // O catÃÂ¡logo completo exibe do 2ÃÂº em diante (ou todos) para nÃÂ£o parecer vazio
             gridProjects = projects.slice(1);
         } else {
             if (heroSection) heroSection.innerHTML = '';
@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             grid.appendChild(card);
         });
         
-        // Inicializa animação 3D estilo Apple TV em todos os cards e hero
+        // Inicializa animaÃÂ§ÃÂ£o 3D estilo Apple TV em todos os cards e hero
         if (typeof VanillaTilt !== 'undefined') {
             VanillaTilt.init(document.querySelectorAll('.card, .top10-card'), {
                 max: 10,
@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 // Modal Request Logic
-const API_URL = "https://vitaseed-api.9h9rnjjcrf.workers.dev"; // URL da API de Produção
+const API_URL = "https://vitaseed-api.9h9rnjjcrf.workers.dev"; // URL da API de ProduÃÂ§ÃÂ£o
 
 async function sendRequest() {
     const title = document.getElementById('req-title').value.trim();
@@ -210,7 +210,7 @@ async function sendRequest() {
         return;
     }
     
-    // Desabilitar o botão temporariamente
+    // Desabilitar o botÃÂ£o temporariamente
     const btn = document.querySelector('#modal-request .btn-primary');
     const oldHtml = btn.innerHTML;
     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
@@ -223,10 +223,10 @@ async function sendRequest() {
         }
 
         if (API_URL.includes("seunome")) {
-            // Se ainda não configurou a API, simula sucesso para visualização
+            // Se ainda nÃÂ£o configurou a API, simula sucesso para visualizaÃÂ§ÃÂ£o
             await new Promise(r => setTimeout(r, 1000));
             msgBox.style.color = 'var(--accent-green)';
-            msgBox.innerText = 'Simulação: Request enviado com sucesso!';
+            msgBox.innerText = 'SimulaÃÂ§ÃÂ£o: Request enviado com sucesso!';
         } else {
             // Envia para a API real no Cloudflare
             const res = await fetch(`${API_URL}/api/request`, {
@@ -265,4 +265,59 @@ async function sendRequest() {
         btn.innerHTML = oldHtml;
         btn.style.pointerEvents = 'auto';
     }
+}
+
+async function toggleFavorite(event, projectId) {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    if (!currentUser || !userProfileData) {
+        alert('FaÃ§a login para favoritar.');
+        return;
+    }
+    
+    try {
+        const token = await currentUser.getIdToken();
+        const res = await fetch(\\/api/user/favorites\, {
+            method: 'POST',
+            headers: { 
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ post_id: projectId })
+        });
+        
+        if (res.ok) {
+            const data = await res.json();
+            if (!userProfileData.favorites) userProfileData.favorites = [];
+            
+            if (data.status === 'added') {
+                userProfileData.favorites.push(projectId);
+            } else {
+                userProfileData.favorites = userProfileData.favorites.filter(id => id !== projectId);
+            }
+            renderCatalog(); // Re-render to update heart icon
+        }
+    } catch (e) {
+        console.error('Erro ao favoritar', e);
+    }
+}
+
+function filterUserProjects() {
+    if (!userProfileData || !userProfileData.favorites) {
+        alert('Nenhum projeto favoritado ainda.');
+        return;
+    }
+    
+    const favProjects = window.projectsData.filter(p => userProfileData.favorites.includes(p.id));
+    
+    if (favProjects.length === 0) {
+        alert('Você não tem nenhum projeto favoritado.');
+        return;
+    }
+    
+    document.getElementById('top10-section').style.display = 'none';
+    renderProjects(favProjects);
+    
+    document.getElementById('search-input').value = 'Meus Favoritos';
 }

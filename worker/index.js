@@ -24,6 +24,11 @@ export default {
         if (request.method === "PUT") return await handleUpdateProfile(request, env);
       }
       
+      // 2.5 Favorites
+      if (url.pathname === "/api/user/favorites" && request.method === "POST") {
+        return await handleFavorites(request, env);
+      }
+      
       // 3. Admin: List Requests
       if (url.pathname === "/api/admin/requests" && request.method === "GET") {
         if (!(await checkAuth(request, env))) return unauthorized();
@@ -186,6 +191,12 @@ async function handleResolveRequest(id, env) {
 async function handleGetProfile(request, env) {
   const user = await getUser(request, env);
   if (!user) return unauthorized();
+  
+  if (env.DB) {
+    const { results } = await env.DB.prepare("SELECT post_id FROM favorites WHERE user_email = ?").bind(user.email).all();
+    user.favorites = results.map(r => r.post_id);
+  }
+  
   return new Response(JSON.stringify(user), { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } });
 }
 
@@ -223,4 +234,25 @@ async function handlePublishRequest(request, env) {
 
   // TODO: Trigger GitHub workflow to write body.postData to catalog.json if needed.
   return new Response(JSON.stringify({ ok: true, msg: "Publicado com sucesso!" }), { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+}
+
+async function handleFavorites(request, env) {
+  const user = await getUser(request, env);
+  if (!user) return unauthorized();
+  
+  const body = await request.json();
+  const postId = body.post_id;
+  
+  if (!env.DB || !postId) return new Response(JSON.stringify({ error: "Missing data" }), { status: 400, headers: corsHeaders });
+  
+  // Check if exists
+  const exists = await env.DB.prepare("SELECT * FROM favorites WHERE user_email = ? AND post_id = ?").bind(user.email, postId).first();
+  
+  if (exists) {
+    await env.DB.prepare("DELETE FROM favorites WHERE user_email = ? AND post_id = ?").bind(user.email, postId).run();
+    return new Response(JSON.stringify({ status: "removed" }), { status: 200, headers: corsHeaders });
+  } else {
+    await env.DB.prepare("INSERT INTO favorites (user_email, post_id) VALUES (?, ?)").bind(user.email, postId).run();
+    return new Response(JSON.stringify({ status: "added" }), { status: 200, headers: corsHeaders });
+  }
 }
