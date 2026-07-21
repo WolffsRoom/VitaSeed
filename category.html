@@ -283,8 +283,8 @@
             <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
                 <img id="profile-edit-avatar-preview" src="https://via.placeholder.com/64" style="width:64px; height:64px; border-radius:50%; border:2px solid var(--accent-green);">
                 <div style="flex: 1;">
-                    <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">URL da Foto de Perfil</label>
-                    <input type="text" id="profile-edit-avatar" class="search-bar" placeholder="https://..." style="width: 100%; box-sizing: border-box;" onchange="document.getElementById('profile-edit-avatar-preview').src = this.value || 'https://via.placeholder.com/64'">
+                    <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Foto de Perfil (Envie uma imagem)</label>
+                    <input type="file" id="profile-edit-avatar" accept="image/*" class="search-bar" style="width: 100%; box-sizing: border-box; padding: 0.5rem;" onchange="handleAvatarUpload(event)">
                 </div>
             </div>
 
