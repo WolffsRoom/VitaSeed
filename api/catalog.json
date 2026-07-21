@@ -210,10 +210,10 @@
         },
         {
             "id": 10,
-            "title": "NoDRTrophiesGODOT",
-            "category": "Mods",
-            "responsibles": "Wolf",
-            "description": "Plugin para contornar checagem de troféus nativa na Godot.",
+            "title": "NoTrpDrmGODOT",
+            "category": "Plugin",
+            "responsibles": "Wolff",
+            "description": "uso de IA analisar estrutura do NoTrpDrm (by Rinnegatemente) para aplicar funcionamento em jogos baseados GODOT 3.5.rc5 + Vita(by SonicMastr)",
             "warnings": "Uso experimental na versão 4.x da engine.",
             "source_link": "https://github.com/example/nodrtrophiesgodot",
             "bannerUrl": "https://images.wallpaperscraft.com/image/single/code_programming_it_152538_960x544.jpg",
@@ -227,7 +227,9 @@
             "downloads": 6341,
             "publish_date": "05/03/2024",
             "update_date": "30/09/2024",
-            "support_link": "https://ko-fi.com/wolffsroom"
+            "support_link": "https://ko-fi.com/wolffsroom",
+            "status": "Análise",
+            "playable": "Não"
         }
     ]
 }
