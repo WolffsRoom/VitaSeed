@@ -217,6 +217,11 @@ async function sendRequest() {
     btn.style.pointerEvents = 'none';
     
     try {
+        let token = "";
+        if (typeof currentUser !== 'undefined' && currentUser) {
+            token = await currentUser.getIdToken();
+        }
+
         if (API_URL.includes("seunome")) {
             // Se ainda não configurou a API, simula sucesso para visualização
             await new Promise(r => setTimeout(r, 1000));
@@ -226,7 +231,10 @@ async function sendRequest() {
             // Envia para a API real no Cloudflare
             const res = await fetch(`${API_URL}/api/request`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}` 
+                },
                 body: JSON.stringify({ title, link, desc })
             });
             

@@ -86,11 +86,21 @@
     <div id="login-screen" class="login-box">
         <div class="seed-icon" style="width: 48px; height: 48px; margin: 0 auto 1rem auto;"></div>
         <h2>Admin Access</h2>
-        <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.9rem;">Insira a senha para ver as solicitações.</p>
-        <input type="password" id="admin-pass" class="search-bar" placeholder="Senha do painel" style="width: 100%; box-sizing: border-box; text-align:center; margin-bottom: 1rem;" onkeydown="if(event.key==='Enter') login()">
-        <button class="btn-primary" onclick="login()" style="width: 100%; justify-content: center;">
-            <i class="fa-solid fa-lock-open"></i> Entrar
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.9rem;">Insira a senha do painel ou use sua conta de Administrador.</p>
+        
+        <input type="password" id="admin-pass" class="search-bar" placeholder="Senha antiga (opcional)" style="width: 100%; box-sizing: border-box; text-align:center; margin-bottom: 1rem;" onkeydown="if(event.key==='Enter') login()">
+        
+        <button class="btn-primary" onclick="login()" style="width: 100%; justify-content: center; margin-bottom: 1rem;">
+            <i class="fa-solid fa-lock-open"></i> Entrar com Senha
         </button>
+
+        <div style="margin: 1rem 0; color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase;">ou</div>
+
+        <button class="btn-secondary" onclick="loginWithGoogleAdmin()" style="width: 100%; justify-content: center; padding: 0.8rem; font-size: 1rem; background: white; color: black; border-color: white;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" width="18" height="18" style="margin-right: 0.5rem;">
+            Entrar com Google (Conta Admin)
+        </button>
+
         <div id="login-err" style="color: #ff4d4d; font-size: 0.85rem; margin-top: 1rem;"></div>
     </div>
 
@@ -128,14 +138,33 @@
         </div>
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
+    <script src="js/auth.js"></script>
     <script>
-        const API_URL = "https://vitaseed-api.9h9rnjjcrf.workers.dev"; // URL da API de Produção
-        let authKey = "";
+        const API_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost" 
+            ? "http://127.0.0.1:8787" 
+            : "https://vitaseed-api.seunome.workers.dev"; // <-- MUDAR PARA SEU LINK REAL
+
+        let authKey = ""; // Mantendo para retrocompatibilidade do resolveRequest
+
+        async function loginWithGoogleAdmin() {
+            if (!auth) {
+                document.getElementById('login-err').innerText = "Firebase não configurado em js/auth.js";
+                return;
+            }
+            try {
+                const res = await auth.signInWithPopup(provider);
+                const token = "Bearer " + await res.user.getIdToken();
+                authKey = token;
+                await fetchRequests(token);
+            } catch (error) {
+                document.getElementById('login-err').innerText = "Erro ao fazer login com Google.";
+            }
+        }
 
         async function login() {
             const pass = document.getElementById('admin-pass').value;
-            if (!pass) return;
-            
             document.getElementById('login-err').innerText = "";
             authKey = pass;
             
@@ -150,37 +179,26 @@
             document.getElementById('admin-pass').value = '';
         }
 
-        async function loadRequests() {
+            
             try {
-                // MOCK DATA APENAS PARA DEMONSTRAÇÃO VISUAL ATÉ A API ESTAR NO AR
-                if (API_URL.includes("seunome")) {
-                    renderTable([
-                        { id: 1, title: "Zelda Ocarina of Time Port", description: "O port está perfeito e não tá no site!", link: "https://github.com/zelda", created_at: "2026-07-21" },
-                        { id: 2, title: "Dead Space Mobile", description: "Lançou ontem o port de android", link: "https://vitadb.com", created_at: "2026-07-20" }
-                    ]);
-                    document.getElementById('login-screen').classList.add('hidden');
-                    document.getElementById('dashboard-screen').classList.remove('hidden');
-                    return;
-                }
-
                 const res = await fetch(`${API_URL}/api/admin/requests`, {
-                    headers: { "Authorization": authKey }
+                    headers: { "Authorization": token }
                 });
 
                 if (res.status === 401) {
-                    document.getElementById('login-err').innerText = "Senha incorreta.";
+                    document.getElementById('login-err').innerText = "Acesso negado. Senha incorreta ou sem permissão de Admin.";
                     return;
                 }
-                
                 if (!res.ok) throw new Error("Erro ao carregar");
                 
                 const data = await res.json();
-                renderTable(data);
-
+                
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('dashboard-screen').classList.remove('hidden');
+                
+                renderTable(data);
             } catch (e) {
-                document.getElementById('login-err').innerText = "Erro de conexão com o banco de dados D1.";
+                document.getElementById('login-err').innerText = "Erro de conexão com a API ou D1.";
             }
         }
 
@@ -199,7 +217,7 @@
             requests.forEach(req => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td style="font-weight:bold; color:var(--text-main);">${req.title}</td>
+                    <td style="font-weight:bold; color:var(--text-main);">${req.title}<br><span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);"><i class="fa-solid fa-user"></i> ${req.user_name || 'Anônimo'}</span></td>
                     <td style="color:var(--text-muted); font-size:0.9rem; max-width: 300px;">${req.description || '-'}</td>
                     <td>${req.link ? `<a href="${req.link}" target="_blank" style="color:var(--accent-green); text-decoration:none;"><i class="fa-solid fa-link"></i> Abrir Link</a>` : '-'}</td>
                     <td style="color:var(--text-muted); font-size:0.85rem;">${req.created_at ? req.created_at.substring(0,10) : ''}</td>
