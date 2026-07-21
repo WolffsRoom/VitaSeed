@@ -152,6 +152,43 @@
     <!-- Scripts -->
     <script src="js/api.js?v=2"></script>
     <script src="js/theme.js?v=2"></script>
+
+    <!-- Modal Utility (main.js não é carregado nesta página) -->
+    <script>
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('show');
+        }
+        function sendRequest() {
+            const title = document.getElementById('req-title').value.trim();
+            const msgBox = document.getElementById('req-msg');
+            if (!title) {
+                msgBox.style.color = '#ff4d4d';
+                msgBox.innerText = 'Por favor, informe o nome do projeto.';
+                return;
+            }
+            const today = new Date().toISOString().split('T')[0];
+            const key = `vitaseed_requests_${today}`;
+            let requestsToday = parseInt(localStorage.getItem(key) || '0');
+            if (requestsToday >= 2) {
+                msgBox.style.color = '#ff4d4d';
+                msgBox.innerText = 'Limite de 2 envios por dia atingido.';
+                return;
+            }
+            localStorage.setItem(key, (requestsToday + 1).toString());
+            msgBox.style.color = 'var(--accent-green)';
+            msgBox.innerText = 'Request enviado com sucesso!';
+            document.getElementById('req-title').value = '';
+            document.getElementById('req-link').value = '';
+            document.getElementById('req-desc').value = '';
+            setTimeout(() => { closeModal('modal-request'); msgBox.innerText = ''; }, 2000);
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal.show').forEach(m => m.classList.remove('show'));
+            }
+        });
+    </script>
+
     <script>
         document.addEventListener("DOMContentLoaded", async () => {
 
