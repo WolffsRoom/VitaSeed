@@ -15,6 +15,11 @@ CREATE TABLE requests (
 CREATE TABLE IF NOT EXISTS users (
   email TEXT PRIMARY KEY,
   role TEXT DEFAULT 'viteiro',
+  display_name TEXT,
+  avatar_url TEXT,
+  languages TEXT,
+  website TEXT,
+  donation_links TEXT,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
