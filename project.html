@@ -6,7 +6,7 @@
     <title>Project Details - VitaSeed by Wolff</title>
     <meta name="description" content="Repositório brasileiro de jogos, ports, ferramentas, mods e traduções para PSVita.">
     <link rel="icon" href="seed.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="css/style.css?v=24">
+    <link rel="stylesheet" href="css/style.css?v=26">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
         .project-header {
@@ -422,6 +422,7 @@
 
                 const bannerUrl = proj.bannerUrl || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400';
                 document.getElementById('proj-header-banner').style.backgroundImage = `url('${bannerUrl}')`;
+                document.getElementById('proj-header-banner').style.backgroundPosition = proj.bgPosition || 'center bottom';
 
                 // Badges
                 let badgesHtml = `<span class="tag" style="background:var(--accent-green); color:#000;">${proj.category}</span>`;
