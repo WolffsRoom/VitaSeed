@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 // Modal Request Logic
-const API_URL = "https://vitaseed-api.seunome.workers.dev"; // A SER SUBSTITUIDO
+const API_URL = "https://vitaseed-api.9h9rnjjcrf.workers.dev"; // URL da API de Produção
 
 async function sendRequest() {
     const title = document.getElementById('req-title').value.trim();
