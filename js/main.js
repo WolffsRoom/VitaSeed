@@ -76,9 +76,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             let tagClass = proj.category.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             let badgesHtml = `<span class="tag ${tagClass}">${proj.category}</span>`;
             
-            if (proj.ai_used || proj.vibecoded) {
-                badgesHtml += `<span class="tag" style="background:var(--bg-main); border:1px solid var(--border-color);" title="Utiliza IA">IA</span>`;
-            }
+            
 
             const bannerUrl = proj.bannerUrl || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400';
 
@@ -89,10 +87,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                         ${badgesHtml}
                     </div>
                     <h3 class="card-title">${proj.title}</h3>
-                    <div class="card-meta">
-                        <span>v1.0</span>
-                        <span>${proj.responsibles}</span>
-                    </div>
+                    <div class="card-meta" style="display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: center; color: var(--text-muted); font-size: 0.75rem; margin-top: auto; padding-top: 0.5rem;">
+                            <span style="display: flex; align-items: center; gap: 0.3rem;"><i class="ph ph-user"></i> ${proj.responsibles}</span>
+                            ${proj.version ? `<span style="display: flex; align-items: center; gap: 0.3rem;"><i class="ph ph-tag"></i> v${proj.version}</span>` : ''}
+                            ${proj.update_date ? `<span style="display: flex; align-items: center; gap: 0.3rem;"><i class="ph ph-calendar-blank"></i> ${proj.update_date}</span>` : ''}
+                        </div>
                 </div>
             `;
             grid.appendChild(card);

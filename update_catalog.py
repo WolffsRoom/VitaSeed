@@ -1,34 +1,33 @@
 import json
-import random
-from datetime import datetime, timedelta
+import os
 
-def random_date(start_year=2023):
-    start = datetime(start_year, 1, 1)
-    end = datetime.now()
-    delta = end - start
-    random_days = random.randrange(delta.days)
-    return start + timedelta(days=random_days)
+catalog_path = 'api/catalog.json'
 
-with open('api/catalog.json', 'r', encoding='utf-8') as f:
-    data = json.load(f)
+with open(catalog_path, 'r', encoding='utf-8') as f:
+    catalog = json.load(f)
 
-for proj in data['projects']:
-    if 'downloads' not in proj:
-        proj['downloads'] = random.randint(150, 25000)
-    if 'publish_date' not in proj:
-        proj['publish_date'] = random_date().strftime('%d/%m/%Y')
-    if 'update_date' not in proj:
-        # Update is after publish
-        pub = datetime.strptime(proj['publish_date'], '%d/%m/%Y')
-        end = datetime.now()
-        delta = end - pub
-        if delta.days > 0:
-            random_days = random.randrange(delta.days)
-            proj['update_date'] = (pub + timedelta(days=random_days)).strftime('%d/%m/%Y')
-        else:
-            proj['update_date'] = proj['publish_date']
-    if 'support_link' not in proj:
-        proj['support_link'] = "https://ko-fi.com/wolffsroom"
-
-with open('api/catalog.json', 'w', encoding='utf-8') as f:
-    json.dump(data, f, indent=2, ensure_ascii=False)
+# Check if Deltarune is already in catalog
+if not any(p.get('id') == 222 for p in catalog.get('projects', [])):
+    new_project = {
+        "id": 222,
+        "title": "Deltarune (Chapters 1 to 5)",
+        "category": "Ports",
+        "ai_used": False,
+        "vibecoded": False,
+        "responsibles": "Wolff",
+        "description": "Deltarune (Chapters 1 to 5) Port to PSVita.",
+        "install_instructions": "1. Baixe o VPK.\n2. Instale via VitaShell.\n3. Divirta-se!",
+        "bannerUrl": "https://github.com/WolffsRoom/DeltaruneVita/raw/main/assets/banner.jpg",  # Assuming banner exists
+        "screenshots": [
+            "https://github.com/WolffsRoom/DeltaruneVita/raw/main/assets/screen1.jpg",
+            "https://github.com/WolffsRoom/DeltaruneVita/raw/main/assets/screen2.jpg"
+        ],
+        "source_link": "https://github.com/WolffsRoom/DeltaruneVita",
+        "publish_date": "21/07/2026",
+        "update_date": "21/07/2026",
+        "downloads": 0,
+        "support_link": "https://ko-fi.com/wolff"
+    }
+    catalog['projects'].append(new_project)
+    with open(catalog_path, 'w', encoding='utf-8') as f:
+        json.dump(catalog, f, indent=4, ensure_ascii=False)

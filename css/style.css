@@ -293,15 +293,15 @@ main {
 .card {
     background-color: var(--bg-card);
     border-radius: 12px;
-    overflow: hidden;
+    
     border: 1px solid var(--card-border);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     text-decoration: none;
     color: inherit;
     display: block;
-    opacity: 0;
-    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    opacity: 1;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards;
 }
 .card:hover {
     border-color: var(--accent-green);
@@ -493,16 +493,7 @@ main {
     text-transform: uppercase;
 }
 
-.nav-links li a.active {
-    color: #000;
-    background: var(--accent-green);
-    box-shadow: 0 4px 15px rgba(0, 230, 118, 0.4);
-    font-weight: 700;
-}
 
-.nav-links li a.active i {
-    color: #000;
-}
 
 /* --- Apple TV UI Styles --- */
 .apple-section {
@@ -521,7 +512,7 @@ main {
 .hero-card {
     position: relative;
     width: 100%;
-    height: 400px;
+    height: 480px;
     border-radius: 16px;
     overflow: hidden;
     display: flex;
@@ -529,7 +520,7 @@ main {
     text-decoration: none;
     color: #fff;
     background-size: cover;
-    background-position: center 20%;
+    background-position: center 0%;
     transform-style: preserve-3d;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     transition: transform 0.3s ease;
@@ -725,4 +716,121 @@ main {
 .support-panel {
     background: linear-gradient(135deg, rgba(0, 230, 118, 0.1), rgba(0,0,0,0));
     border-left: 4px solid var(--accent-green);
+}
+
+/* Fix Settings Active State */
+.sidebar-footer ul li a.active {
+    color: var(--accent-green);
+    background: rgba(0, 230, 118, 0.1);
+}
+
+/* Fix Filter Options Styling */
+.filter-select option {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+[data-theme="light"] .filter-select option {
+    background-color: #ffffff;
+    color: #000000;
+}
+[data-theme="sony"] .filter-select option {
+    background-color: #003399;
+    color: #ffffff;
+}
+
+/* Fix 3D Apple Effect on normal cards */
+.card {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+.card-content {
+    transform: translateZ(20px);
+}
+.card-banner {
+    transform: translateZ(10px);
+}
+
+/* Ensure banner doesn't spill over card borders */
+.card-banner {
+    border-radius: 12px 12px 0 0;
+}
+.card-content {
+    border-radius: 0 0 12px 12px;
+}
+
+/* Fix footer sticking to bottom */
+.content-wrapper { display: flex; flex-direction: column; min-height: 100vh; }
+.content-wrapper main { flex: 1; }
+
+/* Markdown Styles for Install Text */
+#install-text ul, #install-text ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+#install-text li {
+    margin-bottom: 0.5rem;
+}
+#install-text p {
+    margin-bottom: 1rem;
+}
+#install-text code {
+    background: rgba(128, 128, 128, 0.2);
+    padding: 0.1rem 0.3rem;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.9em;
+}
+#install-text pre {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    overflow-x: auto;
+}
+#install-text pre code {
+    background: transparent;
+    padding: 0;
+}
+#install-text a {
+    color: var(--accent-green);
+    text-decoration: none;
+    font-weight: 500;
+}
+#install-text a:hover {
+    text-decoration: underline;
+}
+#install-text h1, #install-text h2, #install-text h3, #install-text h4 {
+    color: var(--text-main);
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Project Header Banner */
+.project-header {
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    border: 1px solid var(--card-border);
+}
+
+.project-header::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 80%;
+    background: linear-gradient(to top, rgba(14, 14, 14, 1) 0%, rgba(14, 14, 14, 0) 100%);
+    pointer-events: none;
+}
+
+.project-header-content {
+    position: relative;
+    padding: 2rem;
+    width: 100%;
+    z-index: 2;
 }
