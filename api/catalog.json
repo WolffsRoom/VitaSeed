@@ -179,7 +179,7 @@
         {
             "id": 8,
             "title": "GreenVita",
-            "category": "Tools",
+            "category": "Apps",
             "responsibles": "DayOS",
             "description": "Ferramenta essencial para gerenciamento do console.",
             "warnings": "Não execute durante atualizações do sistema.",
@@ -195,7 +195,7 @@
         {
             "id": 9,
             "title": "DSVita",
-            "category": "Tools",
+            "category": "Apps",
             "responsibles": "Grarak",
             "description": "Emulador para outra plataforma.",
             "warnings": "Bios necessárias.",
