@@ -1,5 +1,5 @@
 // theme.js
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     // 0. Loader hide logic
     const loader = document.getElementById('loader');
     if (loader) {
@@ -24,14 +24,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Extract Dev Filter Logic if it exists
     const devFilter = document.getElementById('dev-filter');
-    if (devFilter && typeof projectsData !== 'undefined') {
-        const devs = new Set();
-        projectsData.forEach(p => devs.add(p.responsibles));
-        devs.forEach(dev => {
-            const opt = document.createElement('option');
-            opt.value = dev;
-            opt.innerText = dev;
-            devFilter.appendChild(opt);
-        });
+    if (devFilter) {
+        let pData = window.projectsData;
+        if (!pData && window.fetchCatalog) {
+            pData = await window.fetchCatalog();
+        }
+        if (pData) {
+            const devs = new Set();
+            pData.forEach(p => devs.add(p.responsibles));
+            devs.forEach(dev => {
+                const opt = document.createElement('option');
+                opt.value = dev;
+                opt.innerText = dev;
+                devFilter.appendChild(opt);
+            });
+        }
     }
 });

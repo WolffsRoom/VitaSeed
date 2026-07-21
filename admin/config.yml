@@ -1,0 +1,42 @@
+backend:
+  name: github
+  repo: WolffsRoom/VitaSeed
+  branch: main
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+locale: pt_BR
+logo_url: "https://wolffsroom.github.io/VitaSeed/seed.svg"
+
+collections:
+  - name: "catalog"
+    label: "Catálogo de Projetos"
+    files:
+      - label: "Banco de Dados de Jogos/Ports"
+        name: "projects_db"
+        file: "api/catalog.json"
+        fields:
+          - label: "Projetos"
+            name: "projects"
+            widget: "list"
+            fields:
+              - { label: "ID Numérico", name: "id", widget: "number" }
+              - { label: "Título do Projeto", name: "title", widget: "string" }
+              - { label: "Categoria", name: "category", widget: "select", options: ["Ports", "Original games", "Mods", "Translations", "Tools"] }
+              - { label: "Desenvolvedor(es)", name: "responsibles", widget: "string" }
+              - { label: "Descrição", name: "description", widget: "text" }
+              - { label: "Avisos (Opcional)", name: "warnings", widget: "string", required: false }
+              - { label: "Link do GitHub/Source", name: "source_link", widget: "string" }
+              - { label: "URL do Banner", name: "bannerUrl", widget: "string" }
+              - { label: "URL do Vídeo (Opcional)", name: "videoUrl", widget: "string", required: false }
+              - { label: "Screenshots", name: "screenshots", widget: "list", required: false, field: {label: "URL da Imagem", name: "url", widget: "string"} }
+              - { label: "Instruções de Instalação", name: "install_instructions", widget: "text", required: false }
+              - { label: "Usa IA?", name: "ai_used", widget: "boolean", default: false }
+              - label: "Detalhes de IA (Opcional)"
+                name: "ai_details"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Nome da IA", name: "name", widget: "string", required: false }
+                  - { label: "Motivo", name: "reason", widget: "string", required: false }
+                  - { label: "Ação", name: "action", widget: "string", required: false }
+              - { label: "100% Vibecoded?", name: "vibecoded", widget: "boolean", default: false }

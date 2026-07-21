@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     // ---- DOM Elements ----
     const grid = document.getElementById('project-grid');
     const loader = document.getElementById('loader');
@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const devFilter = document.getElementById('dev-filter');
 
     // ---- Initialization ----
-    if (grid && typeof projectsData !== 'undefined') {
+    const projectsData = await window.fetchCatalog();
+    if (grid && projectsData) {
         renderProjects(projectsData);
     }
 
@@ -54,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const cat = catFilter ? catFilter.value : 'all';
         const dev = devFilter ? devFilter.value : 'all';
         
-        const filtered = projectsData.filter(p => {
+        const filtered = window.projectsData.filter(p => {
             const matchesSearch = p.title.toLowerCase().includes(search) || p.responsibles.toLowerCase().includes(search);
             const matchesCat = cat === 'all' || p.category === cat;
             const matchesDev = dev === 'all' || p.responsibles === dev;

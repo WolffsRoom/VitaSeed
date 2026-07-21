@@ -6,7 +6,7 @@
     <title>Register - VitaSeed by Wolff</title>
     <link rel="icon" href="seed.svg" type="image/svg+xml">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
         body {
             margin: 0;
@@ -222,6 +222,7 @@
             outline: none;
         }
     </style>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body>
     
@@ -237,7 +238,7 @@
         </div>
 
         <div class="auth-form-container">
-            <a href="index.html" class="btn-back">Menu Principal <i class="fas fa-arrow-right"></i></a>
+            <a href="index.html" class="btn-back">Menu Principal <i class="ph ph-arrow-right"></i></a>
             
             <div class="auth-header">
                 <div class="seed-icon"></div>
@@ -253,7 +254,7 @@
                 <div class="form-group">
                     <label>Nome de Usuário / Dev</label>
                     <div class="form-input-wrapper">
-                        <i class="fas fa-user-tag"></i>
+                        <i class="ph ph-user-tag"></i>
                         <input type="text" placeholder="Como você é conhecido" required />
                     </div>
                 </div>
@@ -261,7 +262,7 @@
                 <div class="form-group">
                     <label>E-mail (Para ativação)</label>
                     <div class="form-input-wrapper">
-                        <i class="fas fa-envelope"></i>
+                        <i class="ph ph-envelope"></i>
                         <input type="email" id="user-email" placeholder="dev@exemplo.com" required />
                     </div>
                 </div>
@@ -269,7 +270,7 @@
                 <div class="form-group">
                     <label>Foto de Perfil (Opcional)</label>
                     <div class="form-input-wrapper">
-                        <i class="fas fa-upload"></i>
+                        <i class="ph ph-upload-simple"></i>
                         <input type="file" accept="image/*" style="padding-top: 0.75rem;" />
                     </div>
                 </div>
@@ -277,7 +278,7 @@
                 <div class="form-group">
                     <label>Senha</label>
                     <div class="form-input-wrapper">
-                        <i class="fas fa-lock"></i>
+                        <i class="ph ph-lock"></i>
                         <input type="password" placeholder="••••••••" required />
                     </div>
                 </div>
@@ -285,13 +286,13 @@
                 <div class="form-group">
                     <label>Confirmar Senha</label>
                     <div class="form-input-wrapper">
-                        <i class="fas fa-lock"></i>
+                        <i class="ph ph-lock"></i>
                         <input type="password" placeholder="••••••••" required />
                     </div>
                 </div>
                 
                 <button type="submit" class="btn-primary btn-auth">
-                    Avançar <i class="fas fa-arrow-right"></i>
+                    Avançar <i class="ph ph-arrow-right"></i>
                 </button>
                 
                 <div class="auth-footer" id="login-footer">
@@ -314,7 +315,7 @@
                 </div>
                 
                 <button type="submit" class="btn-primary btn-auth">
-                    Ativar Conta <i class="fas fa-check-circle"></i>
+                    Ativar Conta <i class="ph ph-check-circle"></i>
                 </button>
                 
                 <div class="auth-footer" style="margin-top: 1rem;">

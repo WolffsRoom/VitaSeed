@@ -6,7 +6,7 @@
     <title>Project Details - VitaSeed by Wolff</title>
     <link rel="icon" href="seed.svg" type="image/svg+xml">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
         .project-header {
             width: 100%;
@@ -85,6 +85,7 @@
             gap: 0.5rem;
         }
     </style>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body>
     <div class="mobile-header">
@@ -127,22 +128,22 @@
                 </div>
 
                 <div class="section-box">
-                    <h3><i class="fas fa-info-circle"></i> Descrição</h3>
+                    <h3><i class="ph ph-info"></i> Descrição</h3>
                     <p id="proj-desc" style="color: var(--text-main); line-height: 1.6;"></p>
                     
                     <div class="action-bar">
-                        <a id="btn-download" href="#" class="btn-primary"><i class="fas fa-download"></i> Download VPK</a>
-                        <a id="btn-source" href="#" class="btn-secondary" target="_blank"><i class="fab fa-github"></i> Source Code</a>
+                        <a id="btn-download" href="#" class="btn-primary"><i class="ph ph-download-simple"></i> Download VPK</a>
+                        <a id="btn-source" href="#" class="btn-secondary" target="_blank"><i class="ph ph-github-logo"></i> Source Code</a>
                     </div>
                 </div>
 
                 <div id="media-section" class="section-box hidden">
-                    <h3><i class="fas fa-photo-video"></i> Mídia (Prints & Vídeos)</h3>
+                    <h3><i class="ph ph-image"></i> Mídia (Prints & Vídeos)</h3>
                     <div id="media-container" class="media-grid"></div>
                 </div>
 
                 <div id="install-section" class="section-box hidden">
-                    <h3><i class="fas fa-wrench"></i> Instruções de Instalação</h3>
+                    <h3><i class="ph ph-wrench"></i> Instruções de Instalação</h3>
                     <p id="install-text" style="color: var(--text-muted); line-height: 1.6; white-space: pre-line;"></p>
                 </div>
 
@@ -150,11 +151,12 @@
         </main>
     </div>
 
-    <script src="js/data.js"></script>
+    <script src="js/api.js"></script>
     <script src="js/theme.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener("DOMContentLoaded", async () => {
             const params = new URLSearchParams(window.location.search);
+            const projectsData = await window.fetchCatalog();
             const id = parseInt(params.get('id'));
             const proj = projectsData.find(p => p.id === id);
             
@@ -169,7 +171,7 @@
 
                 // Badges
                 let badgesHtml = `<span class="tag" style="background:var(--accent-green); color:#000;">${proj.category}</span>`;
-                badgesHtml += `<span class="tag" style="background:var(--bg-main); border:1px solid var(--border-color); color:var(--text-muted);"><i class="fas fa-user"></i> ${proj.responsibles}</span>`;
+                badgesHtml += `<span class="tag" style="background:var(--bg-main); border:1px solid var(--border-color); color:var(--text-muted);"><i class="ph ph-user"></i> ${proj.responsibles}</span>`;
                 if (proj.ai_used || proj.vibecoded) {
                     badgesHtml += `<span class="tag" style="background:var(--bg-main); border:1px solid var(--border-color);" title="Utiliza IA">IA</span>`;
                 }

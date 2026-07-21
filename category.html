@@ -6,6 +6,7 @@
     <title>Category - VitaSeed by Wolff</title>
     <link rel="icon" href="seed.svg" type="image/svg+xml">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body>
     <div class="mobile-header">
@@ -43,11 +44,12 @@
         </main>
     </div>
 
-    <script src="js/data.js"></script>
+    <script src="js/api.js"></script>
     <script src="js/theme.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             const params = new URLSearchParams(window.location.search);
+            const projectsData = await window.fetchCatalog();
             const cat = params.get('cat') || '';
             document.getElementById('cat-title').innerText = cat.toUpperCase();
             
