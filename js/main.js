@@ -58,6 +58,37 @@ document.addEventListener("DOMContentLoaded", async () => {
                         </a>
                     `;
                 });
+                
+                // Scroll Logic
+                const scrollLeftBtn = document.querySelector('.scroll-left');
+                const scrollRightBtn = document.querySelector('.scroll-right');
+                if(scrollLeftBtn && scrollRightBtn) {
+                    scrollRightBtn.addEventListener('click', () => {
+                        const maxScrollLeft = top10Container.scrollWidth - top10Container.clientWidth;
+                        if (top10Container.scrollLeft >= maxScrollLeft - 10) {
+                            top10Container.scrollTo({ left: 0, behavior: 'smooth' });
+                        } else {
+                            top10Container.scrollBy({ left: 300, behavior: 'smooth' });
+                        }
+                    });
+
+                    scrollLeftBtn.addEventListener('click', () => {
+                        if (top10Container.scrollLeft <= 10) {
+                            const maxScrollLeft = top10Container.scrollWidth - top10Container.clientWidth;
+                            top10Container.scrollTo({ left: maxScrollLeft, behavior: 'smooth' });
+                        } else {
+                            top10Container.scrollBy({ left: -300, behavior: 'smooth' });
+                        }
+                    });
+                    
+                    top10Container.addEventListener('scroll', () => {
+                        if (top10Container.scrollLeft > 10) {
+                            top10Container.classList.add('scrolled');
+                        } else {
+                            top10Container.classList.remove('scrolled');
+                        }
+                    });
+                }
             }
             
             // O catálogo completo exibe do 2º em diante (ou todos) para não parecer vazio
