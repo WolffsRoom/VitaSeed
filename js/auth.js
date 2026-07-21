@@ -157,9 +157,12 @@ async function fetchUserProfile() {
                 const adminBtn = document.getElementById('menu-admin-publish');
                 if (adminBtn) adminBtn.classList.remove('hidden');
             }
+        } else {
+            userProfileData = {};
         }
     } catch (e) {
         console.error('Erro ao buscar perfil', e);
+        userProfileData = {};
     }
 }
 

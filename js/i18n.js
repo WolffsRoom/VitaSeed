@@ -86,4 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
     applyTranslations();
     const select = document.getElementById('settings-lang-select');
     if (select) select.value = currentLang;
+    const selectMain = document.getElementById('settings-lang-select-main');
+    if (selectMain) selectMain.value = currentLang;
 });

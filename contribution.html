@@ -55,7 +55,7 @@
             </div>
             
             <ul class="nav-links">
-                <li><a href="index.html" data-page="index"><span>HOME</span></a></li>
+                <li><a href="index.html" data-page="index"><span data-i18n="menu_home">HOME</span></a></li>
                 
                 
                 
@@ -69,7 +69,7 @@
                 <li><a href="category.html?cat=Plugin" data-page="plugins"><span>PLUGINS</span></a></li>
                 
                 <li class="nav-section">COMUNIDADE</li>
-                <li><a href="contribution.html" data-page="contribution"><span>COLABORAÇÕES</span></a></li>
+                <li><a href="contribution.html" data-page="contribution"><span data-i18n="menu_colab">COLABORAÇÕES</span></a></li>
                 <li><a href="https://zealouschuck.com/ps-vita-bounty" target="_blank"><span>RECOMPENSAS <i class="ph ph-arrow-up-right" style="font-size: 0.8em; margin-left: 4px; opacity: 0.5;"></i></span></a></li>
                 
                 <li class="nav-section">CENA PSVITA</li>
@@ -96,11 +96,11 @@
         
         <header style="display: flex; gap: 1rem; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 2rem;">
             <div style="display: flex; gap: 1rem; flex: 1; min-width: 200px;">
-                <input type="text" id="search-input" class="search-bar" placeholder="Buscar por título ou responsável..." style="flex: 1;">
+                <input type="text" id="search-input" class="search-bar" placeholder="Buscar por título ou responsável..." data-i18n="search_placeholder" style="flex: 1;">
             </div>
             <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
                 <select id="category-filter" class="filter-select">
-                    <option value="all">Todas as Categorias</option>
+                    <option value="all" data-i18n="filter_all">Todas as Categorias</option>
                     <option value="Ports">Ports</option>
                     <option value="Original games">Original games</option>
                     <option value="Mods">Mods</option>
@@ -110,7 +110,7 @@
                     <option value="Plugin">Plugins</option>
                     <option value="PC Tools">PC Tools</option>
                 </select>
-                <button id="btn-about" class="btn-icon" style="background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.6rem 1rem; border-radius: 8px; cursor: pointer; transition: 0.2s;" onmouseover="this.style.background='var(--hover-bg)'" onmouseout="this.style.background='var(--bg-card)'" title="Sobre o VitaSeed" onclick="document.getElementById('modal-about').classList.add('show')"><i class="fa-solid fa-question"></i></button>
+                <button id="btn-about" class="btn-icon" style="background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.6rem 1rem; border-radius: 8px; cursor: pointer; transition: 0.2s;" onmouseover="this.style.background='var(--hover-bg)'" onmouseout="this.style.background='var(--bg-card)'" title="Sobre o VitaSeed" data-i18n="about_title" onclick="document.getElementById('modal-about').classList.add('show')"><i class="fa-solid fa-question"></i></button>
                 <button id="btn-request" class="btn-primary" onclick="handleRequestButtonClick(event)"><i class="ph ph-paper-plane-tilt"></i> Request</button>
 
                 <div id="user-profile-dropdown" class="profile-dropdown hidden" style="margin-left: 0.5rem;">
@@ -123,7 +123,7 @@
                           <a href="#" onclick="openProfileModal(); return false;" data-i18n="profile_edit"><i class="fa-solid fa-pen-to-square"></i> Editar Perfil</a>
                           <a href="#" onclick="filterUserProjects(); return false;" data-i18n="profile_projects"><i class="fa-solid fa-folder"></i> Meus Projetos</a>
                           <a href="#" id="menu-admin-publish" class="hidden" onclick="document.getElementById('modal-publish').classList.add('show'); return false;"><i class="fa-solid fa-upload"></i> Aprovar Publicação</a>
-                          <a href="#" onclick="openSettingsModal(); return false;" data-i18n="profile_settings"><i class="fa-solid fa-gear"></i> Configurações</a>
+                          <a href="settings.html" data-i18n="profile_settings"><i class="fa-solid fa-gear"></i> Configurações</a>
                           <hr>
                           <button onclick="logout()" data-i18n="profile_logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</button>
                       </div>
