@@ -1,24 +1,26 @@
 // JS para gerenciar a Autenticação com Firebase
 // IMPORTANTE: O usuário deve substituir essa configuração pelas credenciais do seu projeto Firebase.
 const firebaseConfig = {
-    apiKey: "Sua_API_Key_Aqui",
-    authDomain: "seu-projeto.firebaseapp.com",
-    projectId: "seu-projeto",
-    storageBucket: "seu-projeto.firebasestorage.app",
-    messagingSenderId: "123456789",
-    appId: "1:123456789:web:abcdef"
+  apiKey: "AIzaSyD5dyoPLWh5mav-qtdW5FNgreBJVGOcGYI",
+  authDomain: "vitaseed.firebaseapp.com",
+  projectId: "vitaseed",
+  storageBucket: "vitaseed.firebasestorage.app",
+  messagingSenderId: "263996368866",
+  appId: "1:263996368866:web:d8661f2d7679523a303bbb",
+  measurementId: "G-WQSEM2JV93"
 };
-
 // Se as chaves não foram preenchidas, não inicializa para evitar erros
 let auth = null;
-let provider = null;
+let googleProvider = null;
+let githubProvider = null;
 let currentUser = null;
 
 if (firebaseConfig.apiKey !== "Sua_API_Key_Aqui") {
     // Inicializar Firebase
     const app = firebase.initializeApp(firebaseConfig);
     auth = firebase.auth();
-    provider = new firebase.auth.GoogleAuthProvider();
+    googleProvider = new firebase.auth.GoogleAuthProvider();
+    githubProvider = new firebase.auth.GithubAuthProvider();
 
     auth.onAuthStateChanged((user) => {
         currentUser = user;
@@ -34,7 +36,7 @@ function updateAuthUI(user) {
         if (loginBtn) loginBtn.classList.add('hidden');
         if (userProfile) {
             userProfile.classList.remove('hidden');
-            userProfile.innerHTML = `<img src="${user.photoURL}" alt="Avatar" style="width:32px; height:32px; border-radius:50%; border:2px solid var(--accent-green); cursor:pointer;" onclick="logout()" title="Clique para sair">`;
+            userProfile.innerHTML = `<img src="${user.photoURL || 'https://via.placeholder.com/32'}" alt="Avatar" style="width:32px; height:32px; border-radius:50%; border:2px solid var(--accent-green); cursor:pointer;" onclick="logout()" title="Clique para sair">`;
         }
     } else {
         if (loginBtn) loginBtn.classList.remove('hidden');
@@ -48,10 +50,24 @@ async function loginWithGoogle() {
         return;
     }
     try {
-        await auth.signInWithPopup(provider);
+        await auth.signInWithPopup(googleProvider);
         closeModal('modal-login');
     } catch (error) {
         console.error("Erro ao fazer login:", error);
+        alert("Erro ao fazer login. Tente novamente.");
+    }
+}
+
+async function loginWithGitHub() {
+    if (!auth) {
+        alert("Firebase não configurado. Por favor, adicione suas credenciais no js/auth.js");
+        return;
+    }
+    try {
+        await auth.signInWithPopup(githubProvider);
+        closeModal('modal-login');
+    } catch (error) {
+        console.error("Erro ao fazer login com GitHub:", error);
         alert("Erro ao fazer login. Tente novamente.");
     }
 }
