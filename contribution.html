@@ -94,6 +94,16 @@
 
     <!-- Main Content -->
     <div class="content-wrapper">
+        <!-- Top Right Auth Bar -->
+        <div id="top-right-profile" style="position: absolute; top: 1.5rem; right: 2rem; display: flex; align-items: center; gap: 1rem; z-index: 100;">
+            <button id="tr-login-btn" class="btn-secondary" onclick="document.getElementById('modal-login').classList.add('show')" style="padding: 0.4rem 1rem; font-size: 0.85rem;">
+                <i class="fa-solid fa-right-to-bracket"></i> Entrar
+            </button>
+            <div id="tr-user-avatar" class="hidden" style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted); font-size: 0.85rem; background: var(--bg-card); padding: 0.3rem 0.8rem 0.3rem 0.3rem; border-radius: 50px; border: 1px solid var(--border-color);">
+                <!-- Avatar image here -->
+            </div>
+        </div>
+
         
 
         
@@ -114,7 +124,7 @@
                     <option value="PC Tools">PC Tools</option>
                 </select>
                 <button id="btn-about" class="btn-icon" style="background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.6rem 1rem; border-radius: 8px; cursor: pointer; transition: 0.2s;" onmouseover="this.style.background='var(--hover-bg)'" onmouseout="this.style.background='var(--bg-card)'" title="Sobre o VitaSeed" onclick="document.getElementById('modal-about').classList.add('show')"><i class="fa-solid fa-question"></i></button>
-                <button id="btn-request" class="btn-primary" onclick="if(event.altKey) { window.location.href='admin.html'; } else { document.getElementById('modal-request').classList.add('show'); }"><i class="ph ph-paper-plane-tilt"></i> Request</button>
+                <button id="btn-request" class="btn-primary" onclick="handleRequestButtonClick(event)"><i class="ph ph-paper-plane-tilt"></i> Request</button>
             </div>
         </header>
 

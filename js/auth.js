@@ -31,16 +31,49 @@ if (firebaseConfig.apiKey !== "Sua_API_Key_Aqui") {
 function updateAuthUI(user) {
     const loginBtn = document.getElementById('login-btn');
     const userProfile = document.getElementById('user-profile');
+    const trLoginBtn = document.getElementById('tr-login-btn');
+    const trUserAvatar = document.getElementById('tr-user-avatar');
+    
+    // Atualizar botões de Request
+    const requestBtns = document.querySelectorAll('#btn-request');
     
     if (user) {
         if (loginBtn) loginBtn.classList.add('hidden');
+        if (trLoginBtn) trLoginBtn.classList.add('hidden');
+        
+        const avatarHtml = `<img src="${user.photoURL || 'https://via.placeholder.com/32'}" alt="Avatar" style="width:28px; height:28px; border-radius:50%; border:2px solid var(--accent-green); cursor:pointer;" onclick="logout()" title="Clique para sair">`;
+        
         if (userProfile) {
             userProfile.classList.remove('hidden');
-            userProfile.innerHTML = `<img src="${user.photoURL || 'https://via.placeholder.com/32'}" alt="Avatar" style="width:32px; height:32px; border-radius:50%; border:2px solid var(--accent-green); cursor:pointer;" onclick="logout()" title="Clique para sair">`;
+            userProfile.innerHTML = avatarHtml;
         }
+        
+        if (trUserAvatar) {
+            trUserAvatar.classList.remove('hidden');
+            trUserAvatar.innerHTML = avatarHtml + `<span>${user.displayName ? user.displayName.split(' ')[0] : 'Viteiro'}</span>`;
+        }
+        
+        // Destravar botões de Request
+        requestBtns.forEach(btn => {
+            btn.innerHTML = `<i class="ph ph-paper-plane-tilt"></i> Request`;
+            btn.classList.remove('btn-locked');
+            btn.style.opacity = '1';
+            btn.style.cursor = 'pointer';
+        });
+
     } else {
         if (loginBtn) loginBtn.classList.remove('hidden');
         if (userProfile) userProfile.classList.add('hidden');
+        if (trLoginBtn) trLoginBtn.classList.remove('hidden');
+        if (trUserAvatar) trUserAvatar.classList.add('hidden');
+        
+        // Travar botões de Request
+        requestBtns.forEach(btn => {
+            btn.innerHTML = `<i class="fa-solid fa-lock"></i> Entrar para Request`;
+            btn.classList.add('btn-locked');
+            btn.style.opacity = '0.5';
+            btn.style.cursor = 'not-allowed';
+        });
     }
 }
 
