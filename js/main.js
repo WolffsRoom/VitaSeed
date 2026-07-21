@@ -52,7 +52,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                             <div class="top10-number">${i + 1}</div>
                             <div class="top10-overlay">
                                 <div class="top10-title">${window.formatTitle(proj.title)}</div>
-                                <div class="top10-cat">${proj.category}</div>
+                                <div class="top10-cat" style="font-weight: bold;">${proj.category}</div>
+                                <div class="top10-resp" style="font-size: 0.8rem; margin-top: 4px; opacity: 0.8;"><i class="ph ph-user"></i> ${proj.responsibles}</div>
                             </div>
                         </a>
                     `;
