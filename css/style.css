@@ -523,7 +523,7 @@ main {
     text-decoration: none;
     color: #fff;
     background-size: cover;
-    background-position: center 20%;
+    background-position: center bottom;
     transform-style: preserve-3d;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     transition: transform 0.3s ease;
@@ -814,7 +814,7 @@ main {
 .project-header {
     height: 300px;
     background-size: cover;
-    background-position: center 20%;
+    background-position: center bottom;
     border-radius: 16px;
     margin-bottom: 2rem;
     position: relative;
