@@ -1,5 +1,5 @@
-// JS para gerenciar a AutenticaÃ§Ã£o com Firebase
-// IMPORTANTE: O usuÃ¡rio deve substituir essa configuraÃ§Ã£o pelas credenciais do seu projeto Firebase.
+// JS para gerenciar a Autenticação com Firebase
+// IMPORTANTE: O usuário deve substituir essa configuração pelas credenciais do seu projeto Firebase.
 const firebaseConfig = {
   apiKey: "AIzaSyD5dyoPLWh5mav-qtdW5FNgreBJVGOcGYI",
   authDomain: "vitaseed.firebaseapp.com",
@@ -9,7 +9,7 @@ const firebaseConfig = {
   appId: "1:263996368866:web:d8661f2d7679523a303bbb",
   measurementId: "G-WQSEM2JV93"
 };
-// Se as chaves nÃ£o foram preenchidas, nÃ£o inicializa para evitar erros
+// Se as chaves não foram preenchidas, não inicializa para evitar erros
 let auth = null;
 let googleProvider = null;
 let githubProvider = null;
@@ -35,7 +35,7 @@ function updateAuthUI(user) {
     const requestBtns = document.querySelectorAll('#btn-request');
     
     if (user) {
-        const avatarHtml = `<img src="${user.photoURL || 'https://via.placeholder.com/32'}" alt="Avatar" style="width:36px; height:36px; border-radius:50%; border:2px solid var(--accent-green); cursor:pointer;" onclick="toggleProfileMenu(event)" title="OpÃ§Ãµes da Conta">`;
+        const avatarHtml = `<img src="${user.photoURL || 'https://via.placeholder.com/32'}" alt="Avatar" style="width:36px; height:36px; border-radius:50%; border:2px solid var(--accent-green); cursor:pointer;" onclick="toggleProfileMenu(event)" title="Opções da Conta">`;
         
         dropdownContainers.forEach(container => {
             container.classList.remove('hidden');
@@ -53,7 +53,7 @@ function updateAuthUI(user) {
             if(menuEmail) menuEmail.innerText = user.email || '';
         });
         
-        // Destravar botÃµes de Request
+        // Destravar botões de Request
         requestBtns.forEach(btn => {
             btn.innerHTML = `<i class="ph ph-paper-plane-tilt"></i> Request`;
             btn.classList.remove('btn-locked');
@@ -64,7 +64,7 @@ function updateAuthUI(user) {
     } else {
         dropdownContainers.forEach(container => container.classList.add('hidden'));
         
-        // Travar botÃµes de Request
+        // Travar botões de Request
         requestBtns.forEach(btn => {
             btn.innerHTML = `<i class="fa-solid fa-right-to-bracket"></i> Login`;
             btn.classList.add('btn-locked');
@@ -94,7 +94,7 @@ document.addEventListener('click', (e) => {
 
 async function loginWithGoogle() {
     if (!auth) {
-        alert("Firebase nÃ£o configurado. Por favor, adicione suas credenciais no js/auth.js");
+        alert("Firebase não configurado. Por favor, adicione suas credenciais no js/auth.js");
         return;
     }
     try {
@@ -108,7 +108,7 @@ async function loginWithGoogle() {
 
 async function loginWithGitHub() {
     if (!auth) {
-        alert("Firebase nÃ£o configurado. Por favor, adicione suas credenciais no js/auth.js");
+        alert("Firebase não configurado. Por favor, adicione suas credenciais no js/auth.js");
         return;
     }
     try {
@@ -126,7 +126,7 @@ async function logout() {
     }
 }
 
-// Interceptar o botÃ£o de request
+// Interceptar o botão de request
 function handleRequestButtonClick(event) {
     if (event.altKey) {
         window.location.href = 'admin.html';
@@ -146,7 +146,7 @@ async function fetchUserProfile() {
     if (!currentUser) return;
     try {
         const token = await currentUser.getIdToken();
-        const res = await fetch(\\/api/user/profile\, {
+        const res = await fetch(`${API_URL}/api/user/profile`, {
             headers: { 'Authorization': 'Bearer ' + token }
         });
         if (res.ok) {
@@ -194,7 +194,7 @@ async function saveProfile() {
     
     try {
         const token = await currentUser.getIdToken();
-        const res = await fetch(\\/api/user/profile\, {
+        const res = await fetch(`${API_URL}/api/user/profile`, {
             method: 'PUT',
             headers: { 
                 'Authorization': 'Bearer ' + token,

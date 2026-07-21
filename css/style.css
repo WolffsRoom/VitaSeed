@@ -63,7 +63,7 @@ body {
 }
 
 [data-theme="sony"] body {
-    background-image: url('https://t2.tudocdn.net/388054?w=1920&h=1080');
+    background-image: url('../assets/sony_bg.jpg');
 }
 
 /* Glassmorphism elements */

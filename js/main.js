@@ -18,7 +18,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const devFilter = document.getElementById('dev-filter');
 
     // ---- Initialization ----
-    const projectsData = await window.fetchCatalog();
+    window.projectsData = await window.fetchCatalog();
+    const projectsData = window.projectsData;
     if (grid && projectsData) {
         renderProjects(projectsData);
     }
@@ -272,13 +273,13 @@ async function toggleFavorite(event, projectId) {
     event.stopPropagation();
     
     if (!currentUser || !userProfileData) {
-        alert('FaÃ§a login para favoritar.');
+        alert('Faça login para favoritar.');
         return;
     }
     
     try {
         const token = await currentUser.getIdToken();
-        const res = await fetch(\\/api/user/favorites\, {
+        const res = await fetch(`${API_URL}/api/user/favorites`, {
             method: 'POST',
             headers: { 
                 'Authorization': 'Bearer ' + token,
