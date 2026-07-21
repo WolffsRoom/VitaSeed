@@ -567,8 +567,10 @@ main {
     transition: mask-image 0.3s ease, -webkit-mask-image 0.3s ease;
     gap: 1.5rem;
     overflow-x: auto;
-    padding-top: 1rem;
+    padding-top: 1.5rem;
     padding-bottom: 2rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
 }
