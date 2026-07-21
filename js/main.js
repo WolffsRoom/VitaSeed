@@ -16,10 +16,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     function renderProjects(projects) {
         if (!grid) return;
         grid.innerHTML = '';
-        projects.forEach(proj => {
+        projects.forEach((proj, index) => {
             const card = document.createElement('a');
             card.href = `project.html?id=${proj.id}`; // Dedicated page
             card.className = 'card';
+            card.style.animationDelay = `${index * 0.05}s`;
             
             // Generate tags
             let tagClass = proj.category.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
