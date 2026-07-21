@@ -47,6 +47,17 @@ document.addEventListener("DOMContentLoaded", async () => {
             `;
             grid.appendChild(card);
         });
+        
+        // Inicializa animação 3D estilo Apple TV
+        if (typeof VanillaTilt !== 'undefined') {
+            VanillaTilt.init(document.querySelectorAll('.card'), {
+                max: 10,
+                speed: 400,
+                glare: true,
+                "max-glare": 0.15,
+                scale: 1.02
+            });
+        }
     }
 
     // ---- Event Listeners ----
