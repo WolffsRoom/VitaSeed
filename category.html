@@ -59,6 +59,25 @@
     </aside>
 
     <div class="content-wrapper">
+        <header style="display: flex; gap: 1rem; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 2rem;">
+            <div style="display: flex; gap: 1rem; flex: 1; min-width: 200px;">
+                <input type="text" id="search-input" class="search-bar" placeholder="Buscar por título ou responsável..." style="flex: 1;" oninput="if(window.location.pathname.indexOf('index')===-1&&this.value.length>0){window.location.href='index.html?q='+encodeURIComponent(this.value);}">
+            </div>
+            <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                <select id="category-filter" class="filter-select" onchange="if(this.value!=='all'){window.location.href='category.html?cat='+this.value;}">
+                    <option value="all">Todas as Categorias</option>
+                    <option value="Ports">Ports</option>
+                    <option value="Original games">Original games</option>
+                    <option value="Mods">Mods</option>
+                    <option value="Translations">Translations</option>
+                    <option value="Apps">Apps</option>
+                    <option value="Tools">Tools</option>
+                    <option value="Plugin">Plugins</option>
+                </select>
+                <button id="btn-about" class="btn-icon" style="background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.6rem 1rem; border-radius: 8px; cursor: pointer; transition: 0.2s;" onmouseover="this.style.background='var(--hover-bg)'" onmouseout="this.style.background='var(--bg-card)'" title="Sobre o VitaSeed" onclick="document.getElementById('modal-about').classList.add('show')"><i class="fa-solid fa-question"></i></button>
+                <button id="btn-request" class="btn-primary" onclick="document.getElementById('modal-request').classList.add('show')"><i class="ph ph-paper-plane-tilt"></i> Request</button>
+            </div>
+        </header>
         <main style="padding-top: 3rem;">
             <h2 id="cat-title" class="section-title">Category</h2>
             <div id="project-grid" class="grid"></div>
@@ -155,5 +174,29 @@
         </div>
     </div>
 
+    <script>
+        if (typeof closeModal === 'undefined') {
+            function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+            function sendRequest() {
+                const title = document.getElementById('req-title').value.trim();
+                const msgBox = document.getElementById('req-msg');
+                if (!title) { msgBox.style.color = '#ff4d4d'; msgBox.innerText = 'Informe o nome do projeto.'; return; }
+                const today = new Date().toISOString().split('T')[0];
+                const key = 'vitaseed_requests_' + today;
+                let n = parseInt(localStorage.getItem(key) || '0');
+                if (n >= 2) { msgBox.style.color = '#ff4d4d'; msgBox.innerText = 'Limite de 2 envios por dia atingido.'; return; }
+                localStorage.setItem(key, (n + 1).toString());
+                msgBox.style.color = 'var(--accent-green)';
+                msgBox.innerText = 'Request enviado com sucesso!';
+                document.getElementById('req-title').value = '';
+                document.getElementById('req-link').value = '';
+                document.getElementById('req-desc').value = '';
+                setTimeout(() => { closeModal('modal-request'); msgBox.innerText = ''; }, 2000);
+            }
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') document.querySelectorAll('.modal.show').forEach(m => m.classList.remove('show'));
+            });
+        }
+    </script>
 </body>
 </html>
