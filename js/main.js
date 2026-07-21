@@ -59,7 +59,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 });
             }
             
-            gridProjects = projects.slice(11);
+            // O catálogo completo exibe do 2º em diante (ou todos) para não parecer vazio
+            gridProjects = projects.slice(1);
         } else {
             if (heroSection) heroSection.innerHTML = '';
             if (top10Section) top10Section.style.display = 'none';
