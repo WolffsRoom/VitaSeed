@@ -2,7 +2,7 @@
     "projects": [
         {
             "id": 222,
-            "title": "Deltarune (Chapters 1 to 5)",
+            "title": "Deltarune <span style=\"font-weight: 400; font-size: 0.85em;\">(Chapters 1 to 5)</span>",
             "category": "Ports",
             "ai_used": false,
             "vibecoded": false,
@@ -34,7 +34,9 @@
                     "name": "Baixar Patcher (ZIP)",
                     "url": "https://github.com/WolffsRoom/DeltaruneVita/releases/download/v0.52/Deltarune.Vita.Patcher.v0.52.zip"
                 }
-            ]
+            ],
+            "status": "Em Desenvolvimento",
+            "playable": "Sim"
         },
         {
             "id": 1,

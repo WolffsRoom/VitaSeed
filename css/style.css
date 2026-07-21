@@ -523,7 +523,7 @@ main {
     text-decoration: none;
     color: #fff;
     background-size: cover;
-    background-position: center bottom;
+    background-position: center 60%;
     transform-style: preserve-3d;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     transition: transform 0.3s ease;
@@ -562,8 +562,8 @@ main {
 /* Top 10 Container */
 .top10-scroll {
     display: flex;
-    -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
-    mask-image: linear-gradient(to right, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
     gap: 1.5rem;
     overflow-x: auto;
     padding-top: 1rem;
@@ -814,7 +814,7 @@ main {
 .project-header {
     height: 300px;
     background-size: cover;
-    background-position: center bottom;
+    background-position: center 60%;
     border-radius: 16px;
     margin-bottom: 2rem;
     position: relative;

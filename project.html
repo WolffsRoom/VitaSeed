@@ -6,7 +6,7 @@
     <title>Project Details - VitaSeed by Wolff</title>
     <meta name="description" content="Repositório brasileiro de jogos, ports, ferramentas, mods e traduções para PSVita.">
     <link rel="icon" href="seed.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="css/style.css?v=15">
+    <link rel="stylesheet" href="css/style.css?v=16">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
         .project-header {
@@ -179,15 +179,7 @@
                             </div>
                         </div>
 
-                        <div id="media-section" class="section-box hidden">
-                            <h3><i class="ph ph-image"></i> Mídia (Prints & Vídeos)</h3>
-                            <div id="media-container" class="media-grid"></div>
-                        </div>
 
-                        <div id="install-section" class="section-box hidden">
-                            <h3><i class="ph ph-wrench"></i> Instruções de Instalação</h3>
-                            <div id="install-text" style="line-height: 1.6;"></div>
-                        </div>
                     </div>
                     <div style="display: flex; flex-direction: column; gap: 2rem;">
                         <div class="meta-grid">
@@ -195,6 +187,19 @@
                                 <div class="meta-label">Publicação Original</div>
                                 <div id="meta-pub" class="meta-val">--/--/--</div>
                             </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Última Atualização</div>
+                                <div id="meta-upd" class="meta-val">--/--/--</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Status</div>
+                                <div id="meta-status" class="meta-val">Concluído</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Jogável?</div>
+                                <div id="meta-playable" class="meta-val">Sim</div>
+                            </div>
+                        </div>
                             <div class="meta-item">
                                 <div class="meta-label">Última Atualização</div>
                                 <div id="meta-upd" class="meta-val">--/--/--</div>
@@ -208,6 +213,18 @@
                             <a id="btn-support" href="#" target="_blank" class="btn-primary" style="background: var(--accent-green); color: #000; width: 100%; justify-content: center;"><i class="ph ph-coffee"></i> Apoiar Projeto</a>
                         </div>
                     </div>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                        <div id="media-section" class="section-box hidden">
+                            <h3><i class="ph ph-image"></i> Capturas de tela</h3>
+                            <div id="media-container" class="media-grid"></div>
+                        </div>
+
+                        <div id="install-section" class="section-box hidden">
+                            <h3><i class="ph ph-wrench"></i> Instruções de Instalação</h3>
+                            <div id="install-text" style="line-height: 1.6;"></div>
+                        </div>
                 </div>
 
             </div>
@@ -317,8 +334,20 @@
                 document.getElementById('btn-source').href = proj.source_link;
                 
                 // Metadados
+                
                 if(proj.publish_date) document.getElementById('meta-pub').innerText = proj.publish_date;
                 if(proj.update_date) document.getElementById('meta-upd').innerText = proj.update_date;
+                if(proj.status) {
+                    document.getElementById('meta-status').innerText = proj.status;
+                } else {
+                    document.getElementById('meta-status').innerText = "Concluído"; // Default
+                }
+                if(proj.playable) {
+                    document.getElementById('meta-playable').innerText = proj.playable;
+                } else {
+                    document.getElementById('meta-playable').innerText = "Sim"; // Default
+                }
+
                 
                 async function fetchGithubDownloads(repoUrl) {
                     if (!repoUrl || !repoUrl.includes('github.com')) return null;
