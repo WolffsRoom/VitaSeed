@@ -213,30 +213,55 @@ header {
     flex-wrap: wrap;
 }
 
-.search-bar {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
-    padding: 0.6rem 1rem;
-    border-radius: 6px;
+.search-bar, .filter-select {
+    background-color: rgba(255, 255, 255, 0.05); /* Apple dark translucent */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.7rem 1.2rem;
+    border-radius: 30px; /* Pill shape */
     color: var(--text-main);
-    width: 260px;
     font-size: 0.85rem;
     outline: none;
-    transition: 0.2s;
-}
-.search-bar:focus {
-    border-color: var(--accent-green);
-    width: 320px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
 }
 
+/* Light mode overrides */
+[data-theme="light"] .search-bar, 
+[data-theme="light"] .filter-select {
+    background-color: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.search-bar {
+    width: 260px;
+}
 .filter-select {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
-    padding: 0.6rem 1rem;
-    border-radius: 6px;
-    color: var(--text-main);
-    font-size: 0.85rem;
-    outline: none;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='gray' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+    padding-right: 2.5rem;
+}
+
+.search-bar:focus, .filter-select:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.1), inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+[data-theme="light"] .search-bar:focus, 
+[data-theme="light"] .filter-select:focus {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.05), inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.search-bar:focus {
+    width: 320px;
 }
 
 main {
