@@ -11,3 +11,8 @@ window.fetchCatalog = async function() {
         return [];
     }
 }
+
+window.formatTitle = function(title) {
+    if (!title) return "";
+    return title.replace(/(\([^)]+\)|\[[^\]]+\])/g, '<span style="font-weight: 400; font-size: 0.85em;">$1</span>');
+};

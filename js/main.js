@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <a href="project.html?id=${heroProj.id}" class="hero-card" style="background-image: url('${heroBanner}')">
                     <div class="hero-overlay">
                         <span class="tag" style="background:var(--accent-green); color:#000; width:max-content; margin-bottom:0.5rem;">Lançamento em Destaque</span>
-                        <h2 class="hero-title">${heroProj.title}</h2>
+                        <h2 class="hero-title">${window.formatTitle(heroProj.title)}</h2>
                         <div class="hero-meta">${heroProj.category} • Por ${heroProj.responsibles}</div>
                     </div>
                 </a>
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         <a href="project.html?id=${proj.id}" class="top10-card" style="background-image: url('${banner}')">
                             <div class="top10-number">${i + 1}</div>
                             <div class="top10-overlay">
-                                <div class="top10-title">${proj.title}</div>
+                                <div class="top10-title">${window.formatTitle(proj.title)}</div>
                                 <div class="top10-cat">${proj.category}</div>
                             </div>
                         </a>
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <div class="card-tags">
                         ${badgesHtml}
                     </div>
-                    <h3 class="card-title">${proj.title}</h3>
+                    <h3 class="card-title">${window.formatTitle(proj.title)}</h3>
                     <div class="card-meta" style="display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: center; color: var(--text-muted); font-size: 0.75rem; margin-top: auto; padding-top: 0.5rem;">
                             <span style="display: flex; align-items: center; gap: 0.3rem;"><i class="ph ph-user"></i> ${proj.responsibles}</span>
                             ${proj.version ? `<span style="display: flex; align-items: center; gap: 0.3rem;"><i class="ph ph-tag"></i> v${proj.version}</span>` : ''}

@@ -97,7 +97,7 @@
                     <div class="card-banner" style="background-image: url('${bannerUrl}');"></div>
                     <div class="card-content">
                         <div class="card-tags">${badgesHtml}</div>
-                        <h3 class="card-title">${proj.title}</h3>
+                        <h3 class="card-title">${window.formatTitle(proj.title)}</h3>
                         <div class="card-meta" style="display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: center; color: var(--text-muted); font-size: 0.75rem; margin-top: auto; padding-top: 0.5rem;">
                             <span style="display: flex; align-items: center; gap: 0.3rem;"><i class="ph ph-user"></i> ${proj.responsibles}</span>
                             ${proj.version ? `<span style="display: flex; align-items: center; gap: 0.3rem;"><i class="ph ph-tag"></i> v${proj.version}</span>` : ''}

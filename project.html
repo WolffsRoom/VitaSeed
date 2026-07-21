@@ -304,7 +304,7 @@
             const proj = projectsData.find(p => p.id === id);
             
             if (proj) {
-                document.getElementById('proj-title').innerText = proj.title;
+                document.getElementById('proj-title').innerHTML = window.formatTitle(proj.title);
                 
                 document.getElementById('proj-desc').innerText = proj.description;
                 
