@@ -6,7 +6,7 @@
     <title>Category - VitaSeed by Wolff</title>
     <meta name="description" content="Repositório brasileiro de jogos, ports, ferramentas, mods e traduções para PSVita.">
     <link rel="icon" href="seed.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="css/style.css?v=22">
+    <link rel="stylesheet" href="css/style.css?v=23">
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -95,7 +95,7 @@
 
                 const bannerUrl = proj.bannerUrl || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400';
                 card.innerHTML = `
-                    <div class="card-banner" style="background-image: url('${bannerUrl}');"></div>
+                    <div class="card-banner" style="background-image: url('${bannerUrl}'); background-position: ${proj.bgPosition || 'center'};"></div>
                     <div class="card-content">
                         <div class="card-tags">${badgesHtml}</div>
                         <h3 class="card-title">${window.formatTitle(proj.title)}</h3>

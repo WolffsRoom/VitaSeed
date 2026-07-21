@@ -36,7 +36,8 @@
                 }
             ],
             "status": "Em Desenvolvimento",
-            "playable": "Sim"
+            "playable": "Sim",
+            "bgPosition": "center bottom"
         },
         {
             "id": 1,

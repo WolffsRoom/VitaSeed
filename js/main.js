@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const heroBanner = heroProj.bannerUrl || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200';
             
             heroSection.innerHTML = `
-                <a href="project.html?id=${heroProj.id}" class="hero-card" style="background-image: url('${heroBanner}')">
+                <a href="project.html?id=${heroProj.id}" class="hero-card" style="background-image: url('${heroBanner}'); background-position: ${heroProj.bgPosition || 'center'};">
                     <div class="hero-overlay">
                         <span class="tag" style="background:var(--accent-green); color:#000; width:max-content; margin-bottom:0.5rem;">Lançamento em Destaque</span>
                         <h2 class="hero-title">${window.formatTitle(heroProj.title)}</h2>
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 top10.forEach((proj, i) => {
                     const banner = proj.bannerUrl || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400';
                     top10Container.innerHTML += `
-                        <a href="project.html?id=${proj.id}" class="top10-card" style="background-image: url('${banner}')">
+                        <a href="project.html?id=${proj.id}" class="top10-card" style="background-image: url('${banner}'); background-position: ${proj.bgPosition || 'center'};">
                             <div class="top10-number">${i + 1}</div>
                             <div class="top10-overlay">
                                 <div class="top10-title">${window.formatTitle(proj.title)}</div>
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const bannerUrl = proj.bannerUrl || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400';
 
             card.innerHTML = `
-                <div class="card-banner" style="background-image: url('${bannerUrl}');"></div>
+                <div class="card-banner" style="background-image: url('${bannerUrl}'); background-position: ${proj.bgPosition || 'center'};"></div>
                 <div class="card-content">
                     <div class="card-tags">
                         ${badgesHtml}
