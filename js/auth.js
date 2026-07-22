@@ -52,6 +52,11 @@ function updateAuthUI(user) {
             const menuEmail = container.querySelector('#menu-user-email');
             if(menuName) menuName.innerText = user.displayName || 'Viteiro';
             if(menuEmail) menuEmail.innerText = user.email || '';
+            
+            const adminPanelBtn = container.querySelector('#menu-admin-panel');
+            if (adminPanelBtn && (user.email === 'gabrielfwchaves@gmail.com' || window.isAdmin)) {
+                adminPanelBtn.classList.remove('hidden');
+            }
         });
         
         // Destravar botões de Request

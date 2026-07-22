@@ -194,6 +194,19 @@
             document.getElementById('admin-pass').value = '';
         }
 
+        
+        auth.onAuthStateChanged(async (user) => {
+            if (user && user.email === 'gabrielfwchaves@gmail.com') {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('dashboard-screen').classList.remove('hidden');
+                const token = "Bearer " + await user.getIdToken();
+                fetchRequests(token);
+            } else {
+                document.getElementById('dashboard-screen').classList.add('hidden');
+                document.getElementById('login-screen').classList.remove('hidden');
+            }
+        });
+
         async function fetchRequests(tokenParam) {
             let token = tokenParam;
             if (!token && auth.currentUser) {
