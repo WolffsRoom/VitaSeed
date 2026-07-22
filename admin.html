@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VitaSeed Admin</title>
     <link rel="icon" href="seed.svg?v=2" type="image/svg+xml">
@@ -146,16 +147,22 @@
     <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
     <script src="js/auth.js"></script>
     <script>
-        
-        let authKey = ""; // Mantendo para retrocompatibilidade do resolveRequest
 
-        
+        function escapeHTML(str) {
+            if (!str) return '';
+            return str.toString()
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
         async function loginWithGitHubAdmin() {
             if (!auth) return;
             try {
                 const res = await auth.signInWithPopup(githubProvider);
                 const token = "Bearer " + await res.user.getIdToken();
-                authKey = token;
                 await fetchRequests(token);
             } catch (error) {
                 document.getElementById('login-err').innerText = "Erro ao fazer login com GitHub.";
@@ -170,7 +177,6 @@
             try {
                 const res = await auth.signInWithPopup(googleProvider);
                 const token = "Bearer " + await res.user.getIdToken();
-                authKey = token;
                 await fetchRequests(token);
             } catch (error) {
                 document.getElementById('login-err').innerText = "Erro ao fazer login com Google.";
@@ -178,22 +184,26 @@
         }
 
         async function login() {
-            const pass = document.getElementById('admin-pass').value;
-            document.getElementById('login-err').innerText = "";
-            authKey = pass;
-            
-            // Testa carregamento para validar senha
-            await fetchRequests(authKey);
+            alert("Login por senha desativado. Use Google ou GitHub.");
         }
 
         function logout() {
-            authKey = "";
+            if (window.auth) auth.signOut();
             document.getElementById('dashboard-screen').classList.add('hidden');
             document.getElementById('login-screen').classList.remove('hidden');
             document.getElementById('admin-pass').value = '';
         }
 
-        async function fetchRequests(token) {
+        async function fetchRequests(tokenParam) {
+            let token = tokenParam;
+            if (!token && auth.currentUser) {
+                token = "Bearer " + await auth.currentUser.getIdToken();
+            }
+            if (!token) {
+                alert("Sessão inválida. Faça login novamente.");
+                logout();
+                return;
+            }
             try {
                 const res = await fetch(`${API_URL}/api/admin/requests`, {
                     headers: { "Authorization": token }
@@ -231,9 +241,9 @@
             requests.forEach(req => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td style="font-weight:bold; color:var(--text-main);">${req.title}<br><span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);"><i class="fa-solid fa-user"></i> ${req.user_name || 'Anônimo'}</span></td>
-                    <td style="color:var(--text-muted); font-size:0.9rem; max-width: 300px;">${req.description || '-'}</td>
-                    <td>${req.link ? `<a href="${req.link}" target="_blank" style="color:var(--accent-green); text-decoration:none;"><i class="fa-solid fa-link"></i> Abrir Link</a>` : '-'}</td>
+                    <td style="font-weight:bold; color:var(--text-main);">${escapeHTML(req.title)}<br><span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);"><i class="fa-solid fa-user"></i> ${escapeHTML(req.user_name) || 'Anônimo'}</span></td>
+                    <td style="color:var(--text-muted); font-size:0.9rem; max-width: 300px;">${escapeHTML(req.description) || '-'}</td>
+                    <td>${req.link ? `<a href="${escapeHTML(req.link)}" target="_blank" style="color:var(--accent-green); text-decoration:none;"><i class="fa-solid fa-link"></i> Abrir Link</a>` : '-'}</td>
                     <td style="color:var(--text-muted); font-size:0.85rem;">${req.created_at ? req.created_at.substring(0,10) : ''}</td>
                     <td>
                         <button class="btn-primary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;" onclick="resolveRequest(${req.id})">
@@ -246,9 +256,12 @@
         }
 
         async function resolveRequest(id) {
+            let token = null;
+            if (auth.currentUser) token = "Bearer " + await auth.currentUser.getIdToken();
+            
             if (API_URL.includes("seunome")) {
                 alert("Simulação: item marcado como resolvido e deletado do banco!");
-                await fetchRequests(authKey); // mock refresh
+                if(token) await fetchRequests(token); // mock refresh
                 return;
             }
 
@@ -256,9 +269,9 @@
                 try {
                     await fetch(`${API_URL}/api/admin/requests/${id}`, {
                         method: "DELETE",
-                        headers: { "Authorization": authKey }
+                        headers: { "Authorization": token }
                     });
-                    fetchRequests(authKey); // Recarrega a tabela
+                    if(token) fetchRequests(token); // Recarrega a tabela
                 } catch(e) {
                     alert("Erro ao resolver request.");
                 }
