@@ -6,27 +6,26 @@ const corsHeaders = {
 
 export default {
   async fetch(request, env) {
-    
-      if (url.pathname === "/api/migrate") {
-        await env.DB.prepare("DROP TABLE IF EXISTS users").run();
-        await env.DB.prepare(`CREATE TABLE IF NOT EXISTS users (
-            email TEXT PRIMARY KEY,
-            role TEXT DEFAULT 'viteiro',
-            display_name TEXT,
-            avatar_url TEXT,
-            languages TEXT,
-            website TEXT,
-            donation_links TEXT,
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-        )`).run();
-        return new Response("Migracao concluida com sucesso! Banco de dados atualizado.", { headers: corsHeaders });
-      }
-
     if (request.method === "OPTIONS") {
       return new Response(null, { headers: corsHeaders });
     }
 
     const url = new URL(request.url);
+
+    if (url.pathname === "/api/migrate") {
+      await env.DB.prepare("DROP TABLE IF EXISTS users").run();
+      await env.DB.prepare(`CREATE TABLE IF NOT EXISTS users (
+          email TEXT PRIMARY KEY,
+          role TEXT DEFAULT 'viteiro',
+          display_name TEXT,
+          avatar_url TEXT,
+          languages TEXT,
+          website TEXT,
+          donation_links TEXT,
+          created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )`).run();
+      return new Response("Migracao concluida com sucesso! Banco de dados atualizado.", { headers: corsHeaders });
+    }
 
     try {
       // 1. Submit Request
