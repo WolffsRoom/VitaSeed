@@ -47,9 +47,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             heroSection.innerHTML = `
                 <a href="project.html?id=${heroProj.id}" class="hero-card" style="background-image: url('${heroBanner}'); background-position: ${heroProj.bgPosition || 'center bottom'};">
                     <div class="hero-overlay">
-                        <span class="tag" style="background:var(--accent-green); color:#000; width:max-content; margin-bottom:0.5rem;">LanÃÂ§amento em Destaque</span>
+                        <span class="tag" style="background:var(--accent-green); color:#000; width:max-content; margin-bottom:0.5rem;">Lançamento em Destaque</span>
                         <h2 class="hero-title">${window.formatTitle(heroProj.title)}</h2>
-                        <div class="hero-meta">${heroProj.category} Ã¢ÂÂ¢ Por ${heroProj.responsibles}</div>
+                        <div class="hero-meta">${heroProj.category} • Por ${heroProj.responsibles}</div>
                     </div>
                 </a>
             `;

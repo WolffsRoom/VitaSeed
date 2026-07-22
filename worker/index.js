@@ -93,24 +93,49 @@ async function getUser(request, env) {
     if (!payloadDecoded.email) return null;
     
     if (env.DB) {
-      let user = await env.DB.prepare("SELECT * FROM users WHERE email = ?").bind(payloadDecoded.email).first();
+      let user = null;
+      try {
+        user = await env.DB.prepare("SELECT * FROM users WHERE email = ?").bind(payloadDecoded.email).first();
+      } catch (dbErr) {
+        if (dbErr.message.includes('no such table')) {
+            await env.DB.prepare(`CREATE TABLE IF NOT EXISTS users (
+                email TEXT PRIMARY KEY,
+                role TEXT DEFAULT 'viteiro',
+                display_name TEXT,
+                avatar_url TEXT,
+                languages TEXT,
+                website TEXT,
+                donation_links TEXT,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )`).run();
+            await env.DB.prepare(`CREATE TABLE IF NOT EXISTS favorites (
+                user_email TEXT,
+                post_id TEXT,
+                PRIMARY KEY(user_email, post_id)
+            )`).run();
+        } else {
+            return { is_error: true, message: dbErr.message };
+        }
+      }
+
       if (!user) {
-        // Criação automática no primeiro login
         await env.DB.prepare(
           "INSERT INTO users (email, display_name, avatar_url, role) VALUES (?, ?, ?, 'viteiro')"
         ).bind(payloadDecoded.email, payloadDecoded.name || "Viteiro", payloadDecoded.picture || "").run();
         user = { email: payloadDecoded.email, role: 'viteiro', display_name: payloadDecoded.name, avatar_url: payloadDecoded.picture };
       }
       
-        if (user.email === 'gabrielfwchaves@gmail.com' && user.role !== 'admin') {
-            await env.DB.prepare("UPDATE users SET role = 'admin' WHERE email = ?").bind(user.email).run();
-            user.role = 'admin';
-        }
+      if (user.email.toLowerCase().trim() === 'gabrielfwchaves@gmail.com' && user.role !== 'admin') {
+          await env.DB.prepare("UPDATE users SET role = 'admin' WHERE email = ?").bind(user.email).run();
+          user.role = 'admin';
+      }
 
-        return user;
+      return user;
+    } else {
+      return { is_error: true, message: "env.DB is missing" };
     }
   } catch (e) {
-    console.error("Token decoding failed", e);
+    return { is_error: true, message: e.message };
   }
   return null;
 }
