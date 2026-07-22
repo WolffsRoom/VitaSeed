@@ -209,6 +209,7 @@ async function handleResolveRequest(id, env) {
 async function handleGetProfile(request, env) {
   const user = await getUser(request, env);
   if (!user) return unauthorized();
+  if (user.is_error) return unauthorized("Auth Error: " + user.message);
   
   if (env.DB) {
     const { results } = await env.DB.prepare("SELECT post_id FROM favorites WHERE user_email = ?").bind(user.email).all();
