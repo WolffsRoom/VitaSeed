@@ -187,6 +187,16 @@
             alert("Login por senha desativado. Use Google ou GitHub.");
         }
 
+        
+        function filterAdminTable() {
+            const input = document.getElementById("admin-search").value.toLowerCase();
+            const rows = document.querySelectorAll("#requests-tbody tr");
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(input) ? "" : "none";
+            });
+        }
+
         function logout() {
             if (window.auth) auth.signOut();
             document.getElementById('dashboard-screen').classList.add('hidden');
@@ -250,6 +260,9 @@
             }
 
             document.getElementById('empty-msg').classList.add('hidden');
+            
+            document.getElementById('stat-total').innerText = requests.length;
+            document.getElementById('stat-pending').innerText = requests.length;
 
             requests.forEach(req => {
                 const tr = document.createElement('tr');
