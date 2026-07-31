@@ -53,50 +53,50 @@
       </div>
     </a>
 
-    <a href="category.html?cat=all" class="sb-link">all <span class="tag">[todos]</span></a>
+    <a href="category.html?cat=all" class="sb-link">all <span class="tag">[all]</span></a>
 
-    <div class="sb-section">Biblioteca</div>
+    <div class="sb-section">Library</div>
     <a href="category.html?cat=Ports" class="sb-link">ports <span class="tag">[port]</span></a>
     <a href="category.html?cat=Original games" class="sb-link">original games <span class="tag">[og]</span></a>
     <a href="category.html?cat=Mods" class="sb-link">mods <span class="tag">[mod]</span></a>
-    <a href="category.html?cat=Translations" class="sb-link">traduções <span class="tag">[trad]</span></a>
+    <a href="category.html?cat=Translations" class="sb-link">translations <span class="tag">[trad]</span></a>
     <a href="category.html?cat=Apps" class="sb-link">apps <span class="tag">[app]</span></a>
     <a href="category.html?cat=Tools" class="sb-link">tools <span class="tag">[tool]</span></a>
     <a href="category.html?cat=Plugin" class="sb-link">plugins <span class="tag">[plg]</span></a>
 
-    <div class="sb-section">Comunidade</div>
-    <a href="contribution.html" class="sb-link active">colaborações</a>
-    <a href="https://zealouschuck.com/ps-vita-bounty" target="_blank" class="sb-link ext">recompensas</a>
+    <div class="sb-section">Community</div>
+    <a href="contribution.html" class="sb-link active">collaborations</a>
+    <a href="https://zealouschuck.com/ps-vita-bounty" target="_blank" class="sb-link ext">bounties</a>
 
-    <div class="sb-section">Cena PSVita</div>
+    <div class="sb-section">PS Vita Scene</div>
     <a href="http://brewology.com/" target="_blank" class="sb-link ext">brewology</a>
     <a href="https://wololo.net/" target="_blank" class="sb-link ext">wololo.net</a>
     <a href="https://www.youtube.com/@TitiClash" target="_blank" class="sb-link ext">titi clash</a>
 
     <div class="sb-bottom">
-      <a href="#" class="sb-link" onclick="openModal('aboutOverlay'); return false;">sobre o vitarch</a>
+      <a href="#" class="sb-link" onclick="openModal('aboutOverlay'); return false;">about vitarch</a>
     </div>
   </aside>
 
   <div class="main">
     <div class="topbar">
       <div class="topbar-left">
-        <button class="burger" id="burgerBtn" aria-label="Abrir menu">☰</button>
+        <button class="burger" id="burgerBtn" aria-label="Open menu">☰</button>
         <span class="version-badge">v0.3.0 <span class="b">(beta)</span></span>
-        <a href="api/catalog.json" target="_blank" class="version-badge" style="color: var(--green); text-decoration: none;" title="Acessar API pública do catálogo">API ↗</a>
+        <a href="api/catalog.json" target="_blank" class="version-badge" style="color: var(--green); text-decoration: none;" title="Access public catalog API">API ↗</a>
       </div>
       <div class="topbar-right">
-        <button class="btn-ghost-sm" onclick="toggleTheme()"><span id="theme-btn-text">modo escuro</span></button>
-        <button class="btn-ghost-sm" onclick="openModal('requestOverlay')">solicitar_projeto</button>
-        <button class="btn-green-sm" onclick="openModal('loginOverlay')">entrar</button>
+        <button class="btn-ghost-sm" onclick="toggleTheme()"><span id="theme-btn-text">dark mode</span></button>
+        <button class="btn-ghost-sm" onclick="openModal('requestOverlay')">request_project</button>
+        <button class="btn-green-sm" onclick="openModal('loginOverlay')">sign in</button>
       </div>
     </div>
 
     <main class="wrap" style="padding-top: 2.5rem; padding-bottom: 3rem;">
             <div class="graph-header">
                 <div>
-                    <h2 style="display:flex; align-items:center; gap:0.5rem;"><i class="ph ph-graph" style="color: var(--accent-green); font-size:1.5rem;"></i> Colaborações</h2>
-                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Explore as ramificações e colaborações entre os DEVs da comunidade.</p>
+                    <h2 style="display:flex; align-items:center; gap:0.5rem;"><i class="ph ph-graph" style="color: var(--accent-green); font-size:1.5rem;"></i> Collaborations</h2>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Explore connections and collaborations between PS Vita scene developers.</p>
                 </div>
             </div>
             
@@ -107,28 +107,28 @@
                 <div id="tt-img" style="width:100%; height:100px; background-size:cover; background-position:center; border-radius:8px; margin-bottom:0.8rem;"></div>
                 <h4 id="tt-title" style="margin-bottom:0.3rem; color:var(--text-main);">Title</h4>
                 <div id="tt-cat" style="font-size:0.75rem; color:var(--text-muted); margin-bottom:1rem;">Category</div>
-                <a id="tt-btn" href="#" class="btn-primary" style="display:block; text-align:center; padding:0.5rem; text-decoration:none; font-size:0.8rem;"><i class="ph ph-arrow-square-out"></i> Ver Projeto</a>
+                <a id="tt-btn" href="#" class="btn-primary" style="display:block; text-align:center; padding:0.5rem; text-decoration:none; font-size:0.8rem;"><i class="ph ph-arrow-square-out"></i> View Project</a>
             </div>
 
             
             <div class="network-controls">
-                <span class="tag" style="background: rgba(0, 230, 118, 0.2); color: var(--accent-green);"><i class="ph ph-user"></i> Desenvolvedores</span>
-                <span class="tag" style="background: rgba(251, 191, 36, 0.2); color: #f59e0b;"><i class="ph ph-game-controller"></i> Projetos</span>
+                <span class="tag" style="background: rgba(0, 230, 118, 0.2); color: var(--accent-green);"><i class="ph ph-user"></i> Developers</span>
+                <span class="tag" style="background: rgba(251, 191, 36, 0.2); color: #f59e0b;"><i class="ph ph-game-controller"></i> Projects</span>
                 <span class="tag" style="background: rgba(150,150,150,0.15); color: #ccc; border: 1px dashed #888; letter-spacing: 0.02em;">
-                    <svg width="18" height="10" style="vertical-align:middle; margin-right:4px;"><line x1="0" y1="5" x2="18" y2="5" stroke="#888" stroke-width="2" stroke-dasharray="4,3"/></svg>Apoio / Colaboração
+                    <svg width="18" height="10" style="vertical-align:middle; margin-right:4px;"><line x1="0" y1="5" x2="18" y2="5" stroke="#888" stroke-width="2" stroke-dasharray="4,3"/></svg>Support / Collaboration
                 </span>
-                <span class="tag" style="background: var(--bg-card); color: var(--text-muted); border: 1px solid var(--border-color);"><i class="ph ph-mouse"></i> Arraste e dê Zoom para explorar</span>
+                <span class="tag" style="background: var(--bg-card); color: var(--text-muted); border: 1px solid var(--border-color);"><i class="ph ph-mouse"></i> Drag and Zoom to explore</span>
             </div>
         </main>
 
         <footer>
           <div class="wrap foot-row">
             <div>
-              <div class="foot-copy">© 2026 VitaSeed. Todos os direitos reservados.</div>
-              <div class="foot-disclaimer">Repositório não oficial. Todos os jogos, ports e marcas pertencem aos seus respectivos donos.</div>
+              <div class="foot-copy">© 2026 VitARCH. All rights reserved.</div>
+              <div class="foot-disclaimer">Unofficial repository. All games, ports, and trademarks belong to their respective owners.</div>
             </div>
             <div class="foot-links">
-              <a href="https://github.com/WolffsRoom/VitaSeed" target="_blank">github do projeto</a>
+              <a href="https://github.com/WolffsRoom/VitARCH" target="_blank">project github</a>
               <a href="http://brewology.com/" target="_blank">brewology</a>
               <a href="https://wololo.net/" target="_blank">wololo.net</a>
             </div>

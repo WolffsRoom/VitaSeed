@@ -113,42 +113,42 @@
       </div>
     </a>
 
-    <a href="category.html?cat=all" class="sb-link">all <span class="tag">[todos]</span></a>
+    <a href="category.html?cat=all" class="sb-link">all <span class="tag">[all]</span></a>
 
-    <div class="sb-section">Biblioteca</div>
+    <div class="sb-section">Library</div>
     <a href="category.html?cat=Ports" class="sb-link">ports <span class="tag">[port]</span></a>
     <a href="category.html?cat=Original games" class="sb-link">original games <span class="tag">[og]</span></a>
     <a href="category.html?cat=Mods" class="sb-link">mods <span class="tag">[mod]</span></a>
-    <a href="category.html?cat=Translations" class="sb-link">traduções <span class="tag">[trad]</span></a>
+    <a href="category.html?cat=Translations" class="sb-link">translations <span class="tag">[trad]</span></a>
     <a href="category.html?cat=Apps" class="sb-link">apps <span class="tag">[app]</span></a>
     <a href="category.html?cat=Tools" class="sb-link">tools <span class="tag">[tool]</span></a>
     <a href="category.html?cat=Plugin" class="sb-link">plugins <span class="tag">[plg]</span></a>
 
-    <div class="sb-section">Comunidade</div>
-    <a href="contribution.html" class="sb-link">colaborações</a>
-    <a href="https://zealouschuck.com/ps-vita-bounty" target="_blank" class="sb-link ext">recompensas</a>
+    <div class="sb-section">Community</div>
+    <a href="contribution.html" class="sb-link">collaborations</a>
+    <a href="https://zealouschuck.com/ps-vita-bounty" target="_blank" class="sb-link ext">bounties</a>
 
-    <div class="sb-section">Cena PSVita</div>
+    <div class="sb-section">PS Vita Scene</div>
     <a href="http://brewology.com/" target="_blank" class="sb-link ext">brewology</a>
     <a href="https://wololo.net/" target="_blank" class="sb-link ext">wololo.net</a>
     <a href="https://www.youtube.com/@TitiClash" target="_blank" class="sb-link ext">titi clash</a>
 
     <div class="sb-bottom">
-      <a href="#" class="sb-link" onclick="openModal('aboutOverlay'); return false;">sobre o vitarch</a>
+      <a href="#" class="sb-link" onclick="openModal('aboutOverlay'); return false;">about vitarch</a>
     </div>
   </aside>
 
   <div class="main">
     <div class="topbar">
       <div class="topbar-left">
-        <button class="burger" id="burgerBtn" aria-label="Abrir menu">☰</button>
-        <a href="index.html" style="font-family: var(--mono); font-size: 13px; color: var(--muted); font-weight: 600;">← voltar ao catálogo</a>
-        <a href="api/catalog.json" target="_blank" class="version-badge" style="color: var(--green); text-decoration: none;" title="Acessar API pública do catálogo">API ↗</a>
+        <button class="burger" id="burgerBtn" aria-label="Open menu">☰</button>
+        <a href="index.html" style="font-family: var(--mono); font-size: 13px; color: var(--muted); font-weight: 600;">← back to catalog</a>
+        <a href="api/catalog.json" target="_blank" class="version-badge" style="color: var(--green); text-decoration: none;" title="Access public catalog API">API ↗</a>
       </div>
       <div class="topbar-right">
-        <button class="btn-ghost-sm" onclick="toggleTheme()"><span id="theme-btn-text">modo escuro</span></button>
-        <button class="btn-ghost-sm" onclick="openModal('requestOverlay')">solicitar_projeto</button>
-        <button class="btn-green-sm" onclick="openModal('loginOverlay')">entrar</button>
+        <button class="btn-ghost-sm" onclick="toggleTheme()"><span id="theme-btn-text">dark mode</span></button>
+        <button class="btn-ghost-sm" onclick="openModal('requestOverlay')">request_project</button>
+        <button class="btn-green-sm" onclick="openModal('loginOverlay')">sign in</button>
       </div>
     </div>
 
@@ -180,15 +180,15 @@
                     
                     <div style="display: flex; flex-direction: column; gap: 2rem;">
                         <div class="section-box" style="margin-bottom: 0;">
-                            <h3><i class="ph ph-info"></i> Descrição</h3>
+                            <h3><i class="ph ph-info"></i> Description</h3>
                             <p id="proj-desc" style="color: var(--text-main); line-height: 1.6;"></p>
                             
                             <div class="action-bar" style="align-items: center; justify-content: space-between;">
                                 <div style="display:flex; gap:1rem;">
-                                    <a id="btn-download" href="#" class="btn-primary"><i class="ph ph-download-simple"></i> Download VPK</a>
-                                    <a id="btn-source" href="#" class="btn-secondary" target="_blank"><i class="ph ph-github-logo"></i> Source Code</a>
+                                    <a id="btn-download" href="#" target="_blank" class="btn-primary"><i class="ph ph-download-simple"></i> Download</a>
+                                    <a id="btn-source" href="#" target="_blank" class="btn-secondary" style="display:none;"><i class="ph ph-github-logo"></i> Source Code</a>
                                 </div>
-                                <div class="qr-container" title="Escaneie para baixar no Vita">
+                                <div class="qr-container" title="Scan to download on Vita">
                                     <div id="qrcode"></div>
                                 </div>
                             </div>
@@ -199,66 +199,66 @@
                     <div style="display: flex; flex-direction: column; gap: 2rem;">
                         <div class="meta-grid">
                             <div class="meta-item">
-                                <div class="meta-label">Publicação Original</div>
+                                <div class="meta-label">Original Release</div>
                                 <div id="meta-pub" class="meta-val">--/--/--</div>
                             </div>
                             <div class="meta-item">
-                                <div class="meta-label">Última Atualização</div>
+                                <div class="meta-label">Last Updated</div>
                                 <div id="meta-upd" class="meta-val">--/--/--</div>
                             </div>
                             <div class="meta-item">
                                 <div class="meta-label">Status</div>
-                                <div id="meta-status" class="meta-val">Concluído</div>
+                                <div id="meta-status" class="meta-val">Completed</div>
                             </div>
                             <div class="meta-item">
-                                <div id="meta-playable-label" class="meta-label">Jogável?</div>
-                                <div id="meta-playable" class="meta-val">Sim</div>
+                                <div id="meta-playable-label" class="meta-label">Playable?</div>
+                                <div id="meta-playable" class="meta-val">Yes</div>
                             </div>
                             <div class="meta-item" id="meta-support-item" style="display:none;">
-                                <div class="meta-label">Apoio</div>
+                                <div class="meta-label">Support</div>
                                 <div id="meta-support" class="meta-val" style="color: var(--green);">--</div>
                             </div>
                         </div>
 
                         <div class="section-box support-panel" style="margin-bottom: 0;">
-                            <h3><i class="ph ph-heart"></i> Apoie o Responsável</h3>
-                            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Gostou do projeto? Considere apoiar o responsável para que ele continue trazendo novidades para o PSVita!</p>
-                            <a id="btn-support" href="#" target="_blank" class="btn-primary" style="background: var(--accent-green); color: #000; width: 100%; justify-content: center;"><i class="ph ph-coffee"></i> Apoiar Projeto</a>
+                            <h3><i class="ph ph-heart"></i> Support the Developer</h3>
+                            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Enjoying the project? Consider supporting the creator so they can keep bringing new ports and tools to the PS Vita!</p>
+                            <a id="btn-support" href="#" target="_blank" class="btn-primary" style="background: var(--accent-green); color: #000; width: 100%; justify-content: center;"><i class="ph ph-coffee"></i> Support Project</a>
                         </div>
                     </div>
                 </div>
 
                 <div style="margin-top: 2rem;">
                         <div id="media-section" class="section-box hidden">
-                            <h3><i class="ph ph-image"></i> Capturas de tela</h3>
+                            <h3><i class="ph ph-image"></i> Screenshots</h3>
                             <div id="media-container" class="media-grid"></div>
                         </div>
 
                         <div id="install-section" class="section-box hidden">
-                            <h3><i class="ph ph-wrench"></i> Instruções de Instalação</h3>
+                            <h3><i class="ph ph-wrench"></i> Installation Instructions</h3>
                             <div id="install-text" style="font-family: var(--mono); font-size: 13px; line-height: 1.6; color: var(--text);"></div>
                         </div>
 
-                        <!-- Avaliações & Comentários Locais da Comunidade Vita -->
+                        <!-- Community Reviews -->
                         <div class="reviews-container section-box">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
                                 <div>
-                                    <h3 style="font-size: 15px; margin-bottom: 4px; font-family: var(--mono); text-transform: uppercase;"><i class="fa-solid fa-star" style="color: #fbbf24;"></i> Avaliações da Comunidade</h3>
-                                    <p style="color: var(--muted); font-size: 12.5px; margin: 0;">Classificação real de quem joga no PS Vita</p>
+                                    <h3 style="font-size: 15px; margin-bottom: 4px; font-family: var(--mono); text-transform: uppercase;"><i class="fa-solid fa-star" style="color: #fbbf24;"></i> Community Reviews</h3>
+                                    <p style="color: var(--muted); font-size: 12.5px; margin: 0;">Real ratings from PS Vita players</p>
                                 </div>
                                 <div style="text-align: right;">
                                     <div id="avg-rating-stars" class="star-rating" style="font-size: 1.3rem;">
                                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
                                     </div>
-                                    <span id="rating-count" style="font-size: 11.5px; font-family: var(--mono); color: var(--muted-2);">4.8 de 5.0 (12 avaliações)</span>
+                                    <span id="rating-count" style="font-size: 11.5px; font-family: var(--mono); color: var(--muted-2);">4.8 of 5.0 (12 reviews)</span>
                                 </div>
                             </div>
 
-                            <!-- Formulário para envio/edição de comentário único -->
+                            <!-- Single Review Form -->
                             <div id="user-review-box" style="background: var(--surface-2); border: 1px solid var(--border); padding: 18px; border-radius: var(--r); margin-bottom: 24px;">
-                                <h4 style="margin: 0 0 12px; font-size: 13.5px; font-family: var(--mono); text-transform: uppercase;"><i class="fa-solid fa-pen"></i> Deixar ou Editar sua Avaliação</h4>
+                                <h4 style="margin: 0 0 12px; font-size: 13.5px; font-family: var(--mono); text-transform: uppercase;"><i class="fa-solid fa-pen"></i> Leave or Edit Your Review</h4>
                                 <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; font-family: var(--mono); font-size: 12.5px;">
-                                    <span>Sua Nota:</span>
+                                    <span>Your Rating:</span>
                                     <div class="star-rating" id="input-star-rating">
                                         <i class="fa-solid fa-star empty" data-star="1" onclick="setRating(1)"></i>
                                         <i class="fa-solid fa-star empty" data-star="2" onclick="setRating(2)"></i>
@@ -267,9 +267,9 @@
                                         <i class="fa-solid fa-star empty" data-star="5" onclick="setRating(5)"></i>
                                     </div>
                                 </div>
-                                <textarea id="review-comment" style="width: 100%; height: 80px; background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 10px; border-radius: var(--r); font-family: var(--sans); font-size: 13px; margin-bottom: 12px; resize: vertical;" placeholder="Escreva sobre a jogabilidade, performance ou dicas deste projeto no PS Vita..."></textarea>
+                                <textarea id="review-comment" style="width: 100%; height: 80px; background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 10px; border-radius: var(--r); font-family: var(--sans); font-size: 13px; margin-bottom: 12px; resize: vertical;" placeholder="Write about gameplay, performance, or tips for this project on PS Vita..."></textarea>
                                 <div style="display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 1rem;">
-                                    <button class="btn-primary" onclick="submitReview()"><i class="fa-solid fa-paper-plane"></i> Publicar Avaliação</button>
+                                    <button class="btn-primary" onclick="submitReview()"><i class="fa-solid fa-paper-plane"></i> Post Review</button>
                                 </div>
                             </div>
 
