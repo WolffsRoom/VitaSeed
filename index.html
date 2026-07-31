@@ -324,7 +324,16 @@
 
       function renderGrid(filterCat) {
           grid.innerHTML = '';
-          const filtered = filterCat === 'all' ? data : data.filter(p => p.category.toLowerCase() === filterCat.toLowerCase());
+          const filterLower = (filterCat || 'all').toLowerCase().trim();
+          const filtered = filterLower === 'all' || filterLower === 'todas' || filterLower === 'todos' 
+              ? data 
+              : data.filter(p => {
+                  const cat = (p.category || '').toLowerCase().trim();
+                  if (filterLower === 'plugin' || filterLower === 'plugins') return cat.includes('plugin');
+                  if (filterLower === 'pc tools' || filterLower === 'tools') return cat.includes('tool');
+                  return cat === filterLower;
+              });
+
           const limited = filtered.slice(0, 9);
           limited.forEach(proj => {
               const card = document.createElement('article');
@@ -360,8 +369,13 @@
       document.querySelectorAll('.chip, .tab').forEach(el => {
           el.addEventListener('click', (e) => {
               const cat = el.getAttribute('data-cat') || el.getAttribute('data-filter');
-              document.querySelectorAll('.chip, .tab').forEach(i => i.classList.remove('active'));
-              el.classList.add('active');
+              document.querySelectorAll('.chip, .tab').forEach(i => {
+                  if ((i.getAttribute('data-cat') === cat) || (i.getAttribute('data-filter') === cat)) {
+                      i.classList.add('active');
+                  } else {
+                      i.classList.remove('active');
+                  }
+              });
               renderGrid(cat);
           });
       });
