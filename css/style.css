@@ -143,18 +143,12 @@ button { font-family: inherit; }
   100% { clip: rect(40px, 9999px, 60px, 0); }
 /* Page Entrance Animation */
 body {
-  animation: pageGlitchIn 0.25s ease-out forwards;
-}
-
-@keyframes pageGlitchIn {
-  0% {
-    opacity: 0.4;
-    transform: translateY(4px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
 .sb-section {
