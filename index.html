@@ -9,7 +9,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
-<link rel="stylesheet" href="css/style.css?v=100">
+<link rel="stylesheet" href="css/style.css?v=200">
+<style>
+  /* Layout Fallbacks Ingress */
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #0A0A0B; color: #E8E8E9; font-family: 'Inter', sans-serif; }
+  .app { display: flex; min-height: 100vh; }
+  .sidebar { width: 250px; flex-shrink: 0; background: #08090A; border-right: 1px solid #29292C; padding: 20px 16px; position: sticky; top: 0; height: 100vh; }
+  .main { flex: 1; min-width: 0; }
+  .topbar { position: sticky; top: 0; z-index: 20; background: #0A0A0B; border-bottom: 1px solid #29292C; display: flex; align-items: center; justify-content: space-between; padding: 13px 26px; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 26px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 940px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .sidebar { display: none; } }
+</style>
 </head>
 <body>
 
