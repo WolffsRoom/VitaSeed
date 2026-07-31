@@ -472,7 +472,27 @@ body {
 .btn-small:hover { color: var(--green); border-color: var(--green-dim); }
 
 /* ---------- footer ---------- */
-footer { border-top: 1px solid var(--border); padding: 26px 0 36px; margin-top: 6px; }
+footer {
+  position: relative;
+  border-top: 1px solid var(--border);
+  padding: 36px 0 42px;
+  margin-top: 20px;
+  overflow: hidden;
+  background: var(--bg);
+}
+footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 34px 34px;
+  background-position: center bottom;
+  -webkit-mask-image: linear-gradient(0deg, black, transparent 90%);
+  mask-image: linear-gradient(0deg, black, transparent 90%);
+  pointer-events: none;
+}
+footer .wrap { position: relative; z-index: 1; }
 .foot-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; }
 .foot-copy { font-size: 12.5px; color: var(--muted); font-family: var(--mono); }
 .foot-disclaimer { font-size: 11.5px; color: var(--muted-2); max-width: 480px; margin-top: 6px; }
@@ -746,13 +766,48 @@ footer { border-top: 1px solid var(--border); padding: 26px 0 36px; margin-top: 
   color: var(--border-2);
   cursor: pointer;
 }
-.badge-ai-tool {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--green);
-  background: var(--green-bg);
-  border: 1px solid var(--green-dim);
-  padding: 2px 8px;
-  border-radius: var(--r);
+/* ---------- Mobile Responsive Overhauls ---------- */
+@media (max-width: 768px) {
+  .burger { display: flex !important; }
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    z-index: 1000;
+    width: 260px;
+    height: 100vh;
+    transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 10px 0 30px rgba(0,0,0,0.5);
+  }
+  .sidebar.open {
+    left: 0;
+  }
+  .topbar {
+    padding: 10px 16px;
+  }
+  .topbar-right {
+    gap: 6px;
+  }
+  .btn-ghost-sm, .btn-green-sm {
+    padding: 6px 10px;
+    font-size: 11.5px;
+  }
+  .wrap {
+    padding: 0 16px;
+  }
+  .intro {
+    padding: 24px 0 20px;
+  }
+  .glitch-title {
+    font-size: 1.8rem;
+  }
+  .lists-row {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+  }
+  #terminal-loader {
+    padding: 0 16px;
+    font-size: 11.5px;
+  }
 }
 
