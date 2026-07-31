@@ -1,46 +1,70 @@
-# VitaSeed
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/banner_dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/banner_light.svg">
+  <img alt="VitARCH Logo" src="assets/banner_dark.svg" width="480">
+</picture>
 
-The newest database and catalog for PS Vita and PSTV homebrews, ports, translations, and mods.
+# VitARCH
 
-## 🚀 Features
-- **Modern Catalog:** Explore a visually stunning and fast catalog of PS Vita content.
-- **Dynamic Filtering:** Search by category, title, or author instantly.
-- **User Requests:** Log in to request new games and ports directly to the database.
-- **Role-based Access Control (RBAC):** Admins can manage requests via a secure dashboard.
-- **Mobile Friendly:** Fully responsive design that works beautifully on any screen size.
+[![Status](https://img.shields.io/badge/Status-Beta%20v0.3.0-00C853?style=for-the-badge&logo=playstation&logoColor=white)](https://vitarch.pages.dev/)
+[![Platform](https://img.shields.io/badge/Platform-PS%20Vita-0070D1?style=for-the-badge&logo=sony&logoColor=white)](https://vitarch.pages.dev/)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+[![AI Notice](https://img.shields.io/badge/AI%20Notice-Assisted%20Development-purple?style=for-the-badge&logo=openai&logoColor=white)](#ai-notice)
 
-## 🛠️ Architecture & Tech Stack
-VitaSeed is built on a modern, serverless architecture for maximum performance and zero maintenance:
-- **Frontend:** Vanilla HTML, CSS, and JS. Deployed on Cloudflare Pages.
-- **Backend API:** Cloudflare Workers.
-- **Database:** Cloudflare D1 (Serverless SQLite).
-- **Authentication:** Firebase Auth (Google & GitHub login).
-- **Automation:** Integrated with GitHub API to automatically create Issues for approved requests.
+> **VitARCH** (*Vita + Archive*) is a modern, unified homebrew archive for the PlayStation Vita scene.
 
-## 🔧 Setup & Configuration
+---
 
-### 1. Database (Cloudflare D1)
-Initialize the database schemas found in `worker/schema.sql` on your Cloudflare D1 instance. This creates the `requests` and `users` tables.
+## 🚀 About the Project
 
-### 2. Backend (Cloudflare Workers)
-Deploy the API found in `worker/index.js`. 
-Ensure the following environment variables are set in the Worker:
-- `DB`: Your D1 Database binding.
-- `GITHUB_TOKEN`: Your GitHub Personal Access Token.
-- `GITHUB_REPO`: Your repository in the format `Owner/Repo` (e.g. `WolffsRoom/VitaSeed`).
-- `ADMIN_PASSWORD`: A fallback password for the admin dashboard.
+**VitARCH** aggregates homebrew ports, original games, mods, translations, applications, plugins, and PC tools into a centralized, open-collaboration web hub.
 
-### 3. Authentication (Firebase)
-1. Set up a Firebase project and enable Authentication (Google and GitHub).
-2. Add your domain to the authorized OAuth domains in the Firebase Console.
-3. Copy your Firebase config object and paste it into `js/auth.js`.
+Designed with a sleek cyberpunk terminal aesthetic, VitARCH provides fast searching, pagination, multi-theme customization (Dark, Light, Sony Blue), and direct VPK/Source downloads for PS Vita enthusiasts worldwide.
 
-### 4. Role Management
-By default, any logged-in user is a "Viteiro" and can make requests.
-To grant someone Admin access to the dashboard, manually add their email to the `users` table in your D1 database with the role `'admin'`:
-```sql
-INSERT INTO users (email, role) VALUES ('admin@example.com', 'admin');
+---
+
+## ✨ Features
+
+- 🎮 **Unified Catalog**: Ports, Mods, Translations, Plugins, Apps & PC Tools.
+- ⚡ **Public API**: Open JSON endpoints (`api/catalog.json`) for community tools and apps.
+- 🎨 **Multi-Theme Support**: Dark Terminal, Light Clean, and Classic Sony Blue modes.
+- 🔍 **Live Search & Filter**: Real-time filtering with Card/List layout toggles.
+- 📱 **Mobile Optimized**: Responsive layout built for mobile devices and PS Vita browsers.
+- 🤝 **Open Collaboration**: Community request system and project submission forms.
+
+---
+
+## 🤖 AI Notice
+
+> [!NOTE]  
+> **AI-Assisted Development Statement**  
+> This project utilizes Artificial Intelligence tools (such as DeepMind Antigravity AI) for code refactoring, interface design iterations, layout optimizations, and automated documentation generation. All AI-generated contributions are curated, tested, and reviewed by **Wolff** to ensure performance and quality standards across the PS Vita community.
+
+---
+
+## 📂 Repository Structure
+
+```
+VitARCH/
+├── assets/          # SVG banners, logos, and badges
+├── css/             # Cyberpunk design system & tokens (style.css)
+├── js/              # Theme switcher, catalog data & API handlers
+├── api/             # Public catalog JSON endpoints
+├── scripts/         # Automation and migration Python utility scripts
+├── index.html       # Homepage & Latest Posts feed
+├── category.html    # Full catalog browser with pagination (All/Filter)
+├── project.html     # Single project details view & community reviews
+└── seed.svg         # Official vector favicon
 ```
 
-## 📄 License
-This project is open-source. Enjoy the Vita scene!
+---
+
+## 🌐 Public Endpoints & Live Demos
+
+- **Live Hub**: [https://vitarch.pages.dev/](https://vitarch.pages.dev/)
+- **GitHub Pages Mirror**: [https://wolffsroom.github.io/VitARCH/](https://wolffsroom.github.io/VitARCH/)
+- **Public API**: `https://vitarch.pages.dev/api/catalog.json`
+
+---
+
+© 2026 **VitARCH** · Created by **Wolff**. Unofficial repository. All games and trademarks belong to their respective owners.
