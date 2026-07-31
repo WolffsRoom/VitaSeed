@@ -94,8 +94,8 @@ button { font-family: inherit; }
 }
 .sb-brand { display: flex; align-items: center; gap: 8px; margin-bottom: 28px; padding: 4px 2px; text-decoration: none; cursor: pointer; }
 .sb-brand .mark {
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   border: none;
   background: transparent;
   display: flex;
@@ -106,8 +106,8 @@ button { font-family: inherit; }
   flex-shrink: 0;
 }
 .sb-brand .mark svg {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
 }
 .sb-brand .names { line-height: 1.2; }
 .sb-brand .n1 { font-family: var(--mono); font-weight: 800; font-size: 22px; color: var(--text); letter-spacing: -0.02em; }
