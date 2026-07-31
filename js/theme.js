@@ -16,7 +16,9 @@ window.toggleTheme = function() {
 };
 
 document.addEventListener('DOMContentLoaded', async () => {
-    // Terminal Typing Loader Effect
+    const isHomePage = window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.pathname.endsWith('/VitARCH/') || window.location.pathname.endsWith('/vitarch/');
+    
+    // Terminal Typing Loader Effect (Only for inner pages or navigation)
     let termLoader = document.getElementById('terminal-loader');
     if (!termLoader) {
         termLoader = document.createElement('div');
@@ -35,27 +37,45 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    const commandText = "ls --catalogo";
+    // Determine initial command text
+    const params = new URLSearchParams(window.location.search);
+    let catParam = params.get('cat') || 'catalogo';
+    if (window.location.pathname.includes('project.html')) catParam = 'project';
+    if (window.location.pathname.includes('contribution.html')) catParam = 'colaboracoes';
+    
+    const commandText = isHomePage ? "" : `ls --${catParam.toLowerCase().replace(/\s+/g, '')}`;
     const typedEl = document.getElementById('cmd-typed');
     let charIdx = 0;
 
-    function typeChar() {
-        if (charIdx < commandText.length) {
-            if (typedEl) typedEl.textContent += commandText.charAt(charIdx);
-            charIdx++;
-            setTimeout(typeChar, 40);
-        } else {
-            setTimeout(() => {
-                if (termLoader) termLoader.classList.add('fade-out');
-            }, 250);
+    if (isHomePage || !commandText) {
+        if (termLoader) termLoader.classList.add('fade-out');
+    } else {
+        function typeChar() {
+            if (charIdx < commandText.length) {
+                if (typedEl) typedEl.textContent += commandText.charAt(charIdx);
+                charIdx++;
+                setTimeout(typeChar, 35);
+            } else {
+                setTimeout(() => {
+                    if (termLoader) termLoader.classList.add('fade-out');
+                }, 200);
+            }
         }
+        typeChar();
     }
-    typeChar();
 
     // Re-trigger typing animation when clicking internal links
     document.addEventListener('click', (e) => {
         const link = e.target.closest('a');
         if (link && link.href && link.href.startsWith(window.location.origin) && !link.target && !link.href.includes('#')) {
+            const urlObj = new URL(link.href);
+            let linkCat = urlObj.searchParams.get('cat') || 'all';
+            if (urlObj.pathname.includes('project.html')) linkCat = 'details';
+            if (urlObj.pathname.includes('contribution.html')) linkCat = 'colaboracoes';
+            if (urlObj.pathname.endsWith('index.html') || urlObj.pathname === '/') linkCat = 'home';
+            
+            const navCmdText = `ls --${linkCat.toLowerCase().replace(/\s+/g, '')}`;
+            
             e.preventDefault();
             termLoader.classList.remove('fade-out');
             if (typedEl) typedEl.textContent = '';
@@ -63,14 +83,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             const targetUrl = link.href;
             
             function typeOutNav() {
-                if (charIdx < commandText.length) {
-                    if (typedEl) typedEl.textContent += commandText.charAt(charIdx);
+                if (charIdx < navCmdText.length) {
+                    if (typedEl) typedEl.textContent += navCmdText.charAt(charIdx);
                     charIdx++;
-                    setTimeout(typeOutNav, 30);
+                    setTimeout(typeOutNav, 25);
                 } else {
                     setTimeout(() => {
                         window.location.href = targetUrl;
-                    }, 150);
+                    }, 120);
                 }
             }
             typeOutNav();

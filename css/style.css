@@ -145,14 +145,14 @@ button { font-family: inherit; }
   left: 2px;
   text-shadow: -2px 0 #ff0055;
   clip-path: inset(24% 0 56% 0);
-  animation: glitchSplit1 2.5s infinite linear alternate-reverse;
+  animation: glitchSplit1 6s infinite linear alternate-reverse;
 }
 
 .glitch-title::after {
   left: -2px;
   text-shadow: -2px 0 #3FD97A;
   clip-path: inset(54% 0 12% 0);
-  animation: glitchSplit2 3.2s infinite linear alternate-reverse;
+  animation: glitchSplit2 7.5s infinite linear alternate-reverse;
 }
 
 @keyframes glitchSplit1 {
