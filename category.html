@@ -63,8 +63,21 @@
     </div>
 
     <main class="wrap" style="padding-top: 2.5rem; padding-bottom: 3rem;">
-        <div class="section-head"><h2 id="cat-title" style="font-family: var(--mono); text-transform: uppercase;">Categoria</h2></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+            <div class="section-head" style="margin-bottom:0;"><h2 id="cat-title" style="font-family: var(--mono); text-transform: uppercase;">TODOS OS PROJETOS</h2></div>
+            
+            <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                <input type="text" id="search-input" class="btn-ghost-sm" placeholder="buscar projeto..." style="padding: 6px 12px; font-family: var(--mono); text-align: left; width: 180px;">
+                <div style="display: flex; gap: 4px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r); padding: 2px;">
+                    <button id="view-card-btn" class="btn-ghost-sm active" style="padding: 4px 8px; border:none;" title="Visão em Cards"><i class="ph ph-squares-four"></i></button>
+                    <button id="view-list-btn" class="btn-ghost-sm" style="padding: 4px 8px; border:none;" title="Visão em Lista"><i class="ph ph-list"></i></button>
+                </div>
+            </div>
+        </div>
+
         <div id="project-grid" class="grid"></div>
+
+        <div id="pagination-controls" style="display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 2rem; font-family: var(--mono);"></div>
     </main>
 
     <footer>
@@ -85,94 +98,147 @@
 
     <script src="js/catalog_data.js"></script>
     <script src="js/api.js?v=3"></script>
-    <script src="js/theme.js?v=2"></script>
-    <script>
+    <script src="js/theme.j    <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const params = new URLSearchParams(window.location.search);
             const projectsData = await window.fetchCatalog();
-            const cat = params.get('cat') || '';
-            document.getElementById('cat-title').innerText = cat.toUpperCase();
+            const cat = params.get('cat') || 'all';
+            
+            const catTitle = cat === 'all' ? 'TODOS OS PROJETOS' : cat.toUpperCase();
+            document.getElementById('cat-title').innerText = catTitle;
             
             const grid = document.getElementById('project-grid');
-            const filtered = projectsData.filter(p => p.category.toLowerCase() === cat.toLowerCase());
-            
-            // Store all cards for filtering
-            let allProjects = [];
-            filtered.forEach(proj => {
-                allProjects.push(proj);
-                const card = document.createElement('article');
-                card.className = 'card';
-                card.style.cursor = 'pointer';
-                card.setAttribute('data-category', proj.category.toLowerCase());
-                card.onclick = (e) => {
-                    if (e.target.closest('.bookmark')) return;
-                    window.location.href = `project.html?id=${proj.id}`;
-                };
-                const bannerUrl = proj.bannerUrl || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400';
-                card.innerHTML = `
-                    <div class="card-cover" style="background-image: linear-gradient(to top, rgba(10,10,11,0.95), transparent), url('${bannerUrl}'); background-size: cover; background-position: ${proj.bgPosition || 'center'};">
-                        <button class="bookmark" onclick="event.stopPropagation(); this.classList.toggle('saved'); this.textContent = this.classList.contains('saved') ? '✓' : '+';">+</button>
-                        <span class="tag">${proj.category}</span>
-                        <span class="name">${proj.title}</span>
-                    </div>
-                    <div class="card-info">
-                        <div class="sub">${proj.responsibles || 'Wolff'} · v${proj.version || '1.0'}</div>
-                        <div class="rating"><span class="stars"><span class="fill">★★★★</span>☆</span><span class="score">4.8/5</span></div>
-                        <div class="row">
-                            <span class="status ok">${proj.status || 'Concluído'}</span>
-                            <a href="project.html?id=${proj.id}" class="btn-small">ver post →</a>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-
-            // Pre-select the current category in the dropdown
-            const catSelect = document.getElementById('category-filter');
-            if (catSelect) {
-                Array.from(catSelect.options).forEach(opt => {
-                    if (opt.value.toLowerCase() === cat.toLowerCase()) opt.selected = true;
-                });
-                // Category change: reload with new category
-                catSelect.addEventListener('change', () => {
-                    if (catSelect.value !== 'all') {
-                        window.location.href = 'category.html?cat=' + catSelect.value;
-                    } else {
-                        window.location.href = 'index.html';
-                    }
-                });
-            }
-
-            // Live search filter within the page
             const searchInput = document.getElementById('search-input');
-            if (searchInput) {
-                searchInput.addEventListener('input', () => {
-                    const q = searchInput.value.toLowerCase().trim();
-                    document.querySelectorAll('#project-grid .card').forEach(card => {
-                        const match = card.dataset.title.includes(q) || card.dataset.responsible.includes(q);
-                        card.style.display = match ? '' : 'none';
+            const viewCardBtn = document.getElementById('view-card-btn');
+            const viewListBtn = document.getElementById('view-list-btn');
+            const paginationEl = document.getElementById('pagination-controls');
+            
+            let currentProjects = cat === 'all' ? projectsData : projectsData.filter(p => p.category.toLowerCase() === cat.toLowerCase());
+            let currentPage = 1;
+            const itemsPerPage = 15;
+            let currentViewMode = 'card';
+
+            function renderPage(page) {
+                currentPage = page;
+                grid.innerHTML = '';
+                
+                const q = searchInput ? searchInput.value.toLowerCase().trim() : '';
+                const filtered = currentProjects.filter(p => p.title.toLowerCase().includes(q) || (p.responsibles && p.responsibles.toLowerCase().includes(q)));
+                
+                const totalPages = Math.ceil(filtered.length / itemsPerPage) || 1;
+                if (currentPage > totalPages) currentPage = totalPages;
+                
+                const start = (currentPage - 1) * itemsPerPage;
+                const pageItems = filtered.slice(start, start + itemsPerPage);
+                
+                if (currentViewMode === 'list') {
+                    grid.classList.add('list-mode');
+                } else {
+                    grid.classList.remove('list-mode');
+                }
+
+                if (pageItems.length === 0) {
+                    grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--muted); font-family: var(--mono);">Nenhum projeto encontrado.</div>`;
+                } else {
+                    pageItems.forEach(proj => {
+                        const card = document.createElement('article');
+                        card.className = 'card';
+                        card.style.cursor = 'pointer';
+                        card.setAttribute('data-category', proj.category.toLowerCase());
+                        card.onclick = (e) => {
+                            if (e.target.closest('.bookmark')) return;
+                            window.location.href = `project.html?id=${proj.id}`;
+                        };
+                        const bannerUrl = proj.bannerUrl || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400';
+                        card.innerHTML = `
+                            <div class="card-cover" style="background-image: linear-gradient(to top, rgba(10,10,11,0.95), transparent), url('${bannerUrl}'); background-size: cover; background-position: ${proj.bgPosition || 'center'};">
+                                <button class="bookmark" onclick="event.stopPropagation(); this.classList.toggle('saved'); this.textContent = this.classList.contains('saved') ? '✓' : '+';">+</button>
+                                <span class="tag">${proj.category}</span>
+                                <span class="name">${proj.title}</span>
+                            </div>
+                            <div class="card-info">
+                                <div class="sub">${proj.responsibles || 'Wolff'} · v${proj.version || '1.0'}</div>
+                                <div class="rating"><span class="stars"><span class="fill">★★★★</span>☆</span><span class="score">4.8/5</span></div>
+                                <div class="row">
+                                    <span class="status ok">${proj.status || 'Concluído'}</span>
+                                    <a href="project.html?id=${proj.id}" class="btn-small">ver post →</a>
+                                </div>
+                            </div>
+                        `;
+                        grid.appendChild(card);
                     });
+                }
+
+                // Render Pagination
+                paginationEl.innerHTML = '';
+                if (totalPages > 1) {
+                    const prevBtn = document.createElement('button');
+                    prevBtn.className = 'btn-ghost-sm';
+                    prevBtn.innerText = '← anterior';
+                    prevBtn.disabled = currentPage === 1;
+                    prevBtn.onclick = () => renderPage(currentPage - 1);
+                    paginationEl.appendChild(prevBtn);
+
+                    for (let i = 1; i <= totalPages; i++) {
+                        const pageBtn = document.createElement('button');
+                        pageBtn.className = i === currentPage ? 'btn-green-sm' : 'btn-ghost-sm';
+                        pageBtn.innerText = i;
+                        pageBtn.onclick = () => renderPage(i);
+                        paginationEl.appendChild(pageBtn);
+                    }
+
+                    const nextBtn = document.createElement('button');
+                    nextBtn.className = 'btn-ghost-sm';
+                    nextBtn.innerText = 'próxima →';
+                    nextBtn.disabled = currentPage === totalPages;
+                    nextBtn.onclick = () => renderPage(currentPage + 1);
+                    paginationEl.appendChild(nextBtn);
+                }
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener('input', () => renderPage(1));
+            }
+            if (viewCardBtn && viewListBtn) {
+                viewCardBtn.addEventListener('click', () => {
+                    currentViewMode = 'card';
+                    viewCardBtn.classList.add('active');
+                    viewListBtn.classList.remove('active');
+                    renderPage(currentPage);
+                });
+                viewListBtn.addEventListener('click', () => {
+                    currentViewMode = 'list';
+                    viewListBtn.classList.add('active');
+                    viewCardBtn.classList.remove('active');
+                    renderPage(currentPage);
                 });
             }
 
-            if (typeof VanillaTilt !== 'undefined') {
-                VanillaTilt.init(document.querySelectorAll('.card'), {
-                    max: 10,
-                    speed: 400,
-                    glare: true,
-                    "max-glare": 0.15,
-                    scale: 1.02
-                });
-            }
+            renderPage(1);
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 
 <!-- LOGIN MODAL -->
 <div class="overlay" id="loginOverlay">
-  <div class="modal">
+  <div class="modal" style="text-align: center;">
     <button class="modal-close" onclick="closeModal('loginOverlay')">×</button>
-    <h3>acesse o vitaseed</h3>
+    <div class="sb-brand" style="justify-content: center; margin-bottom: 16px;">
+      <span class="mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="7" y="3" width="10" height="1.5" fill="currentColor"/>
+          <rect x="7" y="5.5" width="10" height="2" fill="currentColor"/>
+          <rect x="7" y="8.5" width="10" height="2.5" fill="currentColor"/>
+          <path d="M7 12H4L12 19L20 12H17V12H7Z" fill="currentColor"/>
+          <rect x="4" y="20.5" width="16" height="2" fill="currentColor"/>
+        </svg>
+      </span>
+      <div class="names" style="text-align: left;">
+        <div class="n1">Vit<b>ARCH</b></div>
+        <div class="n2">by Wolff</div>
+      </div>
+    </div>
+    <h3>acesse o vitarch</h3>
     <p>Faça login para solicitar a adição de novos jogos ao catálogo.</p>
     <button class="oauth-btn" onclick="loginWithGoogle()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" width="16" height="16"> entrar com google</button>
     <button class="oauth-btn" onclick="loginWithGitHub()"><i class="fa-brands fa-github"></i> entrar com github</button>
@@ -181,10 +247,25 @@
 
 <!-- ABOUT MODAL -->
 <div class="overlay" id="aboutOverlay">
-  <div class="modal">
+  <div class="modal" style="text-align: center;">
     <button class="modal-close" onclick="closeModal('aboutOverlay')">×</button>
-    <h3>sobre o vitaseed</h3>
-    <p>O VitaSeed é um centralizador para a cena brasileira homebrew do PSVita. Aqui centralizamos Ports, Mods, Traduções, Plugins, Apps e Ferramentas, garantindo um acesso centralizado.</p>
+    <div class="sb-brand" style="justify-content: center; margin-bottom: 16px;">
+      <span class="mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="7" y="3" width="10" height="1.5" fill="currentColor"/>
+          <rect x="7" y="5.5" width="10" height="2" fill="currentColor"/>
+          <rect x="7" y="8.5" width="10" height="2.5" fill="currentColor"/>
+          <path d="M7 12H4L12 19L20 12H17V12H7Z" fill="currentColor"/>
+          <rect x="4" y="20.5" width="16" height="2" fill="currentColor"/>
+        </svg>
+      </span>
+      <div class="names" style="text-align: left;">
+        <div class="n1">Vit<b>ARCH</b></div>
+        <div class="n2">by Wolff</div>
+      </div>
+    </div>
+    <h3>sobre o vitarch</h3>
+    <p>O VitARCH (Vita + Archive) é o novo repositório agregador para a cena homebrew do PSVita. Centralizamos Ports, Mods, Traduções, Plugins, Apps e Ferramentas.</p>
   </div>
 </div>
 

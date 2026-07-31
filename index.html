@@ -32,7 +32,7 @@
       </div>
     </a>
 
-    <a href="index.html" class="sb-link active">home</a>
+    <a href="category.html?cat=all" class="sb-link">all <span class="tag">[todos]</span></a>
 
     <div class="sb-section">Biblioteca</div>
     <a href="category.html?cat=Ports" class="sb-link" data-cat="ports">ports <span class="tag">[port]</span></a>
@@ -140,7 +140,7 @@
     </section>
 
     <section class="section wrap" id="catalogo">
-      <div class="section-head"><h2>Catálogo completo</h2></div>
+      <div class="section-head"><h2>últimos posts</h2></div>
 
       <div class="tabs" id="tabs">
         <div class="tab active" data-filter="all">todos</div>
@@ -286,7 +286,8 @@
       function renderGrid(filterCat) {
           grid.innerHTML = '';
           const filtered = filterCat === 'all' ? data : data.filter(p => p.category.toLowerCase() === filterCat.toLowerCase());
-          filtered.forEach(proj => {
+          const limited = filtered.slice(0, 9);
+          limited.forEach(proj => {
               const card = document.createElement('article');
               card.className = 'card';
               card.style.cursor = 'pointer';
