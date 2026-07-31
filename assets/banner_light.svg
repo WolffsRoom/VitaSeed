@@ -3,19 +3,19 @@
   <rect width="480" height="120" rx="12" fill="#FFFFFF"/>
   <rect x="2" y="2" width="476" height="116" rx="10" fill="none" stroke="#E2E8F0" stroke-width="1.5"/>
   
-  <!-- Icon Mark Box -->
-  <rect x="24" y="24" width="72" height="72" rx="12" fill="#09090B" stroke="#00C853" stroke-width="2"/>
-  
-  <!-- Segmented Arrow Icon -->
-  <g transform="translate(24, 24) scale(3)">
-    <rect x="7" y="3" width="10" height="1.5" fill="#00C853"/>
-    <rect x="7" y="5.5" width="10" height="2" fill="#00C853"/>
-    <rect x="7" y="8.5" width="10" height="2.5" fill="#00C853"/>
-    <path d="M7 12H4L12 19L20 12H17V12H7Z" fill="#00C853"/>
-    <rect x="4" y="20.5" width="16" height="2" fill="#00C853"/>
-  </g>
+  <!-- Centered Header Container -->
+  <g transform="translate(65, 0)">
+    <!-- Segmented Arrow Icon (No background/border) -->
+    <g transform="translate(0, 24) scale(3)">
+      <rect x="7" y="3" width="10" height="1.5" fill="#00C853"/>
+      <rect x="7" y="5.5" width="10" height="2" fill="#00C853"/>
+      <rect x="7" y="8.5" width="10" height="2.5" fill="#00C853"/>
+      <path d="M7 12H4L12 19L20 12H17V12H7Z" fill="#00C853"/>
+      <rect x="4" y="20.5" width="16" height="2" fill="#00C853"/>
+    </g>
 
-  <!-- Typography -->
-  <text x="120" y="66" font-family="'JetBrains Mono', monospace, sans-serif" font-weight="800" font-size="44" fill="#09090B" letter-spacing="-1">Vit<tspan fill="#00C853">ARCH</tspan></text>
-  <text x="122" y="88" font-family="'JetBrains Mono', monospace, sans-serif" font-weight="500" font-size="14" fill="#64748B">by Wolff · PS Vita Homebrew Archive</text>
+    <!-- Typography -->
+    <text x="88" y="66" font-family="'JetBrains Mono', monospace, sans-serif" font-weight="800" font-size="44" fill="#09090B" letter-spacing="-1">Vit<tspan fill="#00C853">ARCH</tspan></text>
+    <text x="90" y="88" font-family="'JetBrains Mono', monospace, sans-serif" font-weight="500" font-size="14" fill="#64748B">by Wolff · PS Vita Homebrew Archive</text>
+  </g>
 </svg>

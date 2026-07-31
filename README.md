@@ -1,15 +1,17 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/banner_dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="assets/banner_light.svg">
-  <img alt="VitARCH Logo" src="assets/banner_dark.svg" width="480">
-</picture>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/banner_dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="assets/banner_light.svg">
+    <img alt="VitARCH Logo" src="assets/banner_dark.svg" width="480">
+  </picture>
+</p>
 
-# VitARCH
-
-[![Status](https://img.shields.io/badge/Status-Beta%20v0.3.0-00C853?style=for-the-badge&logo=playstation&logoColor=white)](https://vitarch.pages.dev/)
-[![Platform](https://img.shields.io/badge/Platform-PS%20Vita-0070D1?style=for-the-badge&logo=sony&logoColor=white)](https://vitarch.pages.dev/)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
-[![AI Notice](https://img.shields.io/badge/AI%20Notice-Assisted%20Development-purple?style=for-the-badge&logo=openai&logoColor=white)](#ai-notice)
+<p align="center">
+  <a href="https://vitarch.pages.dev/"><img src="https://img.shields.io/badge/Status-Beta%20v0.3.0-00C853?style=for-the-badge&logo=playstation&logoColor=white" alt="Status"></a>
+  <a href="https://vitarch.pages.dev/"><img src="https://img.shields.io/badge/Platform-PS%20Vita-0070D1?style=for-the-badge&logo=sony&logoColor=white" alt="Platform"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License"></a>
+  <a href="#ai-notice"><img src="https://img.shields.io/badge/AI%20Notice-Assisted%20Development-purple?style=for-the-badge&logo=openai&logoColor=white" alt="AI Notice"></a>
+</p>
 
 > **VitARCH** (*Vita + Archive*) is a modern, unified homebrew archive for the PlayStation Vita scene.
 
