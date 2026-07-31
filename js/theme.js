@@ -47,22 +47,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const typedEl = document.getElementById('cmd-typed');
     let charIdx = 0;
 
-    if (isHomePage || !commandText) {
-        if (termLoader) termLoader.classList.add('fade-out');
-    } else {
-        function typeChar() {
-            if (charIdx < commandText.length) {
-                if (typedEl) typedEl.textContent += commandText.charAt(charIdx);
-                charIdx++;
-                setTimeout(typeChar, 35);
-            } else {
-                setTimeout(() => {
-                    if (termLoader) termLoader.classList.add('fade-out');
-                }, 200);
-            }
-        }
-        typeChar();
-    }
+    // Hide loader initial state unless navigating
+    if (termLoader) termLoader.classList.add('fade-out');
 
     // Re-trigger typing animation when clicking internal links
     document.addEventListener('click', (e) => {
