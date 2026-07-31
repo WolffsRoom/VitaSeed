@@ -415,6 +415,7 @@
             const proj = projectsData.find(p => p.id === id);
             
             if (proj) {
+                document.title = `${proj.title} - VitARCH - Project Details`;
                 document.getElementById('proj-title').innerHTML = window.formatTitle(proj.title);
                 
                 document.getElementById('proj-desc').innerText = proj.description;
