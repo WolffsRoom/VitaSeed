@@ -7,7 +7,11 @@ window.fetchCatalog = async function() {
         window.projectsData = data.projects;
         return window.projectsData;
     } catch (e) {
-        console.error("Erro na API:", e);
+        console.warn("API/CORS fetch fallbacked (File Protocol):", e);
+        if (window.catalogFallbackData) {
+            window.projectsData = window.catalogFallbackData;
+            return window.projectsData;
+        }
         return [];
     }
 }

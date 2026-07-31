@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitaSeed Downloader - Showcase PS Vita</title>
+    <link rel="stylesheet" href="css/style.css?v=34">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .vita-console {
+            position: relative;
+            width: 960px;
+            height: 544px;
+            margin: 2rem auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(121, 40, 202, 0.4), 0 0 0 12px #111;
+            border: 2px solid var(--border-color);
+            background: var(--bg-main);
+        }
+        
+        .app-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+
+        .vita-sidebar {
+            width: 200px;
+            background: #0d0c14;
+            border-right: 1px solid var(--border-color);
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .vita-main {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .vita-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+        }
+
+        .vita-card {
+            background: rgba(22, 21, 31, 0.9);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.5rem;
+            transition: 0.2s;
+        }
+
+        .vita-card.active {
+            border-color: var(--accent-green);
+            box-shadow: 0 0 12px rgba(0, 230, 118, 0.4);
+            transform: scale(1.02);
+        }
+
+        .vita-banner {
+            width: 100%;
+            height: 90px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 4px;
+            margin-bottom: 0.4rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper" style="margin-left: 0; width: 100%; padding: 2rem;">
+        <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
+            <a href="index.html" class="btn-icon" style="text-decoration: none; color: var(--text-main); display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; background: var(--bg-card); padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid var(--border-color);"><i class="fa-solid fa-arrow-left"></i> Voltar ao VitaSeed Web</a>
+            <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">VitaSeed Downloader (Client Native Mockup)</h1>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 1.5rem auto;">
+                Trazendo a mesma experiência moderna, visualmente mais agradável e navegação fluida diretamente para a tela nativa (960x544) do seu PS Vita!
+            </p>
+
+            <!-- Moldura do PS Vita Simulada -->
+            <div class="vita-console">
+                <div class="app-wrapper">
+                    <!-- Sidebar do Client -->
+                    <div class="vita-sidebar">
+                        <div>
+                            <div style="font-size: 0.9rem; font-weight: bold; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.4rem; color: var(--text-main);">
+                                <i class="fa-solid fa-seedling" style="color: var(--accent-green);"></i> VITA<strong style="color: var(--accent-green);">SEED</strong>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 0.4rem; text-align: left; font-size: 0.75rem;">
+                                <div style="padding: 0.4rem 0.6rem; background: rgba(0,230,118,0.15); color: var(--accent-green); border-radius: 4px; font-weight: bold;"><i class="fa-solid fa-house"></i> Home</div>
+                                <div style="padding: 0.4rem 0.6rem; color: var(--text-muted);"><i class="fa-solid fa-gamepad"></i> Ports</div>
+                                <div style="padding: 0.4rem 0.6rem; color: var(--text-muted);"><i class="fa-solid fa-puzzle-piece"></i> Mods</div>
+                                <div style="padding: 0.4rem 0.6rem; color: var(--text-muted);"><i class="fa-solid fa-language"></i> Traduções</div>
+                                <div style="padding: 0.4rem 0.6rem; color: var(--text-muted);"><i class="fa-solid fa-download"></i> Downloads</div>
+                            </div>
+                        </div>
+                        <div style="font-size: 0.65rem; color: var(--text-muted); text-align: left;">
+                            <div>PSVITA - 3.65 Enso</div>
+                            <div style="color: var(--accent-green);">Online (D1 API)</div>
+                        </div>
+                    </div>
+
+                    <!-- Conteúdo Principal do Vita -->
+                    <div class="vita-main">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                            <div style="font-size: 0.8rem; font-weight: bold; color: var(--text-muted); text-transform: uppercase;">Destaques da Semana</div>
+                            <div style="font-size: 0.7rem; color: var(--text-muted);"><i class="fa-solid fa-gamepad"></i> Use D-Pad / Touch</div>
+                        </div>
+
+                        <div class="vita-grid">
+                            <div class="vita-card active">
+                                <div class="vita-banner" style="background-image: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80');"></div>
+                                <div style="font-size: 0.75rem; font-weight: bold; color: white;">GTA San Andreas Port</div>
+                                <div style="font-size: 0.65rem; color: var(--tag-port);">Port • 60 FPS</div>
+                            </div>
+                            <div class="vita-card">
+                                <div class="vita-banner" style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=400&q=80');"></div>
+                                <div style="font-size: 0.75rem; font-weight: bold; color: white;">Cuphead Vita Edition</div>
+                                <div style="font-size: 0.65rem; color: var(--tag-port);">Port • Demanda Data File</div>
+                            </div>
+                            <div class="vita-card">
+                                <div class="vita-banner" style="background-image: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=400&q=80');"></div>
+                                <div style="font-size: 0.75rem; font-weight: bold; color: white;">Fallout 1 Vita</div>
+                                <div style="font-size: 0.65rem; color: var(--tag-mod);">Port / Engine</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; text-align: left;">
+                <h3><i class="fa-solid fa-circle-info"></i> Recursos do VitaSeed Client</h3>
+                <ul style="margin-top: 0.8rem; margin-left: 1.5rem; color: var(--text-muted); line-height: 1.8;">
+                    <li><strong>Baixe VPKs diretamente:</strong> Instalação em background rápida sem necessidade de PC.</li>
+                    <li><strong>Aviso de Arquivos de Dados:</strong> O VitaSeed Downloader orienta onde colocar as pastas <code style="color: var(--accent-green);">ux0:data/</code>.</li>
+                    <li><strong>Mesma conta e sincronização:</strong> Seus favoritos e reviews sincronizados entre o site Web e o PS Vita.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

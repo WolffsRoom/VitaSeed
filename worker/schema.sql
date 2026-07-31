@@ -30,3 +30,17 @@ CREATE TABLE IF NOT EXISTS favorites (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (user_email, post_id)
 );
+
+CREATE TABLE IF NOT EXISTS reviews (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  post_id TEXT NOT NULL,
+  user_email TEXT NOT NULL,
+  user_name TEXT,
+  user_avatar TEXT,
+  rating INTEGER CHECK(rating >= 1 AND rating <= 5),
+  comment TEXT,
+  used_ai_tool INTEGER DEFAULT 0,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(post_id, user_email)
+);
+

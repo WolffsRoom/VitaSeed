@@ -11,98 +11,61 @@
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-</head>
-<body>
-    <div class="mobile-header">
-        <button id="mobile-menu-toggle" class="menu-toggle">☰</button>
-        <a href="index.html" style="text-decoration: none; color: inherit;"><div class="logo">Vita<strong>Seed</strong> <span style="font-size:0.6rem; color:var(--text-muted);">by Wolff</span></div></a>
+</head><body>
+
+<div class="app">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-brand">
+      <span class="mark">VS</span>
+      <div class="names">
+        <div class="n1">Vita<b>Seed</b></div>
+        <div class="n2">by Wolff</div>
+      </div>
     </div>
 
-    <aside id="sidebar">
-        <div>
-            <div class="logo-container" style="flex-direction: column; align-items: flex-start; gap: 0.2rem;">
-                <a href="index.html" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                    <div class="seed-icon"></div>
-                    <div class="logo">VITA<strong style="font-weight: 800;">SEED</strong> <span style="font-size:0.6rem; color:var(--text-muted); font-weight: normal;">by Wolff</span></div>
-                </a>
-                
-            </div>
-            
-            <ul class="nav-links">
-                <li><a href="index.html" data-page="index"><span data-i18n="menu_home">HOME</span></a></li>
-                
-                
-                
-                <li class="nav-section">BIBLIOTECA</li>
-                <li><a href="category.html?cat=Ports" data-page="ports"><span>PORTS</span></a></li>
-                <li><a href="category.html?cat=Original games" data-page="original games"><span>ORIGINAL GAMES</span></a></li>
-                <li><a href="category.html?cat=Mods" data-page="mods"><span>MODS</span></a></li>
-                <li><a href="category.html?cat=Translations" data-page="translations"><span>TRADUÇÕES</span></a></li>
-                <li><a href="category.html?cat=Apps" data-page="apps"><span>APPS</span></a></li>
-                <li><a href="category.html?cat=Tools" data-page="tools"><span>TOOLS</span></a></li>
-                <li><a href="category.html?cat=Plugin" data-page="plugins"><span>PLUGINS</span></a></li>
-                
-                <li class="nav-section">COMUNIDADE</li>
-                <li><a href="contribution.html" data-page="contribution"><span data-i18n="menu_colab">COLABORAÇÕES</span></a></li>
-                <li><a href="https://zealouschuck.com/ps-vita-bounty" target="_blank"><span>RECOMPENSAS <i class="ph ph-arrow-up-right" style="font-size: 0.8em; margin-left: 4px; opacity: 0.5;"></i></span></a></li>
-                
-                <li class="nav-section">CENA PSVITA</li>
-                <li><a href="http://brewology.com/" target="_blank"><span>Brewology <i class="ph ph-arrow-up-right" style="font-size: 0.8em; margin-left: 4px; opacity: 0.5;"></i></span></a></li>
-                <li><a href="https://wololo.net/" target="_blank"><span>Wololo.net <i class="ph ph-arrow-up-right" style="font-size: 0.8em; margin-left: 4px; opacity: 0.5;"></i></span></a></li>
-                <li><a href="https://www.youtube.com/@TitiClash" target="_blank"><span>Titi Clash <i class="ph ph-arrow-up-right" style="font-size: 0.8em; margin-left: 4px; opacity: 0.5;"></i></span></a></li>
-            </ul>
-        </div>
-        
-        <div class="sidebar-footer">
-            <ul>
-                <li><a href="settings.html" data-page="settings"><span>Configurações</span></a></li>
-            </ul>
-            <div class="version">0.3.0 (beta)</div>
-        </div>
-    </aside>
+    <a href="index.html" class="sb-link">home</a>
 
-    <div class="content-wrapper">
-        
+    <div class="sb-section">Biblioteca</div>
+    <a href="category.html?cat=Ports" class="sb-link">ports <span class="tag">[port]</span></a>
+    <a href="category.html?cat=Original games" class="sb-link">original games <span class="tag">[og]</span></a>
+    <a href="category.html?cat=Mods" class="sb-link">mods <span class="tag">[mod]</span></a>
+    <a href="category.html?cat=Translations" class="sb-link">traduções <span class="tag">[trad]</span></a>
+    <a href="category.html?cat=Apps" class="sb-link">apps <span class="tag">[app]</span></a>
+    <a href="category.html?cat=Tools" class="sb-link">tools <span class="tag">[tool]</span></a>
+    <a href="category.html?cat=Plugin" class="sb-link">plugins <span class="tag">[plg]</span></a>
 
-        <header style="display: flex; gap: 1rem; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 2rem;">
-            <div style="display: flex; gap: 1rem; flex: 1; min-width: 200px;">
-                <input type="text" id="search-input" class="search-bar" placeholder="Buscar por título ou responsável..." data-i18n="search_placeholder" style="flex: 1;">
-            </div>
-            <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-                <select id="category-filter" class="filter-select">
-                    <option value="all" data-i18n="filter_all">Todas as Categorias</option>
-                    <option value="Ports">Ports</option>
-                    <option value="Original games">Original games</option>
-                    <option value="Mods">Mods</option>
-                    <option value="Translations">Translations</option>
-                    <option value="Apps">Apps</option>
-                    <option value="Tools">Tools</option>
-                    <option value="Plugin">Plugins</option>
-                </select>
-                <button id="btn-about" class="btn-icon" style="background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.6rem 1rem; border-radius: 8px; cursor: pointer; transition: 0.2s;" onmouseover="this.style.background='var(--hover-bg)'" onmouseout="this.style.background='var(--bg-card)'" title="Sobre o VitaSeed" onclick="document.getElementById('modal-about').classList.add('show')"><i class="fa-solid fa-question"></i></button>
-                <button id="btn-request" class="btn-primary" onclick="handleRequestButtonClick(event)"><i class="ph ph-paper-plane-tilt"></i> Request</button>
+    <div class="sb-section">Comunidade</div>
+    <a href="contribution.html" class="sb-link">colaborações</a>
+    <a href="https://zealouschuck.com/ps-vita-bounty" target="_blank" class="sb-link ext">recompensas</a>
 
-                <div id="user-profile-dropdown" class="profile-dropdown hidden" style="margin-left: 0.5rem;">
-                    <!-- Avatar will be injected here -->
-                                          <div id="profile-menu" class="profile-menu">
-                          <div style="padding: 1rem; text-align: center; border-bottom: 1px solid var(--border-color);">
-                              <strong id="menu-user-name" style="color: var(--text-main);">User</strong><br>
-                              <span id="menu-user-email" style="font-size: 0.8rem; color: var(--text-muted);">email</span>
-                          </div>
-                          <a href="#" onclick="openProfileModal(); return false;" data-i18n="profile_edit"><i class="fa-solid fa-pen-to-square"></i> Editar Perfil</a>
-                          <a href="#" onclick="filterUserProjects(); return false;" data-i18n="profile_projects"><i class="fa-solid fa-folder"></i> Meus Projetos</a>
-                          <a href="#" id="menu-admin-publish" class="hidden" onclick="document.getElementById('modal-publish').classList.add('show'); return false;"><i class="fa-solid fa-upload"></i> Aprovar Publicação</a>
-                          <a href="admin.html" id="menu-admin-panel" class="hidden"><i class="fa-solid fa-lock"></i> Painel Admin</a>
-                            <a href="settings.html" data-i18n="profile_settings"><i class="fa-solid fa-gear"></i> Configurações</a>
-                          <hr>
-                          <button onclick="logout()" data-i18n="profile_logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</button>
-                      </div>
-                  </div>
-              </div>
-          </header>
-        <main>
-            
-            <div class="settings-container">
+    <div class="sb-section">Cena PSVita</div>
+    <a href="http://brewology.com/" target="_blank" class="sb-link ext">brewology</a>
+    <a href="https://wololo.net/" target="_blank" class="sb-link ext">wololo.net</a>
+    <a href="https://www.youtube.com/@TitiClash" target="_blank" class="sb-link ext">titi clash</a>
+
+    <div class="sb-bottom">
+      <a href="#" class="sb-link" onclick="openModal('aboutOverlay'); return false;">sobre o vitaseed</a>
+      <a href="settings.html" class="sb-link active">configurações</a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <button class="burger" id="burgerBtn" aria-label="Abrir menu">☰</button>
+        <span class="version-badge">v0.3.0 <span class="b">(beta)</span></span>
+        <a href="api/catalog.json" target="_blank" class="version-badge" style="color: var(--green); text-decoration: none;" title="Acessar API pública do catálogo">API ↗</a>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-ghost-sm" onclick="toggleTheme()"><span id="theme-btn-text">modo escuro</span></button>
+        <button class="btn-ghost-sm" onclick="openModal('requestOverlay')">solicitar_projeto</button>
+        <button class="btn-green-sm" onclick="openModal('loginOverlay')">entrar</button>
+      </div>
+    </div>
+
+    <main class="wrap" style="padding-top: 2.5rem; padding-bottom: 3rem;">
+        <div class="settings-container">
                 <h2 style="margin-bottom: 1.5rem;">Configurações</h2>
                 
                 <div>
@@ -140,16 +103,21 @@
 
         </main>
 
-    <!-- Footer -->
-    <footer class="app-footer">
-        <p>&copy; 2026 VitaSeed. Todos os direitos reservados.</p>
-        <p style="margin-top:0.5rem; font-size:0.75rem;">Repositório não oficial. Todos os jogos, ports e marcas pertencem aos seus respectivos donos.</p>
-        <div style="margin-top:1rem;">
-            <a href="https://github.com/WolffsRoom/VitaSeed" target="_blank"><i class="fa-brands fa-github"></i> GitHub do Projeto</a>
-        </div>
-    </footer>
-
-    </div>
+        <footer>
+          <div class="wrap foot-row">
+            <div>
+              <div class="foot-copy">© 2026 VitaSeed. Todos os direitos reservados.</div>
+              <div class="foot-disclaimer">Repositório não oficial. Todos os jogos, ports e marcas pertencem aos seus respectivos donos.</div>
+            </div>
+            <div class="foot-links">
+              <a href="https://github.com/WolffsRoom/VitaSeed" target="_blank">github do projeto</a>
+              <a href="http://brewology.com/" target="_blank">brewology</a>
+              <a href="https://wololo.net/" target="_blank">wololo.net</a>
+            </div>
+          </div>
+        </footer>
+  </div>
+</div>
     
     <script src="js/api.js?v=3"></script>
     <script src="js/theme.js?v=2"></script>
@@ -176,144 +144,50 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 
-    <!-- Modals -->
-    <div id="modal-about" class="modal" onclick="if(event.target===this)closeModal('modal-about')">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('modal-about')">&times;</span>
-            <div class="seed-icon" style="width: 48px; height: 48px; margin: 0 auto 1rem auto;"></div>
-              <h2>Sobre o VitaSeed <span style="color:var(--accent-green)">?</span></h2>
-            <p style="margin-top: 1rem; line-height: 1.7; color: var(--text-muted);">
-                O VitaSeed é um centralizador para a cena brasileira homebrew do PSVita. Aqui centralizamos Ports, Mods, Traduções, Plugins, Apps e Ferramentas, garantindo um acesso centralizado.
-            </p>
-        </div>
-    </div>
+<!-- LOGIN MODAL -->
+<div class="overlay" id="loginOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('loginOverlay')">×</button>
+    <h3>acesse o vitaseed</h3>
+    <p>Faça login para solicitar a adição de novos jogos ao catálogo.</p>
+    <button class="oauth-btn" onclick="loginWithGoogle()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" width="16" height="16"> entrar com google</button>
+    <button class="oauth-btn" onclick="loginWithGitHub()"><i class="fa-brands fa-github"></i> entrar com github</button>
+  </div>
+</div>
 
-    <div id="modal-request" class="modal" onclick="if(event.target===this)closeModal('modal-request')">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('modal-request')">&times;</span>
-            <h2>Solicitar Projeto</h2>
-            <p style="margin-top: 0.75rem; margin-bottom: 1.25rem; font-size: 0.9rem; color: var(--text-muted); line-height: 1.5;">
-                Não encontrou o que procurava?<br>Envie um request para adicionarmos o projeto ao catálogo!
-            </p>
-            <div style="display: flex; flex-direction: column; gap: 0.85rem; text-align: left;">
-                <input type="text" id="req-title" class="search-bar" placeholder="Nome do Projeto / Jogo" style="width: 100%; box-sizing: border-box;">
-                <input type="text" id="req-link" class="search-bar" placeholder="Link de Referência (GitHub, VitaDB, etc)" style="width: 100%; box-sizing: border-box;">
-                <textarea id="req-desc" class="search-bar" rows="3" placeholder="Por que devemos adicionar?" style="resize: vertical; font-family: inherit; width: 100%; box-sizing: border-box;"></textarea>
-                <button class="btn-primary" onclick="sendRequest()" style="width: 100%; justify-content: center; margin-top: 0.25rem;">
-                    <i class="ph ph-paper-plane-tilt"></i> Enviar Pedido
-                </button>
-                <div id="req-msg" style="text-align: center; font-size: 0.9rem; font-weight: bold;"></div>
-            </div>
-        </div>
-    </div>
+<!-- ABOUT MODAL -->
+<div class="overlay" id="aboutOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('aboutOverlay')">×</button>
+    <h3>sobre o vitaseed</h3>
+    <p>O VitaSeed é um centralizador para a cena brasileira homebrew do PSVita. Aqui centralizamos Ports, Mods, Traduções, Plugins, Apps e Ferramentas, garantindo um acesso centralizado.</p>
+  </div>
+</div>
+
+<!-- REQUEST MODAL -->
+<div class="overlay" id="requestOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('requestOverlay')">×</button>
+    <h3>solicitar projeto</h3>
+    <p>Não encontrou o que procurava? Envie um pedido pra adicionarmos o projeto ao catálogo.</p>
+    <input type="text" id="req-title" class="btn-ghost-sm" placeholder="nome do projeto..." style="width:100%; margin-bottom:8px; text-align:left;">
+    <input type="text" id="req-link" class="btn-ghost-sm" placeholder="link de referência..." style="width:100%; margin-bottom:8px; text-align:left;">
+    <textarea id="req-desc" placeholder="detalhes do pedido..."></textarea>
+    <button class="btn-green-sm" style="width:100%; padding:10px;" onclick="sendRequest()">enviar pedido</button>
+    <div id="req-msg" style="margin-top:8px; font-size:12px;"></div>
+  </div>
+</div>
 
     <script>
-        if (typeof closeModal === 'undefined') {
-            function closeModal(id) { document.getElementById(id).classList.remove('show'); }
-            function sendRequest() {
-                const title = document.getElementById('req-title').value.trim();
-                const msgBox = document.getElementById('req-msg');
-                if (!title) { msgBox.style.color = '#ff4d4d'; msgBox.innerText = 'Informe o nome do projeto.'; return; }
-                const today = new Date().toISOString().split('T')[0];
-                const key = 'vitaseed_requests_' + today;
-                let n = parseInt(localStorage.getItem(key) || '0');
-                if (n >= 2) { msgBox.style.color = '#ff4d4d'; msgBox.innerText = 'Limite de 2 envios por dia atingido.'; return; }
-                localStorage.setItem(key, (n + 1).toString());
-                msgBox.style.color = 'var(--accent-green)';
-                msgBox.innerText = 'Request enviado com sucesso!';
-                document.getElementById('req-title').value = '';
-                document.getElementById('req-link').value = '';
-                document.getElementById('req-desc').value = '';
-                setTimeout(() => { closeModal('modal-request'); msgBox.innerText = ''; }, 2000);
-            }
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') document.querySelectorAll('.modal.show').forEach(m => m.classList.remove('show'));
-            });
-        }
-    </script>
+      function openModal(id){ document.getElementById(id).classList.add('open'); }
+      function closeModal(id){ document.getElementById(id).classList.remove('open'); }
 
-    <!-- Firebase Auth -->
+      var sidebar = document.getElementById('sidebar');
+      var burgerBtn = document.getElementById('burgerBtn');
+      if(burgerBtn) burgerBtn.addEventListener('click', function(){ sidebar.classList.toggle('open'); });
+    </script>
     <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
     <script src="js/auth.js"></script>
-
-    <!-- Modal Login -->
-    <div id="modal-login" class="modal">
-        <div class="modal-content" style="max-width: 400px; text-align: center;">
-            <div class="seed-icon" style="width: 48px; height: 48px; margin: 0 auto 1rem auto;"></div>
-            <h2>Acesse o VitaSeed</h2>
-            <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 0.9rem;">Faça login para solicitar a adição de novos jogos ao catálogo.</p>
-            
-            <button class="btn-secondary" onclick="loginWithGoogle()" style="width: 100%; justify-content: center; padding: 0.8rem; font-size: 1rem; background: white; color: black; border-color: white;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" width="18" height="18" style="margin-right: 0.5rem;">
-                Entrar com Google
-            </button>
-            <button class="btn-secondary" onclick="loginWithGitHub()" style="width: 100%; justify-content: center; padding: 0.8rem; font-size: 1rem; background: #24292e; color: white; border-color: #24292e; margin-top: 0.5rem;">
-                <i class="fa-brands fa-github" style="font-size: 1.2rem; margin-right: 0.5rem;"></i>
-                Entrar com GitHub
-            </button>
-            <button onclick="closeModal('modal-login')" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 1rem; background: transparent; border: none; color: var(--text-muted);">Cancelar</button>
-        </div>
-    </div>
-
-<!-- Profile Modal -->
-<div id="modal-profile" class="modal" onclick="if(event.target===this)closeModal('modal-profile')">
-    <div class="modal-content" style="max-width: 500px;">
-        <span class="close-btn" onclick="closeModal('modal-profile')">&times;</span>
-        <h2>Editar Perfil</h2>
-        <div style="display: flex; flex-direction: column; gap: 1rem; text-align: left; margin-top: 1.5rem;">
-            
-            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
-                <img id="profile-edit-avatar-preview" src="https://via.placeholder.com/64" style="width:64px; height:64px; border-radius:50%; border:2px solid var(--accent-green);">
-                <div style="flex: 1;">
-                    <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Foto de Perfil (Envie uma imagem)</label>
-                    <input type="file" id="profile-edit-avatar" accept="image/*" class="search-bar" style="width: 100%; box-sizing: border-box; padding: 0.5rem;" onchange="handleAvatarUpload(event)">
-                </div>
-            </div>
-
-            <div>
-                <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Nome de Exibição</label>
-                <input type="text" id="profile-edit-name" class="search-bar" placeholder="Seu nome ou nick" style="width: 100%; box-sizing: border-box;">
-            </div>
-            
-            <div>
-                <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Linguagens (ex: C++, Lua, C#)</label>
-                <input type="text" id="profile-edit-langs" class="search-bar" placeholder="Linguagens que domina" style="width: 100%; box-sizing: border-box;">
-            </div>
-            
-            <div>
-                <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Site Pessoal / Portfólio</label>
-                <input type="text" id="profile-edit-site" class="search-bar" placeholder="https://seusite.com" style="width: 100%; box-sizing: border-box;">
-            </div>
-            
-            <div>
-                <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Links de Apoio (Patreon, Ko-fi, PayPal)</label>
-                <input type="text" id="profile-edit-donations" class="search-bar" placeholder="Separe por vírgula. Ex: https://ko-fi.com/wolff, https://paypal.me/..." style="width: 100%; box-sizing: border-box;">
-            </div>
-
-            <button id="btn-save-profile" class="btn-primary" onclick="saveProfile()" style="justify-content: center; margin-top: 1rem; width: 100%;">
-                <i class="fa-solid fa-floppy-disk"></i> Salvar Alterações
-            </button>
-        </div>
-    </div>
-</div>
-
-<!-- Settings Modal -->
-<div id="modal-settings" class="modal" onclick="if(event.target===this)closeModal('modal-settings')">
-    <div class="modal-content" style="max-width: 400px;">
-        <span class="close-btn" onclick="closeModal('modal-settings')">&times;</span>
-        <h2 data-i18n="settings_title">Configurações</h2>
-        <div style="display: flex; flex-direction: column; gap: 1rem; text-align: left; margin-top: 1.5rem;">
-            <div>
-                <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem;" data-i18n="settings_lang">Idioma do Site</label>
-                <select id="settings-lang-select" class="filter-select" style="width: 100%;" onchange="changeLanguage(this.value)">
-                    <option value="pt-BR">Português (Brasil)</option>
-                    <option value="en">English</option>
-                </select>
-            </div>
-        </div>
-    </div>
-</div>
-
 </body>
 </html>

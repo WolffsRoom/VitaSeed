@@ -1,4 +1,20 @@
 // theme.js
+window.toggleTheme = function() {
+    const current = document.documentElement.getAttribute('data-theme') || 'dark';
+    let next = 'light';
+    if (current === 'light') next = 'sony';
+    else if (current === 'sony') next = 'dark';
+    else next = 'light';
+    
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('vita-theme', next);
+    
+    const themeBtnText = document.getElementById('theme-btn-text');
+    if (themeBtnText) {
+        themeBtnText.innerText = next === 'light' ? 'modo claro' : (next === 'sony' ? 'modo sony' : 'modo escuro');
+    }
+};
+
 document.addEventListener('DOMContentLoaded', async () => {
     // 0. Loader hide logic
     const loader = document.getElementById('loader');
@@ -7,9 +23,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // 1. Check local storage for theme
-    const savedTheme = localStorage.getItem('vita-theme');
-    if (savedTheme) {
-        document.documentElement.setAttribute('data-theme', savedTheme);
+    const savedTheme = localStorage.getItem('vita-theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    const themeBtnText = document.getElementById('theme-btn-text');
+    if (themeBtnText) {
+        themeBtnText.innerText = savedTheme === 'light' ? 'modo claro' : (savedTheme === 'sony' ? 'modo sony' : 'modo escuro');
     }
 
     // 2. Mobile Sidebar Toggle logic

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Details - VitaSeed by Wolff</title>
-    <meta name="description" content="Repositório brasileiro de jogos, ports, ferramentas, mods e traduções para PSVita.">
+    <title>Project Details - VitARCH by Wolff</title>
+    <meta name="description" content="Um novo repositório de homebrews ao PS Vita (Vita + Archive).">
     <link rel="icon" href="seed.svg?v=2" type="image/svg+xml">
     <link rel="stylesheet" href="css/style.css?v=33">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -92,96 +92,59 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-    <div class="mobile-header">
-        <button id="mobile-menu-toggle" class="menu-toggle">☰</button>
-        <a href="index.html" style="text-decoration: none; color: inherit;"><div class="logo">Vita<strong>Seed</strong> <span style="font-size:0.6rem; color:var(--text-muted);">by Wolff</span></div></a>
+
+<div class="app">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-brand">
+      <span class="mark">VA</span>
+      <div class="names">
+        <div class="n1">Vit<b>ARCH</b></div>
+        <div class="n2">by Wolff</div>
+      </div>
     </div>
-    
-    <aside id="sidebar">
-        <div>
-            <div class="logo-container" style="flex-direction: column; align-items: flex-start; gap: 0.2rem;">
-                <a href="index.html" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                    <div class="seed-icon"></div>
-                    <div class="logo">VITA<strong style="font-weight: 800;">SEED</strong> <span style="font-size:0.6rem; color:var(--text-muted); font-weight: normal;">by Wolff</span></div>
-                </a>
-                
-            </div>
-            
-            <ul class="nav-links">
-                <li><a href="index.html" data-page="index"><span data-i18n="menu_home">HOME</span></a></li>
-                
-                
-                
-                <li class="nav-section">BIBLIOTECA</li>
-                <li><a href="category.html?cat=Ports" data-page="ports"><span>PORTS</span></a></li>
-                <li><a href="category.html?cat=Original games" data-page="original games"><span>ORIGINAL GAMES</span></a></li>
-                <li><a href="category.html?cat=Mods" data-page="mods"><span>MODS</span></a></li>
-                <li><a href="category.html?cat=Translations" data-page="translations"><span>TRADUÇÕES</span></a></li>
-                <li><a href="category.html?cat=Apps" data-page="apps"><span>APPS</span></a></li>
-                <li><a href="category.html?cat=Tools" data-page="tools"><span>TOOLS</span></a></li>
-                <li><a href="category.html?cat=Plugin" data-page="plugins"><span>PLUGINS</span></a></li>
-                
-                <li class="nav-section">COMUNIDADE</li>
-                <li><a href="contribution.html" data-page="contribution"><span data-i18n="menu_colab">COLABORAÇÕES</span></a></li>
-                <li><a href="https://zealouschuck.com/ps-vita-bounty" target="_blank"><span>RECOMPENSAS <i class="ph ph-arrow-up-right" style="font-size: 0.8em; margin-left: 4px; opacity: 0.5;"></i></span></a></li>
-                
-                <li class="nav-section">CENA PSVITA</li>
-                <li><a href="http://brewology.com/" target="_blank"><span>Brewology <i class="ph ph-arrow-up-right" style="font-size: 0.8em; margin-left: 4px; opacity: 0.5;"></i></span></a></li>
-                <li><a href="https://wololo.net/" target="_blank"><span>Wololo.net <i class="ph ph-arrow-up-right" style="font-size: 0.8em; margin-left: 4px; opacity: 0.5;"></i></span></a></li>
-                <li><a href="https://www.youtube.com/@TitiClash" target="_blank"><span>Titi Clash <i class="ph ph-arrow-up-right" style="font-size: 0.8em; margin-left: 4px; opacity: 0.5;"></i></span></a></li>
-            </ul>
-        </div>
-        
-        <div class="sidebar-footer">
-            <ul>
-                <li><a href="settings.html" data-page="settings"><span>Configurações</span></a></li>
-            </ul>
-            <div class="version">0.3.0 (beta)</div>
-        </div>
-    </aside>
 
-    <div class="content-wrapper">
-        
+    <a href="index.html" class="sb-link">home</a>
 
-        <header style="display: flex; gap: 1rem; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 2rem;">
-            <div style="display: flex; gap: 1rem; flex: 1; min-width: 200px;">
-                <input type="text" id="search-input" class="search-bar" placeholder="Buscar por título ou responsável..." data-i18n="search_placeholder" style="flex: 1;">
-            </div>
-            <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-                <select id="category-filter" class="filter-select">
-                    <option value="all" data-i18n="filter_all">Todas as Categorias</option>
-                    <option value="Ports">Ports</option>
-                    <option value="Original games">Original games</option>
-                    <option value="Mods">Mods</option>
-                    <option value="Translations">Translations</option>
-                    <option value="Apps">Apps</option>
-                    <option value="Tools">Tools</option>
-                    <option value="Plugin">Plugins</option>
-                </select>
-                <button id="btn-about" class="btn-icon" style="background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.6rem 1rem; border-radius: 8px; cursor: pointer; transition: 0.2s;" onmouseover="this.style.background='var(--hover-bg)'" onmouseout="this.style.background='var(--bg-card)'" title="Sobre o VitaSeed" onclick="document.getElementById('modal-about').classList.add('show')"><i class="fa-solid fa-question"></i></button>
-                <button id="btn-request" class="btn-primary" onclick="handleRequestButtonClick(event)"><i class="ph ph-paper-plane-tilt"></i> Request</button>
+    <div class="sb-section">Biblioteca</div>
+    <a href="category.html?cat=Ports" class="sb-link">ports <span class="tag">[port]</span></a>
+    <a href="category.html?cat=Original games" class="sb-link">original games <span class="tag">[og]</span></a>
+    <a href="category.html?cat=Mods" class="sb-link">mods <span class="tag">[mod]</span></a>
+    <a href="category.html?cat=Translations" class="sb-link">traduções <span class="tag">[trad]</span></a>
+    <a href="category.html?cat=Apps" class="sb-link">apps <span class="tag">[app]</span></a>
+    <a href="category.html?cat=Tools" class="sb-link">tools <span class="tag">[tool]</span></a>
+    <a href="category.html?cat=Plugin" class="sb-link">plugins <span class="tag">[plg]</span></a>
 
-                <div id="user-profile-dropdown" class="profile-dropdown hidden" style="margin-left: 0.5rem;">
-                    <!-- Avatar will be injected here -->
-                                          <div id="profile-menu" class="profile-menu">
-                          <div style="padding: 1rem; text-align: center; border-bottom: 1px solid var(--border-color);">
-                              <strong id="menu-user-name" style="color: var(--text-main);">User</strong><br>
-                              <span id="menu-user-email" style="font-size: 0.8rem; color: var(--text-muted);">email</span>
-                          </div>
-                          <a href="#" onclick="openProfileModal(); return false;" data-i18n="profile_edit"><i class="fa-solid fa-pen-to-square"></i> Editar Perfil</a>
-                          <a href="#" onclick="filterUserProjects(); return false;" data-i18n="profile_projects"><i class="fa-solid fa-folder"></i> Meus Projetos</a>
-                          <a href="#" id="menu-admin-publish" class="hidden" onclick="document.getElementById('modal-publish').classList.add('show'); return false;"><i class="fa-solid fa-upload"></i> Aprovar Publicação</a>
-                          <a href="admin.html" id="menu-admin-panel" class="hidden"><i class="fa-solid fa-lock"></i> Painel Admin</a>
-                            <a href="settings.html" data-i18n="profile_settings"><i class="fa-solid fa-gear"></i> Configurações</a>
-                          <hr>
-                          <button onclick="logout()" data-i18n="profile_logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</button>
-                      </div>
-                  </div>
-              </div>
-          </header>
-        <main style="padding-top: 2rem;">
-            
-            <div id="project-details" style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 2rem;">
+    <div class="sb-section">Comunidade</div>
+    <a href="contribution.html" class="sb-link">colaborações</a>
+    <a href="https://zealouschuck.com/ps-vita-bounty" target="_blank" class="sb-link ext">recompensas</a>
+
+    <div class="sb-section">Cena PSVita</div>
+    <a href="http://brewology.com/" target="_blank" class="sb-link ext">brewology</a>
+    <a href="https://wololo.net/" target="_blank" class="sb-link ext">wololo.net</a>
+    <a href="https://www.youtube.com/@TitiClash" target="_blank" class="sb-link ext">titi clash</a>
+
+    <div class="sb-bottom">
+      <a href="#" class="sb-link" onclick="openModal('aboutOverlay'); return false;">sobre o vitarch</a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <button class="burger" id="burgerBtn" aria-label="Abrir menu">☰</button>
+        <a href="index.html" style="font-family: var(--mono); font-size: 13px; color: var(--muted); font-weight: 600;">← voltar ao catálogo</a>
+        <a href="api/catalog.json" target="_blank" class="version-badge" style="color: var(--green); text-decoration: none;" title="Acessar API pública do catálogo">API ↗</a>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-ghost-sm" onclick="toggleTheme()"><span id="theme-btn-text">modo escuro</span></button>
+        <button class="btn-ghost-sm" onclick="openModal('requestOverlay')">solicitar_projeto</button>
+        <button class="btn-green-sm" onclick="openModal('loginOverlay')">entrar</button>
+      </div>
+    </div>
+
+    <main class="wrap" style="padding-top: 2rem; padding-bottom: 3rem;">
+        <div id="project-details" style="display: flex; flex-direction: column; gap: 2rem;">
                 
                 <div id="proj-header-banner" class="project-header">
                     <div class="project-header-content">
@@ -244,7 +207,7 @@
                             </div>
                             <div class="meta-item" id="meta-support-item" style="display:none;">
                                 <div class="meta-label">Apoio</div>
-                                <div id="meta-support" class="meta-val" style="color: var(--accent-green);">--</div>
+                                <div id="meta-support" class="meta-val" style="color: var(--green);">--</div>
                             </div>
                         </div>
 
@@ -264,24 +227,79 @@
 
                         <div id="install-section" class="section-box hidden">
                             <h3><i class="ph ph-wrench"></i> Instruções de Instalação</h3>
-                            <div id="install-text" style="line-height: 1.6;"></div>
+                            <div id="install-text" style="font-family: var(--mono); font-size: 13px; line-height: 1.6; color: var(--text);"></div>
+                        </div>
+
+                        <!-- Avaliações & Comentários Locais da Comunidade Vita -->
+                        <div class="reviews-container section-box">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                                <div>
+                                    <h3 style="font-size: 15px; margin-bottom: 4px; font-family: var(--mono); text-transform: uppercase;"><i class="fa-solid fa-star" style="color: #fbbf24;"></i> Avaliações da Comunidade</h3>
+                                    <p style="color: var(--muted); font-size: 12.5px; margin: 0;">Classificação real de quem joga no PS Vita</p>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div id="avg-rating-stars" class="star-rating" style="font-size: 1.3rem;">
+                                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                                    </div>
+                                    <span id="rating-count" style="font-size: 11.5px; font-family: var(--mono); color: var(--muted-2);">4.8 de 5.0 (12 avaliações)</span>
+                                </div>
+                            </div>
+
+                            <!-- Formulário para envio/edição de comentário único -->
+                            <div id="user-review-box" style="background: var(--surface-2); border: 1px solid var(--border); padding: 18px; border-radius: var(--r); margin-bottom: 24px;">
+                                <h4 style="margin: 0 0 12px; font-size: 13.5px; font-family: var(--mono); text-transform: uppercase;"><i class="fa-solid fa-pen"></i> Deixar ou Editar sua Avaliação</h4>
+                                <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; font-family: var(--mono); font-size: 12.5px;">
+                                    <span>Sua Nota:</span>
+                                    <div class="star-rating" id="input-star-rating">
+                                        <i class="fa-solid fa-star empty" data-star="1" onclick="setRating(1)"></i>
+                                        <i class="fa-solid fa-star empty" data-star="2" onclick="setRating(2)"></i>
+                                        <i class="fa-solid fa-star empty" data-star="3" onclick="setRating(3)"></i>
+                                        <i class="fa-solid fa-star empty" data-star="4" onclick="setRating(4)"></i>
+                                        <i class="fa-solid fa-star empty" data-star="5" onclick="setRating(5)"></i>
+                                    </div>
+                                </div>
+                                <textarea id="review-comment" style="width: 100%; height: 80px; background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 10px; border-radius: var(--r); font-family: var(--sans); font-size: 13px; margin-bottom: 12px; resize: vertical;" placeholder="Escreva sobre a jogabilidade, performance ou dicas deste projeto no PS Vita..."></textarea>
+                                <div style="display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                                    <button class="btn-primary" onclick="submitReview()"><i class="fa-solid fa-paper-plane"></i> Publicar Avaliação</button>
+                                </div>
+                            </div>
+
+                            <!-- Lista de Comentários -->
+                            <div id="reviews-list">
+                                <div class="review-card">
+                                    <div class="review-author">
+                                        <div class="review-avatar">W</div>
+                                        <div>
+                                            <strong style="font-family: var(--mono); font-size: 13px;">Wolff (Dev)</strong>
+                                            <div style="font-size: 11px; font-family: var(--mono); color: var(--muted-2);">Publicado em 31/07/2026</div>
+                                        </div>
+                                    </div>
+                                    <div class="star-rating" style="font-size: 0.9rem; margin-bottom: 0.4rem;">
+                                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                    </div>
+                                    <p style="font-size: 13.5px; line-height: 1.5; color: var(--text); margin: 0;">Port incrível rodando perfeitamente a 60fps constantes no PS Vita sem overclock. Recomendado!</p>
+                                </div>
+                            </div>
                         </div>
                 </div>
-
             </div>
-
         </main>
 
-    <!-- Footer -->
-    <footer class="app-footer">
-        <p>&copy; 2026 VitaSeed. Todos os direitos reservados.</p>
-        <p style="margin-top:0.5rem; font-size:0.75rem;">Repositório não oficial. Todos os jogos, ports e marcas pertencem aos seus respectivos donos.</p>
-        <div style="margin-top:1rem;">
-            <a href="https://github.com/WolffsRoom/VitaSeed" target="_blank"><i class="fa-brands fa-github"></i> GitHub do Projeto</a>
-        </div>
-    </footer>
-
-    </div>
+        <footer>
+          <div class="wrap foot-row">
+            <div>
+              <div class="foot-copy">© 2026 VitARCH. Todos os direitos reservados.</div>
+              <div class="foot-disclaimer">Repositório não oficial. Todos os jogos, ports e marcas pertencem aos seus respectivos donos.</div>
+            </div>
+            <div class="foot-links">
+              <a href="https://github.com/WolffsRoom/VitaSeed" target="_blank">github do projeto</a>
+              <a href="http://brewology.com/" target="_blank">brewology</a>
+              <a href="https://wololo.net/" target="_blank">wololo.net</a>
+            </div>
+          </div>
+        </footer>
+  </div>
+</div>
 
 
     <style>
@@ -335,8 +353,51 @@
         <div class="lightbox-next"><i class="ph ph-caret-right"></i></div>
     </div>
 
-        <script src="js/api.js?v=3"></script>
+<!-- LOGIN MODAL -->
+<div class="overlay" id="loginOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('loginOverlay')">×</button>
+    <h3>acesse o vitaseed</h3>
+    <p>Faça login para solicitar a adição de novos jogos ao catálogo.</p>
+    <button class="oauth-btn" onclick="loginWithGoogle()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" width="16" height="16"> entrar com google</button>
+    <button class="oauth-btn" onclick="loginWithGitHub()"><i class="fa-brands fa-github"></i> entrar com github</button>
+  </div>
+</div>
+
+<!-- ABOUT MODAL -->
+<div class="overlay" id="aboutOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('aboutOverlay')">×</button>
+    <h3>sobre o vitaseed</h3>
+    <p>O VitaSeed é um centralizador para a cena brasileira homebrew do PSVita. Aqui centralizamos Ports, Mods, Traduções, Plugins, Apps e Ferramentas, garantindo um acesso centralizado.</p>
+  </div>
+</div>
+
+<!-- REQUEST MODAL -->
+<div class="overlay" id="requestOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('requestOverlay')">×</button>
+    <h3>solicitar projeto</h3>
+    <p>Não encontrou o que procurava? Envie um pedido pra adicionarmos o projeto ao catálogo.</p>
+    <input type="text" id="req-title" class="btn-ghost-sm" placeholder="nome do projeto..." style="width:100%; margin-bottom:8px; text-align:left;">
+    <input type="text" id="req-link" class="btn-ghost-sm" placeholder="link de referência..." style="width:100%; margin-bottom:8px; text-align:left;">
+    <textarea id="req-desc" placeholder="detalhes do pedido..."></textarea>
+    <button class="btn-green-sm" style="width:100%; padding:10px;" onclick="sendRequest()">enviar pedido</button>
+    <div id="req-msg" style="margin-top:8px; font-size:12px;"></div>
+  </div>
+</div>
+
+    <script src="js/catalog_data.js"></script>
+    <script src="js/api.js?v=3"></script>
     <script src="js/theme.js?v=2"></script>
+    <script>
+        function openModal(id){ document.getElementById(id).classList.add('open'); }
+        function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+
+        var sidebar = document.getElementById('sidebar');
+        var burgerBtn = document.getElementById('burgerBtn');
+        if(burgerBtn) burgerBtn.addEventListener('click', function(){ sidebar.classList.toggle('open'); });
+    </script>
     <script>
         document.addEventListener("DOMContentLoaded", async () => {
             const params = new URLSearchParams(window.location.search);
@@ -349,29 +410,6 @@
                 
                 document.getElementById('proj-desc').innerText = proj.description;
                 
-                // Add AI Details if present
-                const descContainer = document.getElementById('proj-desc').parentElement;
-                // Remove any old ai box if running multiple times
-                const oldAiBox = document.getElementById('ai-details-box');
-                if (oldAiBox) oldAiBox.remove();
-                
-                if (proj.ai_used && proj.ai_details) {
-                    const aiBox = document.createElement('div');
-                    aiBox.id = 'ai-details-box';
-                    aiBox.style.cssText = "margin-top: 1.5rem; padding: 1rem; border-radius: 8px; background: rgba(0,230,118,0.05); border: 1px solid rgba(0,230,118,0.2);";
-                    aiBox.innerHTML = `
-                        <h4 style="color: var(--accent-green); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; font-size: 0.9rem;">
-                            <i class="ph ph-robot"></i> Desenvolvimento Assistido por IA
-                        </h4>
-                        <div style="font-size: 0.85rem; color: var(--text-main); line-height: 1.5;">
-                            <strong>IA Utilizada:</strong> ${proj.ai_details.name} <br>
-                            <strong>Propósito:</strong> ${proj.ai_details.reason} <br>
-                            <strong>Ação:</strong> ${proj.ai_details.action}
-                        </div>
-                    `;
-                    descContainer.insertBefore(aiBox, document.querySelector('.action-bar'));
-                }
-
                 document.getElementById('btn-source').href = proj.source_link;
                 
                 // Metadados
@@ -476,12 +514,12 @@
                 document.getElementById('proj-header-banner').style.backgroundPosition = proj.bgPosition || 'center bottom';
 
                 // Badges
-                let badgesHtml = `<span class="tag" style="background:var(--accent-green); color:#000;">${proj.category}</span>`;
-                badgesHtml += `<span class="tag" style="background:var(--bg-main); border:1px solid var(--border-color); color:var(--text-muted);"><i class="ph ph-user"></i> ${proj.responsibles}</span>`;
+                let badgesHtml = `<span class="tag" style="background:var(--green); color:#08090A; font-family:var(--mono); font-weight:700; font-size:11.5px; padding:4px 10px; border-radius:3px; text-transform:uppercase;">${proj.category}</span>`;
+                badgesHtml += `<span class="tag" style="background:var(--surface); border:1px solid var(--border-2); color:var(--text); font-family:var(--mono); font-size:11.5px; padding:4px 10px; border-radius:3px; display:inline-flex; align-items:center; gap:5px;"><i class="ph ph-user"></i> ${proj.responsibles}</span>`;
 
                 // Apoio/Colaboradores
                 if (proj.collaborators && proj.collaborators.length > 0) {
-                    badgesHtml += `<span class="tag" style="background:rgba(0,230,118,0.1); border:1px solid var(--accent-green); color:var(--accent-green);"><i class="ph ph-handshake"></i> Apoio: ${proj.collaborators.join(', ')}</span>`;
+                    badgesHtml += `<span class="tag" style="background:var(--green-bg); border:1px solid var(--green-dim); color:var(--green); font-family:var(--mono); font-size:11.5px; padding:4px 10px; border-radius:3px; display:inline-flex; align-items:center; gap:5px;"><i class="ph ph-handshake"></i> Apoio: ${proj.collaborators.join(', ')}</span>`;
                     const supportEl = document.getElementById('meta-support-item');
                     if (supportEl) {
                         supportEl.style.display = '';
@@ -637,88 +675,8 @@
         }
     </script>
 
-    <!-- Firebase Auth -->
     <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
     <script src="js/auth.js"></script>
-
-    <!-- Modal Login -->
-    <div id="modal-login" class="modal">
-        <div class="modal-content" style="max-width: 400px; text-align: center;">
-            <div class="seed-icon" style="width: 48px; height: 48px; margin: 0 auto 1rem auto;"></div>
-            <h2>Acesse o VitaSeed</h2>
-            <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 0.9rem;">Faça login para solicitar a adição de novos jogos ao catálogo.</p>
-            
-            <button class="btn-secondary" onclick="loginWithGoogle()" style="width: 100%; justify-content: center; padding: 0.8rem; font-size: 1rem; background: white; color: black; border-color: white;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" width="18" height="18" style="margin-right: 0.5rem;">
-                Entrar com Google
-            </button>
-            <button class="btn-secondary" onclick="loginWithGitHub()" style="width: 100%; justify-content: center; padding: 0.8rem; font-size: 1rem; background: #24292e; color: white; border-color: #24292e; margin-top: 0.5rem;">
-                <i class="fa-brands fa-github" style="font-size: 1.2rem; margin-right: 0.5rem;"></i>
-                Entrar com GitHub
-            </button>
-            <button onclick="closeModal('modal-login')" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 1rem; background: transparent; border: none; color: var(--text-muted);">Cancelar</button>
-        </div>
-    </div>
-
-<!-- Profile Modal -->
-<div id="modal-profile" class="modal" onclick="if(event.target===this)closeModal('modal-profile')">
-    <div class="modal-content" style="max-width: 500px;">
-        <span class="close-btn" onclick="closeModal('modal-profile')">&times;</span>
-        <h2>Editar Perfil</h2>
-        <div style="display: flex; flex-direction: column; gap: 1rem; text-align: left; margin-top: 1.5rem;">
-            
-            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
-                <img id="profile-edit-avatar-preview" src="https://via.placeholder.com/64" style="width:64px; height:64px; border-radius:50%; border:2px solid var(--accent-green);">
-                <div style="flex: 1;">
-                    <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Foto de Perfil (Envie uma imagem)</label>
-                    <input type="file" id="profile-edit-avatar" accept="image/*" class="search-bar" style="width: 100%; box-sizing: border-box; padding: 0.5rem;" onchange="handleAvatarUpload(event)">
-                </div>
-            </div>
-
-            <div>
-                <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Nome de Exibição</label>
-                <input type="text" id="profile-edit-name" class="search-bar" placeholder="Seu nome ou nick" style="width: 100%; box-sizing: border-box;">
-            </div>
-            
-            <div>
-                <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Linguagens (ex: C++, Lua, C#)</label>
-                <input type="text" id="profile-edit-langs" class="search-bar" placeholder="Linguagens que domina" style="width: 100%; box-sizing: border-box;">
-            </div>
-            
-            <div>
-                <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Site Pessoal / Portfólio</label>
-                <input type="text" id="profile-edit-site" class="search-bar" placeholder="https://seusite.com" style="width: 100%; box-sizing: border-box;">
-            </div>
-            
-            <div>
-                <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Links de Apoio (Patreon, Ko-fi, PayPal)</label>
-                <input type="text" id="profile-edit-donations" class="search-bar" placeholder="Separe por vírgula. Ex: https://ko-fi.com/wolff, https://paypal.me/..." style="width: 100%; box-sizing: border-box;">
-            </div>
-
-            <button id="btn-save-profile" class="btn-primary" onclick="saveProfile()" style="justify-content: center; margin-top: 1rem; width: 100%;">
-                <i class="fa-solid fa-floppy-disk"></i> Salvar Alterações
-            </button>
-        </div>
-    </div>
-</div>
-
-<!-- Settings Modal -->
-<div id="modal-settings" class="modal" onclick="if(event.target===this)closeModal('modal-settings')">
-    <div class="modal-content" style="max-width: 400px;">
-        <span class="close-btn" onclick="closeModal('modal-settings')">&times;</span>
-        <h2 data-i18n="settings_title">Configurações</h2>
-        <div style="display: flex; flex-direction: column; gap: 1rem; text-align: left; margin-top: 1.5rem;">
-            <div>
-                <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem;" data-i18n="settings_lang">Idioma do Site</label>
-                <select id="settings-lang-select" class="filter-select" style="width: 100%;" onchange="changeLanguage(this.value)">
-                    <option value="pt-BR">Português (Brasil)</option>
-                    <option value="en">English</option>
-                </select>
-            </div>
-        </div>
-    </div>
-</div>
-
 </body>
 </html>
