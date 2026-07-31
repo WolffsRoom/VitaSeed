@@ -95,28 +95,27 @@ button { font-family: inherit; }
 }
 .sb-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; padding: 4px 2px; text-decoration: none; cursor: pointer; }
 .sb-brand .mark {
-  width: 42px;
-  height: 42px;
+  width: 32px;
+  height: 32px;
   border: 1.5px solid var(--green);
   background: #000000;
-  border-radius: 8px;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--mono);
   font-weight: 800;
-  font-size: 22px;
   line-height: 1;
   color: var(--green);
-  box-shadow: 0 0 14px rgba(63, 217, 122, 0.35);
+  box-shadow: 0 0 10px rgba(63, 217, 122, 0.3);
   flex-shrink: 0;
 }
 .sb-brand .mark svg {
-  width: 24px;
-  height: 24px;
+  width: 16px;
+  height: 16px;
 }
-.sb-brand .names { line-height: 1.25; }
-.sb-brand .n1 { font-family: var(--mono); font-weight: 800; font-size: 18px; color: var(--text); letter-spacing: -0.02em; }
+.sb-brand .names { line-height: 1.2; }
+.sb-brand .n1 { font-family: var(--mono); font-weight: 800; font-size: 22px; color: var(--text); letter-spacing: -0.02em; }
 .sb-brand .n1 b { color: var(--green); font-weight: 800; }
 .sb-brand .n2 { font-size: 12px; color: var(--muted-2); font-family: var(--mono); }
 
