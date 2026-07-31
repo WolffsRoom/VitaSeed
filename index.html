@@ -289,10 +289,15 @@
           filtered.forEach(proj => {
               const card = document.createElement('article');
               card.className = 'card';
+              card.style.cursor = 'pointer';
               card.setAttribute('data-category', proj.category.toLowerCase());
+              card.onclick = (e) => {
+                  if (e.target.closest('.bookmark')) return;
+                  window.location.href = `project.html?id=${proj.id}`;
+              };
               card.innerHTML = `
                   <div class="card-cover" style="background-image: linear-gradient(to top, rgba(10,10,11,0.95), transparent), url('${proj.bannerUrl}'); background-size: cover; background-position: center;">
-                      <button class="bookmark" onclick="event.preventDefault(); this.classList.toggle('saved'); this.textContent = this.classList.contains('saved') ? '✓' : '+';">+</button>
+                      <button class="bookmark" onclick="event.stopPropagation(); this.classList.toggle('saved'); this.textContent = this.classList.contains('saved') ? '✓' : '+';">+</button>
                       <span class="tag">${proj.category}</span>
                       <span class="name">${proj.title}</span>
                   </div>
