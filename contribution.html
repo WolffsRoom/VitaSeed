@@ -263,26 +263,32 @@
             const options = {
                 nodes: {
                     font: { 
-                        color: '#a0a0a0', 
-                        size: 14,
-                        face: 'Inter, sans-serif',
-                        strokeWidth: 0,
+                        color: '#E8E8E9', 
+                        size: 13,
+                        face: 'JetBrains Mono, monospace',
+                        strokeWidth: 2,
+                        strokeColor: '#0A0A0B',
                         vadjust: -5
                     },
                     borderWidth: 2,
-                    shadow: { enabled: true, color: 'rgba(0,0,0,0.5)', size: 10, x: 0, y: 0 }
+                    shadow: { enabled: true, color: 'rgba(63, 217, 122, 0.2)', size: 12, x: 0, y: 0 }
                 },
                 edges: {
-                    color: { color: '#444444', highlight: '#888888', hover: '#666666' },
-                    width: 1,
+                    color: { color: 'rgba(255, 255, 255, 0.15)', highlight: '#3FD97A', hover: 'rgba(63, 217, 122, 0.8)' },
+                    width: 1.5,
                     smooth: { type: 'continuous' }
                 },
                 groups: {
-                    dev: { color: { background: '#9d7cd8', border: '#7a5cb8' }, font: { color: '#c0a0ff' } },
-                    project: { color: { background: '#4fd6be', border: '#39a895' }, font: { color: '#70e0d0' } }
+                    dev: { 
+                        color: { background: '#1A1A1D', border: '#3FD97A', highlight: { background: '#10281A', border: '#3FD97A' } }, 
+                        font: { color: '#3FD97A', face: 'JetBrains Mono, monospace' } 
+                    },
+                    project: { 
+                        color: { background: '#131315', border: '#38383C', highlight: { background: '#1A1A1D', border: '#3FD97A' } }, 
+                        font: { color: '#E8E8E9', face: 'JetBrains Mono, monospace' } 
+                    }
                 },
                 physics: lowPower ? {
-                    // Simplified physics for Android/mobile
                     barnesHut: { gravitationalConstant: -3000, centralGravity: 0.3, springLength: 120, springConstant: 0.05, damping: 0.3 },
                     maxVelocity: 30,
                     solver: 'barnesHut',
