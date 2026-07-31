@@ -296,10 +296,14 @@
       
       if(top10Track && data.length > 0) {
           top10Track.innerHTML = '';
-          const topList = data.slice(0, 8);
-          topList.forEach((proj, idx) => {
-              const rankNum = (idx + 1).toString().padStart(2, '0');
-              const isTop3 = idx < 3 ? 'top3' : '';
+          const topList = data.slice(0, 10);
+          
+          // Render items twice for seamless 100% infinite marquee loop
+          const renderList = [...topList, ...topList];
+          renderList.forEach((proj, idx) => {
+              const originalIdx = idx % topList.length;
+              const rankNum = (originalIdx + 1).toString().padStart(2, '0');
+              const isTop3 = originalIdx < 3 ? 'top3' : '';
               top10Track.innerHTML += `
                   <a href="project.html?id=${proj.id}" class="top10-item ${isTop3}" style="text-decoration:none;">
                       <div class="top10-tile" style="background-image: url('${proj.bannerUrl}'); background-size: cover; background-position: center;">
