@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Details - VitARCH by Wolff</title>
+    <script>
+      if (location.pathname.startsWith('/VitARCH/') && !document.querySelector('base')) {
+        var base = document.createElement('base');
+        base.href = '/VitARCH/';
+        document.head.appendChild(base);
+      }
+    </script>
     <meta name="description" content="Um novo repositório de homebrews ao PS Vita (Vita + Archive).">
     <link rel="icon" href="favicon.svg?v=10" type="image/svg+xml">
     <link rel="alternate icon" href="seed.svg?v=10" type="image/svg+xml">
