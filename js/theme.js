@@ -27,7 +27,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <span id="cmd-typed"></span><span class="cmd-cursor"></span>
             </div>
         `;
-        document.body.appendChild(termLoader);
+        const topbar = document.querySelector('.topbar');
+        if (topbar && topbar.parentNode) {
+            topbar.parentNode.insertBefore(termLoader, topbar.nextSibling);
+        } else {
+            document.body.appendChild(termLoader);
+        }
     }
 
     const commandText = "ls --catalogo";
