@@ -1,316 +1,406 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VitARCH - by Wolff</title>
-<link rel="icon" href="favicon.svg?v=60" type="image/svg+xml">
-<link rel="alternate icon" href="seed.svg?v=60" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/@phosphor-icons/web"></script>
-<link rel="stylesheet" href="css/style.css?v=200">
-<style>
-  /* Layout Fallbacks Ingress */
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg, #0A0A0B); color: var(--text, #E8E8E9); font-family: 'Inter', sans-serif; }
-  .app { display: flex; min-height: 100vh; }
-  .sidebar { width: 250px; flex-shrink: 0; background: var(--sidebar, #08090A); border-right: 1px solid var(--border, #29292C); padding: 20px 16px; position: sticky; top: 0; height: 100vh; }
-  .main { flex: 1; min-width: 0; }
-  .topbar { position: sticky; top: 0; z-index: 20; background: var(--bg, #0A0A0B); border-bottom: 1px solid var(--border, #29292C); display: flex; align-items: center; justify-content: space-between; padding: 13px 26px; }
-  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 26px; }
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  @media (max-width: 940px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitARCH - PS Vita Homebrew Archive by Wolff</title>
+    <meta name="description" content="VitARCH: The ultimate open-source repository and archive for PS Vita homebrews, ports, mods, translations, plugins, and tools.">
+    <meta property="og:title" content="VitARCH - PS Vita Homebrew Archive">
+    <meta property="og:description" content="Explore and download the latest PS Vita homebrews, ports, translations, mods, and plugins in one centralized archive.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wolffsroom.github.io/vitarch/">
+    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/pt/2/29/Dont_Starve_capa.jpg">
+    <link rel="icon" href="favicon.svg?v=60" type="image/svg+xml">
+    <link rel="alternate icon" href="seed.svg?v=60" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="css/style.css?v=200">
+    <style>
+        /* Layout Fallbacks Ingress */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg, #0A0A0B);
+            color: var(--text, #E8E8E9);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .app {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            flex-shrink: 0;
+            background: var(--sidebar, #08090A);
+            border-right: 1px solid var(--border, #29292C);
+            padding: 20px 16px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
+
+        .main {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: var(--bg, #0A0A0B);
+            border-bottom: 1px solid var(--border, #29292C);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 13px 26px;
+        }
+
+        .wrap {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 0 26px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        @media (max-width: 940px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="app">
+    <div class="app">
 
-  <aside class="sidebar" id="sidebar">
-    <a href="index.html" class="sb-brand">
-      <span class="mark">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="7" y="3" width="10" height="1.5" fill="currentColor"/>
-          <rect x="7" y="5.5" width="10" height="2" fill="currentColor"/>
-          <rect x="7" y="8.5" width="10" height="2.5" fill="currentColor"/>
-          <path d="M7 12H4L12 19L20 12H17V12H7Z" fill="currentColor"/>
-          <rect x="4" y="20.5" width="16" height="2" fill="currentColor"/>
-        </svg>
-      </span>
-      <div class="names">
-        <div class="n1">Vit<b>ARCH</b></div>
-        <div class="n2">by Wolff</div>
-      </div>
-    </a>
+        <aside class="sidebar" id="sidebar">
+            <a href="index.html" class="sb-brand">
+                <span class="mark">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="7" y="3" width="10" height="1.5" fill="currentColor" />
+                        <rect x="7" y="5.5" width="10" height="2" fill="currentColor" />
+                        <rect x="7" y="8.5" width="10" height="2.5" fill="currentColor" />
+                        <path d="M7 12H4L12 19L20 12H17V12H7Z" fill="currentColor" />
+                        <rect x="4" y="20.5" width="16" height="2" fill="currentColor" />
+                    </svg>
+                </span>
+                <div class="names">
+                    <div class="n1">Vit<b>ARCH</b></div>
+                    <div class="n2">by Wolff</div>
+                </div>
+            </a>
 
-    <a href="category.html?cat=all" class="sb-link">all <span class="tag">[todos]</span></a>
+            <a href="category.html?cat=all" class="sb-link">all <span class="tag">[all]</span></a>
 
-    <div class="sb-section">Biblioteca</div>
-    <a href="category.html?cat=Ports" class="sb-link" data-cat="ports">ports <span class="tag">[port]</span></a>
-    <a href="category.html?cat=Original games" class="sb-link" data-cat="original">original games <span class="tag">[og]</span></a>
-    <a href="category.html?cat=Mods" class="sb-link" data-cat="mods">mods <span class="tag">[mod]</span></a>
-    <a href="category.html?cat=Translations" class="sb-link" data-cat="trad">traduções <span class="tag">[trad]</span></a>
-    <a href="category.html?cat=Apps" class="sb-link" data-cat="apps">apps <span class="tag">[app]</span></a>
-    <a href="category.html?cat=Tools" class="sb-link" data-cat="tools">tools <span class="tag">[tool]</span></a>
-    <a href="category.html?cat=Plugin" class="sb-link" data-cat="plugins">plugins <span class="tag">[plg]</span></a>
+            <div class="sb-section">Library</div>
+            <a href="category.html?cat=Ports" class="sb-link" data-cat="ports">ports <span class="tag">[port]</span></a>
+            <a href="category.html?cat=Original games" class="sb-link" data-cat="original">original games <span
+                    class="tag">[og]</span></a>
+            <a href="category.html?cat=Mods" class="sb-link" data-cat="mods">mods <span class="tag">[mod]</span></a>
+            <a href="category.html?cat=Translations" class="sb-link" data-cat="trad">translations <span
+                    class="tag">[trad]</span></a>
+            <a href="category.html?cat=Apps" class="sb-link" data-cat="apps">apps <span class="tag">[app]</span></a>
+            <a href="category.html?cat=Tools" class="sb-link" data-cat="tools">tools <span class="tag">[tool]</span></a>
+            <a href="category.html?cat=Plugin" class="sb-link" data-cat="plugins">plugins <span
+                    class="tag">[plg]</span></a>
 
-    <div class="sb-section">Comunidade</div>
-    <a href="contribution.html" class="sb-link">colaborações</a>
-    <a href="https://zealouschuck.com/ps-vita-bounty" target="_blank" class="sb-link ext">recompensas</a>
+            <div class="sb-section">Community</div>
+            <a href="contribution.html" class="sb-link">collaborations</a>
+            <a href="https://zealouschuck.com/ps-vita-bounty" target="_blank" class="sb-link ext">bounties</a>
 
-    <div class="sb-section">Cena PSVita</div>
-    <a href="http://brewology.com/" target="_blank" class="sb-link ext">brewology</a>
-    <a href="https://wololo.net/" target="_blank" class="sb-link ext">wololo.net</a>
-    <a href="https://www.youtube.com/@TitiClash" target="_blank" class="sb-link ext">titi clash</a>
+            <div class="sb-section">PS Vita Scene</div>
+            <a href="http://brewology.com/" target="_blank" class="sb-link ext">brewology</a>
+            <a href="https://wololo.net/" target="_blank" class="sb-link ext">wololo.net</a>
+            <a href="https://www.youtube.com/@TitiClash" target="_blank" class="sb-link ext">titi clash</a>
 
-    <div class="sb-bottom">
-      <a href="#" class="sb-link" id="openAbout" onclick="openModal('aboutOverlay'); return false;">sobre o vitarch</a>
-    </div>
-  </aside>
+            <div class="sb-bottom">
+                <a href="#" class="sb-link" id="openAbout" onclick="openModal('aboutOverlay'); return false;">about vitarch</a>
+            </div>
+        </aside>
 
-  <div class="main">
-    <div class="topbar">
-      <div class="topbar-left">
-        <button class="burger" id="burgerBtn" aria-label="Abrir menu">☰</button>
-        <span class="version-badge">v0.3.0 <span class="b">(beta)</span></span>
-        <a href="api/catalog.json" target="_blank" class="version-badge" style="color: var(--green); text-decoration: none;" title="Acessar API pública do catálogo">API ↗</a>
-      </div>
-      <div class="topbar-right">
-        <button class="btn-ghost-sm" onclick="toggleTheme()"><span id="theme-btn-text">modo escuro</span></button>
-        <button class="btn-ghost-sm" id="openRequestBtn" onclick="openModal('requestOverlay')">solicitar_projeto</button>
-        <button class="btn-green-sm" id="openLoginBtn" onclick="openModal('loginOverlay')">entrar</button>
-      </div>
-    </div>
+        <div class="main">
+            <div class="topbar">
+                <div class="topbar-left">
+                    <button class="burger" id="burgerBtn" aria-label="Open menu">☰</button>
+                    <span class="version-badge">v0.3.0 <span class="b">(beta)</span></span>
+                    <a href="api/catalog.json" target="_blank" class="version-badge"
+                        style="color: var(--green); text-decoration: none;" title="Access public catalog API">API
+                        ↗</a>
+                </div>
+                <div class="topbar-right">
+                    <button class="btn-ghost-sm" onclick="toggleTheme()"><span id="theme-btn-text">dark mode</span></button>
+                    <button class="btn-ghost-sm" id="openRequestBtn"
+                        onclick="openModal('requestOverlay')">request_project</button>
+                    <button class="btn-green-sm" id="openLoginBtn" onclick="openModal('loginOverlay')">sign in</button>
+                </div>
+            </div>
 
-    <section class="intro">
-      <div class="wrap">
-        <div class="intro-prompt">~/vitarch $ ls --catalogo<span class="cur"></span></div>
-        <h1 class="glitch-title" style="display: flex; align-items: center; gap: 10px;">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--green); flex-shrink: 0;">
-            <rect x="7" y="3" width="10" height="1.5" fill="currentColor"/>
-            <rect x="7" y="5.5" width="10" height="2" fill="currentColor"/>
-            <rect x="7" y="8.5" width="10" height="2.5" fill="currentColor"/>
-            <path d="M7 12H4L12 19L20 12H17V12H7Z" fill="currentColor"/>
-            <rect x="4" y="20.5" width="16" height="2" fill="currentColor"/>
-          </svg>
-          <span>Vit<b>ARCH</b></span>
-        </h1>
-        <p>Um novo repositório de homebrews ao PS Vita.</p>
-        <div class="chip-row" id="chipRow">
-          <span class="chip active" data-cat="all">todas</span>
-          <span class="chip" data-cat="ports">ports</span>
-          <span class="chip" data-cat="original games">original games</span>
-          <span class="chip" data-cat="mods">mods</span>
-          <span class="chip" data-cat="translations">traduções</span>
-          <span class="chip" data-cat="apps">apps</span>
-          <span class="chip" data-cat="tools">tools</span>
-          <span class="chip" data-cat="plugin">plugins</span>
-          <span class="chip" data-cat="pc tools">pc tools</span>
+            <section class="intro">
+                <div class="wrap">
+                    <div class="intro-prompt">~/vitarch $ ls --catalog<span class="cur"></span></div>
+                    <h1 class="glitch-title" style="display: flex; align-items: center; gap: 10px;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            style="color: var(--green); flex-shrink: 0;">
+                            <rect x="7" y="3" width="10" height="1.5" fill="currentColor" />
+                            <rect x="7" y="5.5" width="10" height="2" fill="currentColor" />
+                            <rect x="7" y="8.5" width="10" height="2.5" fill="currentColor" />
+                            <path d="M7 12H4L12 19L20 12H17V12H7Z" fill="currentColor" />
+                            <rect x="4" y="20.5" width="16" height="2" fill="currentColor" />
+                        </svg>
+                        <span>Vit<b>ARCH</b></span>
+                    </h1>
+                    <p>A brand new open repository for PS Vita homebrews.</p>
+                    <div class="chip-row" id="chipRow">
+                        <span class="chip active" data-cat="all">all</span>
+                        <span class="chip" data-cat="ports">ports</span>
+                        <span class="chip" data-cat="original games">original games</span>
+                        <span class="chip" data-cat="mods">mods</span>
+                        <span class="chip" data-cat="translations">translations</span>
+                        <span class="chip" data-cat="apps">apps</span>
+                        <span class="chip" data-cat="tools">tools</span>
+                        <span class="chip" data-cat="plugin">plugins</span>
+                        <span class="chip" data-cat="pc tools">pc tools</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section wrap">
+                <div class="section-head">
+                    <h2>Top 10 projects</h2>
+                    <a href="#catalogo" class="see-all">view full catalog →</a>
+                </div>
+                <div class="top10-viewport">
+                    <div class="top10-track" id="top10Track">
+                        <!-- Dinâmico JS -->
+                    </div>
+                </div>
+            </section>
+
+            <section class="section wrap">
+                <div class="section-head">
+                    <h2>Community Lists</h2>
+                    <a href="category.html?cat=all" class="see-all">view all →</a>
+                </div>
+                <div class="lists-row">
+                    <a href="category.html?cat=Ports" class="list-card" style="text-decoration:none;">
+                        <div class="list-cover"
+                            style="background-image: linear-gradient(to top, rgba(10,10,11,0.9), transparent), url('https://upload.wikimedia.org/wikipedia/pt/2/29/Dont_Starve_capa.jpg'); background-size: cover; background-position: center;">
+                        </div>
+                        <div class="list-info">
+                            <h4>Getting Started Essentials</h4>
+                            <div class="meta">8 games · by wolff</div>
+                        </div>
+                    </a>
+
+                    <a href="category.html?cat=Translations" class="list-card" style="text-decoration:none;">
+                        <div class="list-cover"
+                            style="background-image: linear-gradient(to top, rgba(10,10,11,0.9), transparent), url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400'); background-size: cover; background-position: center;">
+                        </div>
+                        <div class="list-info">
+                            <h4>Best Community Translations</h4>
+                            <div class="meta">12 translations · by community</div>
+                        </div>
+                    </a>
+
+                    <a href="category.html?cat=Ports" class="list-card" style="text-decoration:none;">
+                        <div class="list-cover"
+                            style="background-image: linear-gradient(to top, rgba(10,10,11,0.9), transparent), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=400'); background-size: cover; background-position: center;">
+                        </div>
+                        <div class="list-info">
+                            <h4>Stable 60 FPS Ports</h4>
+                            <div class="meta">6 titles · by wolff</div>
+                        </div>
+                    </a>
+
+                    <a href="category.html?cat=all" class="list-card" style="text-decoration:none;">
+                        <div class="list-cover"
+                            style="background: var(--surface-2); display:flex; align-items:center; justify-content:center;">
+                            <i class="ph ph-plus-circle" style="font-size: 2rem; color: var(--green);"></i>
+                        </div>
+                        <div class="list-info">
+                            <h4>Community Collections</h4>
+                            <div class="meta">Explore all in archive</div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <section class="section wrap" id="catalogo">
+                <div class="section-head">
+                    <h2>latest posts</h2>
+                </div>
+
+                <div class="tabs" id="tabs">
+                    <div class="tab active" data-filter="all">all</div>
+                    <div class="tab" data-filter="ports">ports</div>
+                    <div class="tab" data-filter="original games">original games</div>
+                    <div class="tab" data-filter="mods">mods</div>
+                    <div class="tab" data-filter="translations">translations</div>
+                    <div class="tab" data-filter="apps">apps</div>
+                    <div class="tab" data-filter="tools">tools</div>
+                    <div class="tab" data-filter="plugin">plugins</div>
+                    <div class="tab" data-filter="pc tools">pc tools</div>
+                </div>
+
+                <div class="grid" id="project-grid">
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                </div>
+            </section>
+
+            <section class="section wrap">
+                <div class="section-head">
+                    <h2>Recent Activity</h2>
+                </div>
+                <div class="activity">
+                    <div class="activity-line"><span class="activity-time">07/30 14:02</span><span
+                            class="activity-text"><b>wolff</b> <span class="verb">marked</span> "Deltarune" as in development</span></div>
+                    <div class="activity-line"><span class="activity-time">07/29 19:40</span><span
+                            class="activity-text"><b>ana_dev</b> <span class="verb">commented</span> on "Atelier Ayesha"</span></div>
+                    <div class="activity-line"><span class="activity-time">07/28 09:15</span><span
+                            class="activity-text"><b>rjunior</b> <span class="verb">added</span> "Zombie Tsunami" to "To Test" list</span></div>
+                    <div class="activity-line"><span class="activity-time">07/27 22:03</span><span
+                            class="activity-text"><span class="verb">new project:</span> "NoTrpDrmGODOT" submitted for review</span></div>
+                </div>
+            </section>
+
+            <footer>
+                <div class="wrap foot-row">
+                    <div>
+                        <div class="foot-copy">© 2026 VitARCH. All rights reserved.</div>
+                        <div class="foot-disclaimer">Unofficial repository. All games, ports, and trademarks belong to their respective owners.</div>
+                    </div>
+                    <div class="foot-links">
+                        <a href="https://github.com/WolffsRoom/VitARCH" target="_blank">project github</a>
+                        <a href="http://brewology.com/" target="_blank">brewology</a>
+                        <a href="https://wololo.net/" target="_blank">wololo.net</a>
+                    </div>
+                </div>
+            </footer>
         </div>
-      </div>
-    </section>
-
-    <section class="section wrap">
-      <div class="section-head">
-        <h2>Top 10 projetos</h2>
-        <a href="#catalogo" class="see-all">ver catálogo completo →</a>
-      </div>
-      <div class="top10-viewport">
-        <div class="top10-track" id="top10Track">
-          <!-- Dinâmico JS -->
-        </div>
-      </div>
-    </section>
-
-    <section class="section wrap">
-      <div class="section-head">
-        <h2>Listas da comunidade</h2>
-        <a href="#" class="see-all">ver todas →</a>
-      </div>
-      <div class="lists-row">
-        <a href="category.html?cat=Ports" class="list-card" style="text-decoration:none;">
-          <div class="list-cover" style="background-image: linear-gradient(to top, rgba(10,10,11,0.9), transparent), url('https://upload.wikimedia.org/wikipedia/pt/2/29/Dont_Starve_capa.jpg'); background-size: cover; background-position: center;">
-          </div>
-          <div class="list-info">
-            <h4>Essenciais pra começar</h4>
-            <div class="meta">8 jogos · por wolff</div>
-          </div>
-        </a>
-
-        <a href="category.html?cat=Translations" class="list-card" style="text-decoration:none;">
-          <div class="list-cover" style="background-image: linear-gradient(to top, rgba(10,10,11,0.9), transparent), url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400'); background-size: cover; background-position: center;">
-          </div>
-          <div class="list-info">
-            <h4>Melhores traduções em PT-BR</h4>
-            <div class="meta">12 traduções · por comunidade</div>
-          </div>
-        </a>
-
-        <a href="category.html?cat=Ports" class="list-card" style="text-decoration:none;">
-          <div class="list-cover" style="background-image: linear-gradient(to top, rgba(10,10,11,0.9), transparent), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=400'); background-size: cover; background-position: center;">
-          </div>
-          <div class="list-info">
-            <h4>Ports com 60 FPS Estáveis</h4>
-            <div class="meta">6 títulos · por wolff</div>
-          </div>
-        </a>
-
-        <a href="category.html?cat=all" class="list-card" style="text-decoration:none;">
-          <div class="list-cover" style="background: var(--surface-2); display:flex; align-items:center; justify-content:center;">
-            <i class="ph ph-plus-circle" style="font-size: 2rem; color: var(--green);"></i>
-          </div>
-          <div class="list-info">
-            <h4>Coleções da Comunidade</h4>
-            <div class="meta">Explorar todas no arquivo</div>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <section class="section wrap" id="catalogo">
-      <div class="section-head"><h2>últimos posts</h2></div>
-
-      <div class="tabs" id="tabs">
-        <div class="tab active" data-filter="all">todos</div>
-        <div class="tab" data-filter="ports">ports</div>
-        <div class="tab" data-filter="original games">original games</div>
-        <div class="tab" data-filter="mods">mods</div>
-        <div class="tab" data-filter="translations">traduções</div>
-        <div class="tab" data-filter="apps">apps</div>
-        <div class="tab" data-filter="tools">tools</div>
-        <div class="tab" data-filter="plugin">plugins</div>
-        <div class="tab" data-filter="pc tools">pc tools</div>
-      </div>
-
-      <div class="grid" id="project-grid">
-        <div class="skeleton skeleton-card"></div>
-        <div class="skeleton skeleton-card"></div>
-        <div class="skeleton skeleton-card"></div>
-        <div class="skeleton skeleton-card"></div>
-        <div class="skeleton skeleton-card"></div>
-        <div class="skeleton skeleton-card"></div>
-      </div>
-    </section>
-
-    <section class="section wrap">
-      <div class="section-head"><h2>Atividade recente</h2></div>
-      <div class="activity">
-        <div class="activity-line"><span class="activity-time">30/07 14:02</span><span class="activity-text"><b>wolff</b> <span class="verb">marcou</span> "Deltarune" como em desenvolvimento</span></div>
-        <div class="activity-line"><span class="activity-time">29/07 19:40</span><span class="activity-text"><b>ana_dev</b> <span class="verb">comentou</span> em "Atelier Ayesha"</span></div>
-        <div class="activity-line"><span class="activity-time">28/07 09:15</span><span class="activity-text"><b>rjunior</b> <span class="verb">adicionou</span> "Zombie Tsunami" à lista "Quero testar"</span></div>
-        <div class="activity-line"><span class="activity-time">27/07 22:03</span><span class="activity-text"><span class="verb">novo projeto:</span> "NoTrpDrmGODOT" entrou em análise</span></div>
-      </div>
-    </section>
-
-    <footer>
-      <div class="wrap foot-row">
-        <div>
-          <div class="foot-copy">© 2026 VitARCH. Todos os direitos reservados.</div>
-          <div class="foot-disclaimer">Repositório não oficial. Todos os jogos, ports e marcas pertencem aos seus respectivos donos.</div>
-        </div>
-        <div class="foot-links">
-          <a href="https://github.com/WolffsRoom/VitaSeed" target="_blank">github do projeto</a>
-          <a href="http://brewology.com/" target="_blank">brewology</a>
-          <a href="https://wololo.net/" target="_blank">wololo.net</a>
-        </div>
-      </div>
-    </footer>
-  </div>
-</div>
-
-<!-- LOGIN MODAL -->
-<div class="overlay" id="loginOverlay">
-  <div class="modal" style="text-align: center;">
-    <button class="modal-close" onclick="closeModal('loginOverlay')">×</button>
-    <div class="sb-brand" style="justify-content: center; margin-bottom: 16px;">
-      <span class="mark">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="7" y="3" width="10" height="1.5" fill="currentColor"/>
-          <rect x="7" y="5.5" width="10" height="2" fill="currentColor"/>
-          <rect x="7" y="8.5" width="10" height="2.5" fill="currentColor"/>
-          <path d="M7 12H4L12 19L20 12H17V12H7Z" fill="currentColor"/>
-          <rect x="4" y="20.5" width="16" height="2" fill="currentColor"/>
-        </svg>
-      </span>
-      <div class="names" style="text-align: left;">
-        <div class="n1">Vit<b>ARCH</b></div>
-        <div class="n2">by Wolff</div>
-      </div>
     </div>
-    <h3>acesse o vitarch</h3>
-    <p>Faça login para solicitar a adição de novos jogos ao catálogo.</p>
-    <button class="oauth-btn" onclick="loginWithGoogle()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" width="16" height="16"> entrar com google</button>
-    <button class="oauth-btn" onclick="loginWithGitHub()"><i class="fa-brands fa-github"></i> entrar com github</button>
-  </div>
-</div>
 
-<!-- ABOUT MODAL -->
-<div class="overlay" id="aboutOverlay">
-  <div class="modal" style="text-align: center;">
-    <button class="modal-close" onclick="closeModal('aboutOverlay')">×</button>
-    <div class="sb-brand" style="justify-content: center; margin-bottom: 16px;">
-      <span class="mark">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="7" y="3" width="10" height="1.5" fill="currentColor"/>
-          <rect x="7" y="5.5" width="10" height="2" fill="currentColor"/>
-          <rect x="7" y="8.5" width="10" height="2.5" fill="currentColor"/>
-          <path d="M7 12H4L12 19L20 12H17V12H7Z" fill="currentColor"/>
-          <rect x="4" y="20.5" width="16" height="2" fill="currentColor"/>
-        </svg>
-      </span>
-      <div class="names" style="text-align: left;">
-        <div class="n1">Vit<b>ARCH</b></div>
-        <div class="n2">by Wolff</div>
-      </div>
+    <!-- LOGIN MODAL -->
+    <div class="overlay" id="loginOverlay">
+        <div class="modal" style="text-align: center;">
+            <button class="modal-close" onclick="closeModal('loginOverlay')">×</button>
+            <div class="sb-brand" style="justify-content: center; margin-bottom: 16px;">
+                <span class="mark">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="7" y="3" width="10" height="1.5" fill="currentColor" />
+                        <rect x="7" y="5.5" width="10" height="2" fill="currentColor" />
+                        <rect x="7" y="8.5" width="10" height="2.5" fill="currentColor" />
+                        <path d="M7 12H4L12 19L20 12H17V12H7Z" fill="currentColor" />
+                        <rect x="4" y="20.5" width="16" height="2" fill="currentColor" />
+                    </svg>
+                </span>
+                <div class="names" style="text-align: left;">
+                    <div class="n1">Vit<b>ARCH</b></div>
+                    <div class="n2">by Wolff</div>
+                </div>
+            </div>
+            <h3>access vitarch</h3>
+            <p>Sign in to request new games and submit projects to the catalog.</p>
+            <button class="oauth-btn" onclick="loginWithGoogle()"><img
+                    src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" width="16"
+                    height="16"> sign in with google</button>
+            <button class="oauth-btn" onclick="loginWithGitHub()"><i class="fa-brands fa-github"></i> sign in with github</button>
+        </div>
     </div>
-    <h3>sobre o vitarch</h3>
-    <p>O VitARCH (Vita + Archive) é o novo repositório agregador para a cena homebrew do PSVita. Centralizamos Ports, Mods, Traduções, Plugins, Apps e Ferramentas.</p>
-  </div>
-</div>
 
-<!-- REQUEST MODAL -->
-<div class="overlay" id="requestOverlay">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('requestOverlay')">×</button>
-    <h3>solicitar projeto</h3>
-    <p>Não encontrou o que procurava? Envie um pedido pra adicionarmos o projeto ao catálogo.</p>
-    <input type="text" id="req-title" class="btn-ghost-sm" placeholder="nome do projeto..." style="width:100%; margin-bottom:8px; text-align:left;">
-    <input type="text" id="req-link" class="btn-ghost-sm" placeholder="link de referência..." style="width:100%; margin-bottom:8px; text-align:left;">
-    <textarea id="req-desc" placeholder="detalhes do pedido..."></textarea>
-    <button class="btn-green-sm" style="width:100%; padding:10px;" onclick="sendRequest()">enviar pedido</button>
-    <div id="req-msg" style="margin-top:8px; font-size:12px;"></div>
-  </div>
-</div>
+    <!-- ABOUT MODAL -->
+    <div class="overlay" id="aboutOverlay">
+        <div class="modal" style="text-align: center;">
+            <button class="modal-close" onclick="closeModal('aboutOverlay')">×</button>
+            <div class="sb-brand" style="justify-content: center; margin-bottom: 16px;">
+                <span class="mark">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="7" y="3" width="10" height="1.5" fill="currentColor" />
+                        <rect x="7" y="5.5" width="10" height="2" fill="currentColor" />
+                        <rect x="7" y="8.5" width="10" height="2.5" fill="currentColor" />
+                        <path d="M7 12H4L12 19L20 12H17V12H7Z" fill="currentColor" />
+                        <rect x="4" y="20.5" width="16" height="2" fill="currentColor" />
+                    </svg>
+                </span>
+                <div class="names" style="text-align: left;">
+                    <div class="n1">Vit<b>ARCH</b></div>
+                    <div class="n2">by Wolff</div>
+                </div>
+            </div>
+            <h3>about vitarch</h3>
+            <p>VitARCH (Vita + Archive) is the open aggregator repository for the PS Vita homebrew scene. We centralize Ports, Mods, Translations, Plugins, Apps, and Tools.</p>
+        </div>
+    </div>
 
-<script src="js/catalog_data.js"></script>
-<script src="js/api.js?v=3"></script>
-<script src="js/theme.js?v=3"></script>
-<script>
-  function openModal(id){ document.getElementById(id).classList.add('open'); }
-  function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+    <!-- REQUEST MODAL -->
+    <div class="overlay" id="requestOverlay">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('requestOverlay')">×</button>
+            <h3>request project</h3>
+            <p>Didn't find what you were looking for? Submit a request to add a new project to the catalog.</p>
+            <input type="text" id="req-title" class="btn-ghost-sm" placeholder="project name..."
+                style="width:100%; margin-bottom:8px; text-align:left;">
+            <input type="text" id="req-link" class="btn-ghost-sm" placeholder="reference link (GitHub, VitaDB, etc)..."
+                style="width:100%; margin-bottom:8px; text-align:left;">
+            <textarea id="req-desc" placeholder="request details..."></textarea>
+            <button class="btn-green-sm" style="width:100%; padding:10px;" onclick="sendRequest()">submit request</button>
+            <div id="req-msg" style="margin-top:8px; font-size:12px;"></div>
+        </div>
+    </div>
 
-  var sidebar = document.getElementById('sidebar');
-  var burgerBtn = document.getElementById('burgerBtn');
-  if(burgerBtn) burgerBtn.addEventListener('click', function(){ sidebar.classList.toggle('open'); });
+    <script src="js/catalog_data.js"></script>
+    <script src="js/api.js?v=3"></script>
+    <script src="js/theme.js?v=3"></script>
+    <script>
+        function openModal(id) { document.getElementById(id).classList.add('open'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
-  document.addEventListener('DOMContentLoaded', async () => {
-      const data = await window.fetchCatalog();
-      const grid = document.getElementById('project-grid');
-      const top10Track = document.getElementById('top10Track');
-      
-      if(top10Track && data.length > 0) {
-          top10Track.innerHTML = '';
-          const topList = data.slice(0, 10);
-          
-          // Render items twice for seamless 100% infinite marquee loop
-          const renderList = [...topList, ...topList];
-          renderList.forEach((proj, idx) => {
-              const originalIdx = idx % topList.length;
-              const rankNum = (originalIdx + 1).toString().padStart(2, '0');
-              const isTop3 = originalIdx < 3 ? 'top3' : '';
-              top10Track.innerHTML += `
+        var sidebar = document.getElementById('sidebar');
+        var burgerBtn = document.getElementById('burgerBtn');
+        if (burgerBtn) burgerBtn.addEventListener('click', function () { sidebar.classList.toggle('open'); });
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const data = await window.fetchCatalog();
+            const grid = document.getElementById('project-grid');
+            const top10Track = document.getElementById('top10Track');
+
+            if (top10Track && data.length > 0) {
+                top10Track.innerHTML = '';
+                const topList = data.slice(0, 10);
+
+                // Render items twice for seamless 100% infinite marquee loop
+                const renderList = [...topList, ...topList];
+                renderList.forEach((proj, idx) => {
+                    const originalIdx = idx % topList.length;
+                    const rankNum = (originalIdx + 1).toString().padStart(2, '0');
+                    const isTop3 = originalIdx < 3 ? 'top3' : '';
+                    top10Track.innerHTML += `
                   <a href="project.html?id=${proj.id}" class="top10-item ${isTop3}" style="text-decoration:none;">
                       <div class="top10-tile" style="background-image: url('${proj.bannerUrl}'); background-size: cover; background-position: center;">
                           <span class="rank">${rankNum}</span>
@@ -319,32 +409,32 @@
                       <div class="cat-label">[${proj.category}]</div>
                   </a>
               `;
-          });
-      }
+                });
+            }
 
-      function renderGrid(filterCat) {
-          grid.innerHTML = '';
-          const filterLower = (filterCat || 'all').toLowerCase().trim();
-          const filtered = filterLower === 'all' || filterLower === 'todas' || filterLower === 'todos' 
-              ? data 
-              : data.filter(p => {
-                  const cat = (p.category || '').toLowerCase().trim();
-                  if (filterLower === 'plugin' || filterLower === 'plugins') return cat.includes('plugin');
-                  if (filterLower === 'pc tools' || filterLower === 'tools') return cat.includes('tool');
-                  return cat === filterLower;
-              });
+            function renderGrid(filterCat) {
+                grid.innerHTML = '';
+                const filterLower = (filterCat || 'all').toLowerCase().trim();
+                const filtered = filterLower === 'all' || filterLower === 'todas' || filterLower === 'todos'
+                    ? data
+                    : data.filter(p => {
+                        const cat = (p.category || '').toLowerCase().trim();
+                        if (filterLower === 'plugin' || filterLower === 'plugins') return cat.includes('plugin');
+                        if (filterLower === 'pc tools' || filterLower === 'tools') return cat.includes('tool');
+                        return cat === filterLower;
+                    });
 
-          const limited = filtered.slice(0, 9);
-          limited.forEach(proj => {
-              const card = document.createElement('article');
-              card.className = 'card card-fade-in';
-              card.style.cursor = 'pointer';
-              card.setAttribute('data-category', proj.category.toLowerCase());
-              card.onclick = (e) => {
-                  if (e.target.closest('.bookmark')) return;
-                  window.location.href = `project.html?id=${proj.id}`;
-              };
-              card.innerHTML = `
+                const limited = filtered.slice(0, 9);
+                limited.forEach(proj => {
+                    const card = document.createElement('article');
+                    card.className = 'card card-fade-in';
+                    card.style.cursor = 'pointer';
+                    card.setAttribute('data-category', proj.category.toLowerCase());
+                    card.onclick = (e) => {
+                        if (e.target.closest('.bookmark')) return;
+                        window.location.href = `project.html?id=${proj.id}`;
+                    };
+                    card.innerHTML = `
                   <div class="card-cover" style="background-image: linear-gradient(to top, rgba(10,10,11,0.95), transparent), url('${proj.bannerUrl}'); background-size: cover; background-position: center;">
                       <button class="bookmark" onclick="event.stopPropagation(); this.classList.toggle('saved'); this.textContent = this.classList.contains('saved') ? '✓' : '+';">+</button>
                       <span class="tag">${proj.category}</span>
@@ -359,28 +449,29 @@
                       </div>
                   </div>
               `;
-              grid.appendChild(card);
-          });
-      }
+                    grid.appendChild(card);
+                });
+            }
 
-      renderGrid('all');
+            renderGrid('all');
 
-      // Chips & Tabs Filtering
-      document.querySelectorAll('.chip, .tab').forEach(el => {
-          el.addEventListener('click', (e) => {
-              const cat = el.getAttribute('data-cat') || el.getAttribute('data-filter');
-              document.querySelectorAll('.chip, .tab').forEach(i => {
-                  if ((i.getAttribute('data-cat') === cat) || (i.getAttribute('data-filter') === cat)) {
-                      i.classList.add('active');
-                  } else {
-                      i.classList.remove('active');
-                  }
-              });
-              renderGrid(cat);
-          });
-      });
-  });
-</script>
+            // Chips & Tabs Filtering
+            document.querySelectorAll('.chip, .tab').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    const cat = el.getAttribute('data-cat') || el.getAttribute('data-filter');
+                    document.querySelectorAll('.chip, .tab').forEach(i => {
+                        if ((i.getAttribute('data-cat') === cat) || (i.getAttribute('data-filter') === cat)) {
+                            i.classList.add('active');
+                        } else {
+                            i.classList.remove('active');
+                        }
+                    });
+                    renderGrid(cat);
+                });
+            });
+        });
+    </script>
 
 </body>
+
 </html>

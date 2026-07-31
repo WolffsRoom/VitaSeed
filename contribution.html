@@ -486,7 +486,23 @@
 
       var sidebar = document.getElementById('sidebar');
       var burgerBtn = document.getElementById('burgerBtn');
-      if(burgerBtn) burgerBtn.addEventListener('click', function(){ sidebar.classList.toggle('open'); });
+      var backdrop = document.createElement('div');
+      backdrop.className = 'sidebar-backdrop';
+      document.body.appendChild(backdrop);
+
+      function toggleSidebar() {
+          if (sidebar) {
+              sidebar.classList.toggle('open');
+              if (sidebar.classList.contains('open')) {
+                  backdrop.classList.add('show');
+              } else {
+                  backdrop.classList.remove('show');
+              }
+          }
+      }
+
+      if(burgerBtn) burgerBtn.addEventListener('click', toggleSidebar);
+      backdrop.addEventListener('click', toggleSidebar);
     </script>
     <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>

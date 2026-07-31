@@ -781,20 +781,38 @@ footer .wrap { position: relative; z-index: 1; }
   cursor: pointer;
 }
 /* ---------- Mobile Responsive Overhauls ---------- */
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.sidebar-backdrop.show {
+  opacity: 1;
+  visibility: visible;
+}
+
 @media (max-width: 768px) {
   .burger { display: flex !important; }
+  .app { position: relative; }
   .sidebar {
     position: fixed;
     top: 0;
-    left: -280px;
-    z-index: 1000;
+    left: 0;
+    z-index: 10000;
     width: 260px;
     height: 100vh;
-    transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 10px 0 30px rgba(0,0,0,0.5);
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 10px 0 30px rgba(0,0,0,0.8);
+    margin: 0 !important;
   }
   .sidebar.open {
-    left: 0;
+    transform: translateX(0);
   }
   .topbar {
     padding: 10px 16px;
