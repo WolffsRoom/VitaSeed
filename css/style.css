@@ -136,37 +136,24 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Page Glitch Entrance Animation */
-.main {
-  animation: glitchPageLoad 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+/* Skeleton Loading Animation */
+.skeleton {
+  background: linear-gradient(90deg, var(--surface-2) 25%, var(--border) 50%, var(--surface-2) 75%);
+  background-size: 200% 100%;
+  animation: skeletonPulse 1.5s infinite ease-in-out;
+  border-radius: var(--r);
 }
 
-@keyframes glitchPageLoad {
-  0% {
-    opacity: 0.3;
-    transform: translate(-4px, 2px);
-    clip-path: inset(10% 0 30% 0);
-  }
-  25% {
-    opacity: 0.7;
-    transform: translate(3px, -2px);
-    clip-path: inset(40% 0 10% 0);
-  }
-  50% {
-    opacity: 0.9;
-    transform: translate(-2px, 1px);
-    clip-path: inset(5% 0 60% 0);
-  }
-  75% {
-    opacity: 0.95;
-    transform: translate(1px, -1px);
-    clip-path: inset(25% 0 20% 0);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(0, 0);
-    clip-path: inset(0 0 0 0);
-  }
+@keyframes skeletonPulse {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-card {
+  height: 240px;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
 }
 
 .sb-section {
