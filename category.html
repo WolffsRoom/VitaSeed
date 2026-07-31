@@ -16,15 +16,23 @@
 <div class="app">
 
   <aside class="sidebar" id="sidebar">
-    <div class="sb-brand">
-      <span class="mark">VS</span>
+    <a href="index.html" class="sb-brand">
+      <span class="mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="7" y="3" width="10" height="1.5" fill="currentColor"/>
+          <rect x="7" y="5.5" width="10" height="2" fill="currentColor"/>
+          <rect x="7" y="8.5" width="10" height="2.5" fill="currentColor"/>
+          <path d="M7 12H4L12 19L20 12H17V12H7Z" fill="currentColor"/>
+          <rect x="4" y="20.5" width="16" height="2" fill="currentColor"/>
+        </svg>
+      </span>
       <div class="names">
-        <div class="n1">Vita<b>Seed</b></div>
+        <div class="n1">Vit<b>ARCH</b></div>
         <div class="n2">by Wolff</div>
       </div>
-    </div>
+    </a>
 
-    <a href="index.html" class="sb-link">home</a>
+    <a href="category.html?cat=all" class="sb-link" id="link-all">all <span class="tag">[todos]</span></a>
 
     <div class="sb-section">Biblioteca</div>
     <a href="category.html?cat=Ports" class="sb-link">ports <span class="tag">[port]</span></a>
@@ -99,7 +107,8 @@
 
     <script src="js/catalog_data.js"></script>
     <script src="js/api.js?v=3"></script>
-    <script src="js/theme.j    <script>
+    <script src="js/theme.js?v=3"></script>
+    <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const params = new URLSearchParams(window.location.search);
             const projectsData = await window.fetchCatalog();
