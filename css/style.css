@@ -114,17 +114,70 @@ button { font-family: inherit; }
 .sb-brand .n1 b { color: var(--green); font-weight: 800; }
 .sb-brand .n2 { font-size: 12px; color: var(--muted-2); font-family: var(--mono); }
 
-/* Title Styling */
+/* Cyberpunk Glitch Logo Animation */
 .glitch-title {
+  position: relative;
   font-family: var(--mono);
   font-weight: 800;
   font-size: 2.5rem;
   color: var(--text);
   text-align: left;
   margin: 0.5rem 0 1rem 0;
+  display: inline-block;
 }
 .glitch-title b {
   color: var(--green);
+}
+
+.glitch-title::before,
+.glitch-title::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.glitch-title::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff0055;
+  clip-path: inset(24% 0 56% 0);
+  animation: glitchSplit1 2.5s infinite linear alternate-reverse;
+}
+
+.glitch-title::after {
+  left: -2px;
+  text-shadow: -2px 0 #3FD97A;
+  clip-path: inset(54% 0 12% 0);
+  animation: glitchSplit2 3.2s infinite linear alternate-reverse;
+}
+
+@keyframes glitchSplit1 {
+  0% { clip-path: inset(40% 0 40% 0); transform: translate(-2px, -1px); }
+  10% { clip-path: inset(12% 0 70% 0); transform: translate(1px, 1px); }
+  20% { clip-path: inset(80% 0 5% 0); transform: translate(-1px, 2px); }
+  30% { clip-path: inset(25% 0 58% 0); transform: translate(2px, -1px); }
+  40% { clip-path: inset(60% 0 20% 0); transform: translate(-2px, 0); }
+  50% { clip-path: inset(10% 0 85% 0); transform: translate(1px, 2px); }
+  60% { clip-path: inset(75% 0 10% 0); transform: translate(-1px, -2px); }
+  70% { clip-path: inset(30% 0 50% 0); transform: translate(2px, 1px); }
+  80% { clip-path: inset(5% 0 78% 0); transform: translate(-2px, -1px); }
+  90% { clip-path: inset(50% 0 35% 0); transform: translate(1px, 0); }
+  100% { clip-path: inset(20% 0 65% 0); transform: translate(0, 0); }
+}
+
+@keyframes glitchSplit2 {
+  0% { clip-path: inset(15% 0 65% 0); transform: translate(2px, 1px); }
+  15% { clip-path: inset(65% 0 15% 0); transform: translate(-1px, -2px); }
+  30% { clip-path: inset(5% 0 80% 0); transform: translate(1px, 2px); }
+  45% { clip-path: inset(45% 0 40% 0); transform: translate(-2px, 1px); }
+  60% { clip-path: inset(85% 0 5% 0); transform: translate(2px, -1px); }
+  75% { clip-path: inset(30% 0 55% 0); transform: translate(-1px, 2px); }
+  90% { clip-path: inset(10% 0 75% 0); transform: translate(1px, -1px); }
+  100% { clip-path: inset(50% 0 30% 0); transform: translate(0, 0); }
 }
 
 body {
