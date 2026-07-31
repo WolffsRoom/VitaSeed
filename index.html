@@ -183,18 +183,16 @@
             <section class="intro">
                 <div class="wrap">
                     <div class="intro-prompt">~/vitarch $ ls --catalog<span class="cur"></span></div>
-                    <h1 class="glitch-title blend-title-wrapper" id="morphTitle" style="display: flex; align-items: center; gap: 12px;">
-                        <svg class="animated-arrow-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--green); flex-shrink: 0;">
-                            <rect class="line-1" x="7" y="3" width="10" height="1.5" fill="currentColor" />
-                            <rect class="line-2" x="7" y="5.5" width="10" height="2" fill="currentColor" />
-                            <rect class="line-3" x="7" y="8.5" width="10" height="2.5" fill="currentColor" />
-                            <path class="arrow-head" d="M7 12H4L12 19L20 12H17V12H7Z" fill="currentColor" />
-                            <rect class="line-base" x="4" y="20.5" width="16" height="2" fill="currentColor" />
+                    <h1 class="glitch-title" style="display: flex; align-items: center; gap: 10px;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            style="color: var(--green); flex-shrink: 0;">
+                            <rect x="7" y="3" width="10" height="1.5" fill="currentColor" />
+                            <rect x="7" y="5.5" width="10" height="2" fill="currentColor" />
+                            <rect x="7" y="8.5" width="10" height="2.5" fill="currentColor" />
+                            <path d="M7 12H4L12 19L20 12H17V12H7Z" fill="currentColor" />
+                            <rect x="4" y="20.5" width="16" height="2" fill="currentColor" />
                         </svg>
-                        <span class="blend-text-container">
-                            <span class="blend-word-vita">Vit<span class="vita-tail">a</span></span>
-                            <span class="blend-word-archive">ARCH<span class="arch-tail">IVE</span></span>
-                        </span>
+                        <span>Vit<b>ARCH</b></span>
                     </h1>
                     <p>A brand new open repository for PS Vita homebrews.</p>
                     <div class="chip-row" id="chipRow">
@@ -525,15 +523,7 @@
                             i.classList.remove('active');
                         }
                     });
-                    renderGrid(cat);
-                });
-            // Title Morphing Animation: "Vita ARCHIVE" <-> "VitARCH"
-            const morphTitle = document.getElementById('morphTitle');
-            if (morphTitle) {
-                setInterval(() => {
-                    morphTitle.classList.toggle('blending');
-                }, 3200);
-            }
+            });
         });
     </script>
 

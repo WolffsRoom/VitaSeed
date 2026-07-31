@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitARCH Animations Demo (Local)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background: #0A0A0B;
+            color: #E8E8E9;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .demo-card {
+            background: #121316;
+            border: 1px solid #29292C;
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+        }
+
+        /* 1. Stacking Arrow Animation */
+        .animated-arrow-icon rect,
+        .animated-arrow-icon path {
+            transform-origin: center;
+            animation: stackArrow 2.4s infinite ease-in-out;
+        }
+        .animated-arrow-icon .line-1 { animation-delay: 0.0s; }
+        .animated-arrow-icon .line-2 { animation-delay: 0.2s; }
+        .animated-arrow-icon .line-3 { animation-delay: 0.4s; }
+        .animated-arrow-icon .arrow-head { animation-delay: 0.6s; }
+        .animated-arrow-icon .line-base { animation-delay: 0.8s; }
+
+        @keyframes stackArrow {
+            0%, 100% {
+                opacity: 0.35;
+                transform: translateY(0) scale(0.95);
+                fill: currentColor;
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-2px) scale(1.08);
+                fill: #00E676;
+                filter: drop-shadow(0 0 8px #00E676);
+            }
+        }
+
+        /* 2. Vita + ARCHIVE -> VitARCH Morphing Animation */
+        .blend-title-wrapper {
+            display: inline-flex;
+            align-items: center;
+            font-family: 'JetBrains Mono', monospace;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .blend-text-container {
+            display: inline-flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 2.2rem;
+        }
+
+        .blend-word-vita {
+            display: inline-block;
+            color: #E8E8E9;
+            transition: all 0.5s ease;
+        }
+
+        .blend-word-archive {
+            display: inline-block;
+            color: #00E676;
+            font-weight: 800;
+            margin-left: 2px;
+            transition: all 0.5s ease;
+            position: relative;
+        }
+
+        .blend-word-archive .arch-tail {
+            display: inline-block;
+            opacity: 1;
+            max-width: 120px;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            vertical-align: bottom;
+        }
+
+        .blend-title-wrapper.blending .blend-word-archive .arch-tail {
+            opacity: 0;
+            max-width: 0;
+            margin: 0;
+            transform: translateX(-10px);
+        }
+
+        .blend-word-vita .vita-tail {
+            display: inline-block;
+            opacity: 1;
+            max-width: 50px;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .blend-title-wrapper.blending .blend-word-vita .vita-tail {
+            opacity: 0;
+            max-width: 0;
+            margin: 0;
+            transform: translateX(-6px);
+        }
+
+        .info-tag {
+            margin-top: 24px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #888;
+            background: #18191C;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid #29292C;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="demo-card">
+        <h1 class="blend-title-wrapper" id="morphTitle">
+            <!-- Setinha Empilhando em Loop -->
+            <svg class="animated-arrow-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: #00E676; flex-shrink: 0; margin-right: 14px;">
+                <rect class="line-1" x="7" y="3" width="10" height="1.5" fill="currentColor" />
+                <rect class="line-2" x="7" y="5.5" width="10" height="2" fill="currentColor" />
+                <rect class="line-3" x="7" y="8.5" width="10" height="2.5" fill="currentColor" />
+                <path class="arrow-head" d="M7 12H4L12 19L20 12H17V12H7Z" fill="currentColor" />
+                <rect class="line-base" x="4" y="20.5" width="16" height="2" fill="currentColor" />
+            </svg>
+            <!-- Palavras Vita + ARCHIVE Misturando para VitARCH -->
+            <span class="blend-text-container">
+                <span class="blend-word-vita">Vit<span class="vita-tail">a</span></span>
+                <span class="blend-word-archive">ARCH<span class="arch-tail">IVE</span></span>
+            </span>
+        </h1>
+
+        <p style="color: #A0A0A5; font-size: 0.95rem; margin-top: 20px;">Demonstração local das duas animações (Setinha se empilhando + Texto "Vita ARCHIVE" ↔ "VitARCH").</p>
+        
+        <div class="info-tag">Clique no título ou aguarde o ciclo de 3 segundos</div>
+    </div>
+
+    <script>
+        const morphTitle = document.getElementById('morphTitle');
+        if (morphTitle) {
+            setInterval(() => {
+                morphTitle.classList.toggle('blending');
+            }, 3000);
+
+            morphTitle.addEventListener('click', () => {
+                morphTitle.classList.toggle('blending');
+            });
+        }
+    </script>
+</body>
+</html>
