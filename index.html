@@ -13,11 +13,11 @@
 <style>
   /* Layout Fallbacks Ingress */
   * { box-sizing: border-box; }
-  body { margin: 0; background: #0A0A0B; color: #E8E8E9; font-family: 'Inter', sans-serif; }
+  body { margin: 0; background: var(--bg, #0A0A0B); color: var(--text, #E8E8E9); font-family: 'Inter', sans-serif; }
   .app { display: flex; min-height: 100vh; }
-  .sidebar { width: 250px; flex-shrink: 0; background: #08090A; border-right: 1px solid #29292C; padding: 20px 16px; position: sticky; top: 0; height: 100vh; }
+  .sidebar { width: 250px; flex-shrink: 0; background: var(--sidebar, #08090A); border-right: 1px solid var(--border, #29292C); padding: 20px 16px; position: sticky; top: 0; height: 100vh; }
   .main { flex: 1; min-width: 0; }
-  .topbar { position: sticky; top: 0; z-index: 20; background: #0A0A0B; border-bottom: 1px solid #29292C; display: flex; align-items: center; justify-content: space-between; padding: 13px 26px; }
+  .topbar { position: sticky; top: 0; z-index: 20; background: var(--bg, #0A0A0B); border-bottom: 1px solid var(--border, #29292C); display: flex; align-items: center; justify-content: space-between; padding: 13px 26px; }
   .wrap { max-width: 1180px; margin: 0 auto; padding: 0 26px; }
   .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
   @media (max-width: 940px) { .grid { grid-template-columns: repeat(2, 1fr); } }
@@ -121,34 +121,45 @@
         <a href="#" class="see-all">ver todas →</a>
       </div>
       <div class="lists-row">
-        <div class="list-card">
-          <div class="list-cover"><div class="sw"></div><div class="sw"></div><div class="sw"></div><div class="sw"></div></div>
+        <a href="category.html?cat=Ports" class="list-card" style="text-decoration:none;">
+          <div class="list-cover" style="background-image: linear-gradient(to top, rgba(10,10,11,0.9), transparent), url('https://upload.wikimedia.org/wikipedia/pt/2/29/Dont_Starve_capa.jpg'); background-size: cover; background-position: center;">
+            <span class="tag" style="position:absolute; top:8px; left:8px; background:var(--surface); border:1px solid var(--border); color:var(--green); font-family:var(--mono); font-size:10px; padding:2px 6px; border-radius:3px;">PORT</span>
+          </div>
           <div class="list-info">
             <h4>Essenciais pra começar</h4>
-            <div class="meta">8 itens · por wolff</div>
+            <div class="meta">8 jogos · por wolff</div>
           </div>
-        </div>
-        <div class="list-card">
-          <div class="list-cover"><div class="sw"></div><div class="sw"></div><div class="sw"></div><div class="sw"></div></div>
+        </a>
+
+        <a href="category.html?cat=Translations" class="list-card" style="text-decoration:none;">
+          <div class="list-cover" style="background-image: linear-gradient(to top, rgba(10,10,11,0.9), transparent), url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400'); background-size: cover; background-position: center;">
+            <span class="tag" style="position:absolute; top:8px; left:8px; background:var(--surface); border:1px solid var(--border); color:var(--green); font-family:var(--mono); font-size:10px; padding:2px 6px; border-radius:3px;">TRAD</span>
+          </div>
           <div class="list-info">
-            <h4>Melhores traduções de 2026</h4>
-            <div class="meta">5 itens · por comunidade</div>
+            <h4>Melhores traduções em PT-BR</h4>
+            <div class="meta">12 traduções · por comunidade</div>
           </div>
-        </div>
-        <div class="list-card">
-          <div class="list-cover"><div class="sw"></div><div class="sw"></div><div class="sw"></div><div class="sw"></div></div>
+        </a>
+
+        <a href="category.html?cat=Ports" class="list-card" style="text-decoration:none;">
+          <div class="list-cover" style="background-image: linear-gradient(to top, rgba(10,10,11,0.9), transparent), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=400'); background-size: cover; background-position: center;">
+            <span class="tag" style="position:absolute; top:8px; left:8px; background:var(--surface); border:1px solid var(--border); color:var(--green); font-family:var(--mono); font-size:10px; padding:2px 6px; border-radius:3px;">FPS</span>
+          </div>
           <div class="list-info">
-            <h4>Ports mais estáveis</h4>
-            <div class="meta">6 itens · por wolff</div>
+            <h4>Ports com 60 FPS Estáveis</h4>
+            <div class="meta">6 títulos · por wolff</div>
           </div>
-        </div>
-        <div class="list-card">
-          <div class="list-cover"><div class="sw"></div><div class="sw"></div><div class="sw"></div><div class="sw"></div></div>
+        </a>
+
+        <a href="category.html?cat=all" class="list-card" style="text-decoration:none;">
+          <div class="list-cover" style="background: var(--surface-2); display:flex; align-items:center; justify-content:center;">
+            <i class="ph ph-plus-circle" style="font-size: 2rem; color: var(--green);"></i>
+          </div>
           <div class="list-info">
-            <h4>Minha lista</h4>
-            <div class="meta">0 itens · crie a sua</div>
+            <h4>Coleções da Comunidade</h4>
+            <div class="meta">Explorar todas no arquivo</div>
           </div>
-        </div>
+        </a>
       </div>
     </section>
 
@@ -302,7 +313,7 @@
           const limited = filtered.slice(0, 9);
           limited.forEach(proj => {
               const card = document.createElement('article');
-              card.className = 'card';
+              card.className = 'card card-fade-in';
               card.style.cursor = 'pointer';
               card.setAttribute('data-category', proj.category.toLowerCase());
               card.onclick = (e) => {

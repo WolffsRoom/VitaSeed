@@ -368,6 +368,20 @@ body {
 .tab.active { color: var(--green); border-bottom-color: var(--green); }
 
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.card.card-fade-in {
+  animation: tabFilterFade 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes tabFilterFade {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
 .grid.list-mode { display: flex; flex-direction: column; gap: 10px; }
 .grid.list-mode .card { display: flex; align-items: center; justify-content: space-between; }
 .grid.list-mode .card-cover { aspect-ratio: 16/6; width: 140px; flex-shrink: 0; }
