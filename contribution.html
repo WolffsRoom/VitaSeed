@@ -1,54 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Colaborações - VitaSeed</title>
-    <meta name="description" content="Repositório brasileiro de jogos, ports, ferramentas, mods e traduções para PSVita.">
-    <link rel="icon" href="seed.svg?v=2" type="image/svg+xml">
-    <link rel="stylesheet" href="css/style.css?v=33">
+    <title>Colaborações - VitARCH by Wolff</title>
+    <meta name="description" content="Grafo interativo de colaborações e desenvolvedores da cena PS Vita.">
+    <link rel="icon" href="favicon.svg?v=60" type="image/svg+xml">
+    <link rel="alternate icon" href="seed.svg?v=60" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css?v=100">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <!-- lottie removed: unused performance cost -->
     <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
     <style>
         #network-container {
             width: 100%;
-            height: calc(100vh - 180px);
-            background-color: #111;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
+            height: calc(100vh - 220px);
+            min-height: 480px;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--r);
             box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
             margin-top: 1rem;
             position: relative;
-        }
-        .network-controls {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
+            overflow: hidden;
         }
         .graph-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
 <div class="app">
 
   <aside class="sidebar" id="sidebar">
-    <div class="sb-brand">
-      <span class="mark">VS</span>
+    <a href="index.html" class="sb-brand">
+      <span class="mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="7" y="3" width="10" height="1.5" fill="currentColor"/>
+          <rect x="7" y="5.5" width="10" height="2" fill="currentColor"/>
+          <rect x="7" y="8.5" width="10" height="2.5" fill="currentColor"/>
+          <path d="M7 12H4L12 19L20 12H17V12H7Z" fill="currentColor"/>
+          <rect x="4" y="20.5" width="16" height="2" fill="currentColor"/>
+        </svg>
+      </span>
       <div class="names">
-        <div class="n1">Vita<b>Seed</b></div>
+        <div class="n1">Vit<b>ARCH</b></div>
         <div class="n2">by Wolff</div>
       </div>
-    </div>
+    </a>
 
-    <a href="index.html" class="sb-link">home</a>
+    <a href="category.html?cat=all" class="sb-link">all <span class="tag">[todos]</span></a>
 
     <div class="sb-section">Biblioteca</div>
     <a href="category.html?cat=Ports" class="sb-link">ports <span class="tag">[port]</span></a>
@@ -69,8 +74,7 @@
     <a href="https://www.youtube.com/@TitiClash" target="_blank" class="sb-link ext">titi clash</a>
 
     <div class="sb-bottom">
-      <a href="#" class="sb-link" onclick="openModal('aboutOverlay'); return false;">sobre o vitaseed</a>
-      <a href="settings.html" class="sb-link">configurações</a>
+      <a href="#" class="sb-link" onclick="openModal('aboutOverlay'); return false;">sobre o vitarch</a>
     </div>
   </aside>
 
@@ -79,6 +83,7 @@
       <div class="topbar-left">
         <button class="burger" id="burgerBtn" aria-label="Abrir menu">☰</button>
         <span class="version-badge">v0.3.0 <span class="b">(beta)</span></span>
+        <a href="api/catalog.json" target="_blank" class="version-badge" style="color: var(--green); text-decoration: none;" title="Acessar API pública do catálogo">API ↗</a>
       </div>
       <div class="topbar-right">
         <button class="btn-ghost-sm" onclick="toggleTheme()"><span id="theme-btn-text">modo escuro</span></button>
@@ -388,18 +393,95 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 
-    <!-- Modals -->
-    <div id="modal-about" class="modal" onclick="if(event.target===this)closeModal('modal-about')">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('modal-about')">&times;</span>
-            <div class="seed-icon" style="width: 48px; height: 48px; margin: 0 auto 1rem auto;"></div>
-              <h2>Sobre o VitaSeed <span style="color:var(--accent-green)">?</span></h2>
-            <p style="margin-top: 1rem; line-height: 1.7; color: var(--text-muted);">
-                O VitaSeed é um centralizador para a cena brasileira homebrew do PSVita. Aqui centralizamos Ports, Mods, Traduções, Plugins, Apps e Ferramentas, garantindo um acesso centralizado.
-            </p>
+    <footer>
+      <div class="wrap foot-row">
+        <div>
+          <div class="foot-copy">© 2026 VitARCH. Todos os direitos reservados.</div>
+          <div class="foot-disclaimer">Repositório não oficial. Todos os jogos, ports e marcas pertencem aos seus respectivos donos.</div>
         </div>
+        <div class="foot-links">
+          <a href="https://github.com/WolffsRoom/VitARCH" target="_blank">github do projeto</a>
+          <a href="http://brewology.com/" target="_blank">brewology</a>
+          <a href="https://wololo.net/" target="_blank">wololo.net</a>
+        </div>
+      </div>
+    </footer>
+
     </div>
 
+<!-- LOGIN MODAL -->
+<div class="overlay" id="loginOverlay">
+  <div class="modal" style="text-align: center;">
+    <button class="modal-close" onclick="closeModal('loginOverlay')">×</button>
+    <div class="sb-brand" style="justify-content: center; margin-bottom: 16px;">
+      <span class="mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="7" y="3" width="10" height="1.5" fill="currentColor"/>
+          <rect x="7" y="5.5" width="10" height="2" fill="currentColor"/>
+          <rect x="7" y="8.5" width="10" height="2.5" fill="currentColor"/>
+          <path d="M7 12H4L12 19L20 12H17V12H7Z" fill="currentColor"/>
+          <rect x="4" y="20.5" width="16" height="2" fill="currentColor"/>
+        </svg>
+      </span>
+      <div class="names" style="text-align: left;">
+        <div class="n1">Vit<b>ARCH</b></div>
+        <div class="n2">by Wolff</div>
+      </div>
+    </div>
+    <h3>acesse o vitarch</h3>
+    <p>Faça login para solicitar a adição de novos jogos ao catálogo.</p>
+    <button class="oauth-btn" onclick="loginWithGoogle()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" width="16" height="16"> entrar com google</button>
+    <button class="oauth-btn" onclick="loginWithGitHub()"><i class="fa-brands fa-github"></i> entrar com github</button>
+  </div>
+</div>
+
+<!-- ABOUT MODAL -->
+<div class="overlay" id="aboutOverlay">
+  <div class="modal" style="text-align: center;">
+    <button class="modal-close" onclick="closeModal('aboutOverlay')">×</button>
+    <div class="sb-brand" style="justify-content: center; margin-bottom: 16px;">
+      <span class="mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="7" y="3" width="10" height="1.5" fill="currentColor"/>
+          <rect x="7" y="5.5" width="10" height="2" fill="currentColor"/>
+          <rect x="7" y="8.5" width="10" height="2.5" fill="currentColor"/>
+          <path d="M7 12H4L12 19L20 12H17V12H7Z" fill="currentColor"/>
+          <rect x="4" y="20.5" width="16" height="2" fill="currentColor"/>
+        </svg>
+      </span>
+      <div class="names" style="text-align: left;">
+        <div class="n1">Vit<b>ARCH</b></div>
+        <div class="n2">by Wolff</div>
+      </div>
+    </div>
+    <h3>sobre o vitarch</h3>
+    <p>O VitARCH (Vita + Archive) é o novo repositório agregador para a cena homebrew do PSVita. Centralizamos Ports, Mods, Traduções, Plugins, Apps e Ferramentas.</p>
+  </div>
+</div>
+
+<!-- REQUEST MODAL -->
+<div class="overlay" id="requestOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('requestOverlay')">×</button>
+    <h3>solicitar projeto</h3>
+    <p>Não encontrou o que procurava? Envie um pedido pra adicionarmos o projeto ao catálogo.</p>
+    <input type="text" id="req-title" class="btn-ghost-sm" placeholder="nome do projeto..." style="width:100%; margin-bottom:8px; text-align:left;">
+    <input type="text" id="req-link" class="btn-ghost-sm" placeholder="link de referência..." style="width:100%; margin-bottom:8px; text-align:left;">
+    <textarea id="req-desc" placeholder="detalhes do pedido..."></textarea>
+    <button class="btn-green-sm" style="width:100%; padding:10px;" onclick="sendRequest()">enviar pedido</button>
+    <div id="req-msg" style="margin-top:8px; font-size:12px;"></div>
+  </div>
+</div>
+
+    <script src="js/theme.js?v=3"></script>
+    <script>
+      function openModal(id){ document.getElementById(id).classList.add('open'); }
+      function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+
+      var sidebar = document.getElementById('sidebar');
+      var burgerBtn = document.getElementById('burgerBtn');
+      if(burgerBtn) burgerBtn.addEventListener('click', function(){ sidebar.classList.toggle('open'); });
+    </script>
     <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
     <script src="js/auth.js"></script>
