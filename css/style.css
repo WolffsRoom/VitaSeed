@@ -843,3 +843,89 @@ footer .wrap { position: relative; z-index: 1; }
   }
 }
 
+/* ---------- Stacking Arrow & Title Blend Animations ---------- */
+.animated-arrow-icon rect,
+.animated-arrow-icon path {
+  transform-origin: center;
+  animation: stackArrow 2.4s infinite ease-in-out;
+}
+.animated-arrow-icon .line-1 { animation-delay: 0.0s; }
+.animated-arrow-icon .line-2 { animation-delay: 0.2s; }
+.animated-arrow-icon .line-3 { animation-delay: 0.4s; }
+.animated-arrow-icon .arrow-head { animation-delay: 0.6s; }
+.animated-arrow-icon .line-base { animation-delay: 0.8s; }
+
+@keyframes stackArrow {
+  0%, 100% {
+    opacity: 0.35;
+    transform: translateY(0) scale(0.95);
+    fill: currentColor;
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.08);
+    fill: var(--green);
+    filter: drop-shadow(0 0 6px var(--green));
+  }
+}
+
+/* Morphing / Blending Title Text: Vita + ARCHIVE -> VitARCH */
+.blend-title-wrapper {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--mono);
+  position: relative;
+  cursor: default;
+}
+
+.blend-text-container {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 700;
+}
+
+.blend-word-vita {
+  display: inline-block;
+  color: var(--text);
+  transition: all 0.5s ease;
+}
+
+.blend-word-archive {
+  display: inline-block;
+  color: var(--green);
+  font-weight: 800;
+  margin-left: 2px;
+  transition: all 0.5s ease;
+  position: relative;
+}
+
+.blend-word-archive .arch-tail {
+  display: inline-block;
+  opacity: 1;
+  max-width: 100px;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  vertical-align: bottom;
+}
+
+.blend-title-wrapper.blending .blend-word-archive .arch-tail {
+  opacity: 0;
+  max-width: 0;
+  margin: 0;
+  transform: translateX(-10px);
+}
+
+.blend-word-vita .vita-tail {
+  display: inline-block;
+  opacity: 1;
+  max-width: 50px;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.blend-title-wrapper.blending .blend-word-vita .vita-tail {
+  opacity: 0;
+  max-width: 0;
+  margin: 0;
+  transform: translateX(-6px);
+}
+
+
