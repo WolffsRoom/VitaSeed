@@ -15,7 +15,7 @@
 
 ---
 
-## 🚀 About the Project
+## About the Project
 
 **VitARCH** aggregates homebrew ports, original games, mods, translations, applications, plugins, and PC tools into a centralized, open-collaboration web hub.
 
@@ -23,18 +23,18 @@ Designed with a sleek cyberpunk terminal aesthetic, VitARCH provides fast search
 
 ---
 
-## ✨ Features
+## Features
 
-- 🎮 **Unified Catalog**: Ports, Mods, Translations, Plugins, Apps & PC Tools.
-- ⚡ **Public API**: Open JSON endpoints (`api/catalog.json`) for community tools and apps.
-- 🎨 **Multi-Theme Support**: Dark Terminal, Light Clean, and Classic Sony Blue modes.
-- 🔍 **Live Search & Filter**: Real-time filtering with Card/List layout toggles.
-- 📱 **Mobile Optimized**: Responsive layout built for mobile devices and PS Vita browsers.
-- 🤝 **Open Collaboration**: Community request system and project submission forms.
+- **Unified Catalog**: Ports, Mods, Translations, Plugins, Apps & PC Tools.
+- **Public API**: Open JSON endpoints (`api/catalog.json`) for community tools and apps.
+- **Multi-Theme Support**: Dark Terminal, Light Clean, and Classic Sony Blue modes.
+- **Live Search & Filter**: Real-time filtering with Card/List layout toggles.
+- **Mobile Optimized**: Responsive layout built for mobile devices and PS Vita browsers.
+- **Open Collaboration**: Community request system and project submission forms.
 
 ---
 
-## 🤖 AI Notice
+## AI Notice
 
 > [!NOTE]  
 > **AI-Assisted Development Statement**  
@@ -42,7 +42,7 @@ Designed with a sleek cyberpunk terminal aesthetic, VitARCH provides fast search
 
 ---
 
-## 📂 Repository Structure
+## Repository Structure
 
 ```
 VitARCH/

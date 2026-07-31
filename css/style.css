@@ -92,26 +92,22 @@ button { font-family: inherit; }
   height: 100vh;
   overflow-y: auto;
 }
-.sb-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; padding: 4px 2px; text-decoration: none; cursor: pointer; }
+.sb-brand { display: flex; align-items: center; gap: 8px; margin-bottom: 28px; padding: 4px 2px; text-decoration: none; cursor: pointer; }
 .sb-brand .mark {
-  width: 32px;
-  height: 32px;
-  border: 1.5px solid var(--green);
-  background: #000000;
-  border-radius: 6px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--mono);
-  font-weight: 800;
-  line-height: 1;
   color: var(--green);
-  box-shadow: 0 0 10px rgba(63, 217, 122, 0.3);
+  box-shadow: none;
   flex-shrink: 0;
 }
 .sb-brand .mark svg {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
 }
 .sb-brand .names { line-height: 1.2; }
 .sb-brand .n1 { font-family: var(--mono); font-weight: 800; font-size: 22px; color: var(--text); letter-spacing: -0.02em; }
@@ -124,7 +120,9 @@ button { font-family: inherit; }
   font-family: var(--mono);
   font-weight: 700;
   color: var(--text);
-  display: inline-block;
+  display: block;
+  text-align: center;
+  margin: 0 auto;
 }
 .glitch-title b {
   color: var(--green);
