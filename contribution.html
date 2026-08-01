@@ -13,15 +13,26 @@
     <style>
         #network-container {
             width: 100%;
-            height: calc(100vh - 220px);
-            min-height: 480px;
+            height: calc(100vh - 240px);
+            min-height: 520px;
             background-color: var(--surface);
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(0, 230, 118, 0.05) 0%, transparent 60%),
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
             border: 1px solid var(--border);
             border-radius: var(--r);
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            box-shadow: inset 0 0 35px rgba(0,0,0,0.7), 0 10px 30px rgba(0,0,0,0.3);
             margin-top: 1rem;
             position: relative;
             overflow: hidden;
+        }
+        #custom-tooltip {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 230, 118, 0.3) !important;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 15px rgba(0, 230, 118, 0.15) !important;
         }
         .graph-header {
             display: flex;
