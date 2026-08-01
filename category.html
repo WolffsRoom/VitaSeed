@@ -142,7 +142,12 @@
                 return new Date(str).getTime() || 0;
             }
 
-            let rawProjects = cat === 'all' ? projectsData : projectsData.filter(p => (p.category || '').toLowerCase() === cat.toLowerCase());
+            let rawProjects = projectsData.filter(p => {
+                const title = (p.title || '').toLowerCase();
+                if (title.includes('vitaseed')) return false;
+                if (cat === 'all') return true;
+                return (p.category || '').toLowerCase() === cat.toLowerCase();
+            });
             
             // Ordenar por lançamento/atualização mais recente sempre
             let currentProjects = [...rawProjects].sort((a, b) => {
