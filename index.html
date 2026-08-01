@@ -242,7 +242,7 @@
                 <div class="lists-row">
                     <a href="category.html?cat=ports" class="list-card" style="text-decoration:none;">
                         <div class="list-cover"
-                            style="background-image: linear-gradient(to top, rgba(10,10,11,0.9), transparent), url('https://cdn1.epicgames.com/offer/916bd3319edc4e0bbb57ed7e04ad851d/EGS_GodotEngine_TheGodotEngine_S1_2560x1440-44362dbc2924336fe280c96a8c1e2342'); background-size: cover; background-position: center;">
+                            style="background-image: linear-gradient(to top, rgba(10,10,11,0.9), transparent), url('https://upload.wikimedia.org/wikipedia/commons/6/6a/Godot_icon.svg'), url('https://cdn1.epicgames.com/offer/916bd3319edc4e0bbb57ed7e04ad851d/EGS_GodotEngine_TheGodotEngine_S1_2560x1440-44362dbc2924336fe280c96a8c1e2342'); background-size: cover; background-position: center; background-color: #121619;">
                         </div>
                         <div class="list-info">
                             <h4>Godot Engine Games</h4>
@@ -252,7 +252,7 @@
 
                     <a href="category.html?cat=ports" class="list-card" style="text-decoration:none;">
                         <div class="list-cover"
-                            style="background-image: linear-gradient(to top, rgba(10,10,11,0.9), transparent), url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuWtgV4BoxSW7OgsR2k3-56T7ThdY6_cXaBqOmEXDSpg&s=10'); background-size: cover; background-position: center;">
+                            style="background-image: linear-gradient(to top, rgba(10,10,11,0.9), transparent), url('https://upload.wikimedia.org/wikipedia/commons/4/48/GameMaker_Logo.png'); background-size: cover; background-position: center; background-color: #111;">
                         </div>
                         <div class="list-info">
                             <h4>GameMaker Studio Titles</h4>
@@ -262,7 +262,7 @@
 
                     <a href="category.html?cat=ports" class="list-card" style="text-decoration:none;">
                         <div class="list-cover"
-                            style="background-image: linear-gradient(to top, rgba(10,10,11,0.9), transparent), url('https://www.adrenaline.com.br/wp-content/uploads/2024/01/Unity-inicia-2024-demitindo-18-mil-funcionarios-912x569.jpg'); background-size: cover; background-position: center;">
+                            style="background-image: linear-gradient(to top, rgba(10,10,11,0.9), transparent), url('https://upload.wikimedia.org/wikipedia/commons/1/19/Unity_Technologies_logo.svg'); background-size: cover; background-position: center; background-color: #1a1a1a;">
                         </div>
                         <div class="list-info">
                             <h4>Unity Engine Showcase</h4>
@@ -272,7 +272,7 @@
 
                     <a href="category.html?cat=ports" class="list-card" style="text-decoration:none;">
                         <div class="list-cover"
-                            style="background-image: linear-gradient(to top, rgba(10,10,11,0.9), transparent), url('https://lh3.googleusercontent.com/LYUDWiiqyTSiwzbPsJnYhfTzA3kUAoYgRy_1mpKTZOuLtpaMTaNdPKm8Xesm5mxA_zUSIGy6RO4PxhUnIDgTgbmroxgVpudnc0XKWW0cByZXppI2WGo=n-w1440-h810-fcrop64=1,000011c8ffffef1c-rw'); background-size: cover; background-position: center;">
+                            style="background-image: linear-gradient(to top, rgba(10,10,11,0.9), transparent), url('https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot_%282014-2019%29.svg'); background-size: cover; background-position: center; background-color: #0f1c15;">
                         </div>
                         <div class="list-info">
                             <h4>Android Wrapper Ports</h4>
@@ -561,7 +561,7 @@
                     };
                     card.innerHTML = `
                   <div class="card-cover" style="background-image: linear-gradient(to top, rgba(10,10,11,0.95), transparent), url('${proj.bannerUrl}'); background-size: cover; background-position: center;">
-                      <button class="bookmark" onclick="event.stopPropagation(); this.classList.toggle('saved'); this.textContent = this.classList.contains('saved') ? '✓' : '+';">+</button>
+                      <button class="bookmark" onclick="event.stopPropagation(); if(!window.currentUser){ if(typeof openModal==='function') openModal('loginOverlay'); return;} this.classList.toggle('saved'); this.textContent = this.classList.contains('saved') ? '✓' : '+';">+</button>
                       <span class="tag">${proj.category}</span>
                       <span class="name">${proj.title}</span>
                   </div>

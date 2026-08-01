@@ -192,7 +192,7 @@
                         const bannerUrl = proj.bannerUrl || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400';
                         card.innerHTML = `
                             <div class="card-cover" style="background-image: linear-gradient(to top, rgba(10,10,11,0.95), transparent), url('${bannerUrl}'); background-size: cover; background-position: ${proj.bgPosition || 'center'};">
-                                <button class="bookmark" onclick="event.stopPropagation(); this.classList.toggle('saved'); this.textContent = this.classList.contains('saved') ? '✓' : '+';">+</button>
+                                <button class="bookmark" onclick="event.stopPropagation(); if(!window.currentUser){ if(typeof openModal==='function') openModal('loginOverlay'); return;} this.classList.toggle('saved'); this.textContent = this.classList.contains('saved') ? '✓' : '+';">+</button>
                                 <span class="tag">${proj.category}</span>
                                 <span class="name">${proj.title}</span>
                             </div>
