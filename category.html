@@ -122,9 +122,15 @@
         document.addEventListener('DOMContentLoaded', async () => {
             const params = new URLSearchParams(window.location.search);
             const projectsData = await window.fetchCatalog();
-            const cat = params.get('cat') || 'all';
+            const cat = params.get('cat') || (params.get('engine') ? null : 'all');
+            const engine = params.get('engine')?.toLowerCase();
             
-            const catTitle = cat === 'all' ? 'ALL PROJECTS' : cat.toUpperCase();
+            let catTitle = 'ALL PROJECTS';
+            if (engine) {
+                catTitle = `${engine.toUpperCase()} ENGINE SHOWCASE`;
+            } else if (cat && cat !== 'all') {
+                catTitle = cat.toUpperCase();
+            }
             document.getElementById('cat-title').innerText = catTitle;
             
             const grid = document.getElementById('project-grid');
@@ -144,8 +150,21 @@
 
             let rawProjects = projectsData.filter(p => {
                 const title = (p.title || '').toLowerCase();
+                const desc = (p.description || '').toLowerCase();
+                const inst = (p.install_instructions || '').toLowerCase();
+                const resp = (p.responsibles || '').toLowerCase();
+                const fullText = `${title} ${desc} ${inst} ${resp}`;
+
                 if (title.includes('vitaseed')) return false;
-                if (cat === 'all') return true;
+
+                if (engine) {
+                    if (engine === 'godot') return fullText.includes('godot') || fullText.includes('butterscotch');
+                    if (engine === 'gamemaker') return fullText.includes('gamemaker') || fullText.includes('game maker') || fullText.includes('gms');
+                    if (engine === 'unity') return fullText.includes('unity') || fullText.includes('unity3d');
+                    if (engine === 'android') return fullText.includes('android') || fullText.includes('soloader') || fullText.includes('kubridge') || fullText.includes('armv7') || fullText.includes('wrapper');
+                }
+
+                if (cat === 'all' || !cat) return true;
                 return (p.category || '').toLowerCase() === cat.toLowerCase();
             });
             
@@ -385,8 +404,8 @@
 
     <script src="js/theme.js?v=3"></script>
     <script>
-      function openModal(id){ document.getElementById(id).classList.add('open'); }
-      function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+      function openModal(id){ const el = document.getElementById(id); if (el) el.classList.add('open'); }
+      function closeModal(id){ const el = document.getElementById(id); if (el) el.classList.remove('open'); }
 
       var sidebar = document.getElementById('sidebar');
       var burgerBtn = document.getElementById('burgerBtn');

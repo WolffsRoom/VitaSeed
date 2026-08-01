@@ -240,7 +240,7 @@
                     <a href="category.html?cat=all" class="see-all">view all →</a>
                 </div>
                 <div class="lists-row">
-                    <a href="category.html?cat=ports" class="list-card" style="text-decoration:none;">
+                    <a href="category.html?engine=godot" class="list-card" style="text-decoration:none;">
                         <div class="list-cover"
                             style="background-image: linear-gradient(to top, rgba(10,10,11,0.9), transparent), url('https://i.redd.it/4vepr95bye861.gif'); background-size: cover; background-position: center; background-color: #121619;">
                         </div>
@@ -250,7 +250,7 @@
                         </div>
                     </a>
 
-                    <a href="category.html?cat=ports" class="list-card" style="text-decoration:none;">
+                    <a href="category.html?engine=gamemaker" class="list-card" style="text-decoration:none;">
                         <div class="list-cover"
                             style="background-image: linear-gradient(to top, rgba(10,10,11,0.9), transparent), url('https://upload.wikimedia.org/wikipedia/commons/2/2e/GameMaker-Studio-Logo1.jpg'); background-size: cover; background-position: center; background-color: #111;">
                         </div>
@@ -260,7 +260,7 @@
                         </div>
                     </a>
 
-                    <a href="category.html?cat=ports" class="list-card" style="text-decoration:none;">
+                    <a href="category.html?engine=unity" class="list-card" style="text-decoration:none;">
                         <div class="list-cover"
                             style="background-image: linear-gradient(to top, rgba(10,10,11,0.9), transparent), url('https://img-c.udemycdn.com/course/480x270/1485210_5387.jpg?w=3840&q=75'); background-size: cover; background-position: center; background-color: #1a1a1a;">
                         </div>
@@ -270,7 +270,7 @@
                         </div>
                     </a>
 
-                    <a href="category.html?cat=ports" class="list-card" style="text-decoration:none;">
+                    <a href="category.html?engine=android" class="list-card" style="text-decoration:none;">
                         <div class="list-cover"
                             style="background-image: linear-gradient(to top, rgba(10,10,11,0.9), transparent), url('https://lh3.googleusercontent.com/LYUDWiiqyTSiwzbPsJnYhfTzA3kUAoYgRy_1mpKTZOuLtpaMTaNdPKm8Xesm5mxA_zUSIGy6RO4PxhUnIDgTgbmroxgVpudnc0XKWW0cByZXppI2WGo=n-w1440-h810-fcrop64=1,000011c8ffffef1c-rw'); background-size: cover; background-position: center; background-color: #0f1c15;">
                         </div>
@@ -417,8 +417,8 @@
     <script src="js/api.js?v=3"></script>
     <script src="js/theme.js?v=3"></script>
     <script>
-        function openModal(id) { document.getElementById(id).classList.add('open'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+        function openModal(id) { const el = document.getElementById(id); if (el) el.classList.add('open'); }
+        function closeModal(id) { const el = document.getElementById(id); if (el) el.classList.remove('open'); }
 
         var sidebar = document.getElementById('sidebar');
         var burgerBtn = document.getElementById('burgerBtn');
