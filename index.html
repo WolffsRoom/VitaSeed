@@ -218,7 +218,7 @@
 
             <section class="section wrap">
                 <div class="section-head">
-                    <h2>Top 10 projects</h2>
+                    <h2>Latest Posts</h2>
                     <a href="category.html?cat=all" class="see-all">view full catalog →</a>
                 </div>
                 <div class="top10-container-wrapper" style="position: relative;">
@@ -431,11 +431,15 @@
 
             if (top10Track && data.length > 0) {
                 top10Track.innerHTML = '';
-                // Filtrar VitaDB e ordenar projetos por número de downloads decrescente para o Top 10
-                const sortedByDownloads = [...data]
-                    .filter(p => !p.title.toLowerCase().includes('vitadb'))
-                    .sort((a, b) => (b.downloads || 0) - (a.downloads || 0));
-                const topList = sortedByDownloads.slice(0, 10);
+                // Ordenar projetos por data mais recente para os Latest Posts
+                const sortedByNewest = [...data]
+                    .sort((a, b) => {
+                        const dateA = new Date(a.update_date || a.publish_date || '2000-01-01').getTime();
+                        const dateB = new Date(b.update_date || b.publish_date || '2000-01-01').getTime();
+                        if (dateB !== dateA) return dateB - dateA;
+                        return (b.id || 0) - (a.id || 0);
+                    });
+                const topList = sortedByNewest.slice(0, 10);
 
                 topList.forEach((proj, idx) => {
                     const rankNum = (idx + 1).toString().padStart(2, '0');
@@ -443,7 +447,7 @@
                     top10Track.innerHTML += `
                   <a href="project.html?id=${proj.id}" class="top10-item ${isTop3}" style="text-decoration:none;">
                       <div class="top10-tile" style="background-image: linear-gradient(to top, rgba(10,10,11,0.95) 0%, rgba(10,10,11,0.4) 50%, transparent 100%), url('${proj.bannerUrl}'); background-size: cover; background-position: center;">
-                          <span class="rank">#${rankNum}</span>
+                          <span class="rank">NEW</span>
                           <span class="name">${proj.title}</span>
                       </div>
                       <div class="cat-label">
