@@ -86,7 +86,9 @@
         <a href="api/catalog.json" target="_blank" class="version-badge" style="color: var(--green); text-decoration: none;" title="Access public catalog API">API ↗</a>
       </div>
       <div class="topbar-right">
-        <button class="btn-ghost-sm" onclick="toggleTheme()"><span id="theme-btn-text">dark mode</span></button>
+        <button class="btn-ghost-sm" onclick="toggleTheme()"><span id="theme-btn-text"><i class="ph ph-moon"></i></span></button>
+        <button class="btn-ghost-sm" onclick="openModal('requestOverlay')">request_project</button>
+        <button class="btn-green-sm" onclick="openModal('loginOverlay')">sign in</button>
       </div>
     </div>
     <main class="wrap" style="padding-top: 2.5rem; padding-bottom: 3rem;">
