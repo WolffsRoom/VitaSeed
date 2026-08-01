@@ -16,9 +16,9 @@
             height: calc(100vh - 220px);
             min-height: 480px;
             background-color: var(--surface);
-            border: 2px solid var(--accent-green, #00E676);
+            border: 1px solid var(--border);
             border-radius: var(--r);
-            box-shadow: 0 0 25px rgba(0, 230, 118, 0.2), inset 0 0 20px rgba(0,0,0,0.6);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
             margin-top: 1rem;
             position: relative;
             overflow: hidden;
@@ -90,8 +90,7 @@
         <button class="btn-ghost-sm" onclick="openModal('requestOverlay')">request_project</button>
         <button class="btn-green-sm" onclick="openModal('loginOverlay')">sign in</button>
       </div>
-    </div>
-
+    <main class="wrap" style="padding-top: 2.5rem; padding-bottom: 3rem;">
             <div class="graph-header" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.2rem;">
                 <div>
                     <h2 style="display:flex; align-items:center; gap:0.5rem;"><i class="ph ph-graph" style="color: var(--accent-green); font-size:1.5rem;"></i> Collaborations</h2>
@@ -240,7 +239,7 @@
                     if (!devsMap.has(devName)) {
                         devsMap.set(devName, {
                             id: devName,
-                            label: `</> ${devName}`,
+                            label: devName,
                             group: 'dev',
                             shape: 'dot',
                             size: 18
@@ -424,20 +423,30 @@
 
             function handleGraphSearch() {
                 const query = (graphSearchInput ? graphSearchInput.value : '').toLowerCase().trim();
-                if (!query) return;
-
                 const allNodes = nodes.get();
+
+                if (!query) {
+                    // Reset cluster selection if empty query
+                    network.fit({ animation: { duration: 600 } });
+                    hideTooltip(true);
+                    return;
+                }
+
                 const matched = allNodes.find(n => {
                     const lbl = (n.label || '').toLowerCase();
                     return lbl.includes(query);
                 });
 
                 if (matched) {
+                    const connectedNodes = network.getConnectedNodes(matched.id);
+                    const focusList = [matched.id, ...connectedNodes];
+                    
+                    network.selectNodes(focusList);
                     network.focus(matched.id, {
-                        scale: 1.2,
-                        animation: { duration: 800, easingFunction: 'easeInOutQuad' }
+                        scale: 1.4,
+                        animation: { duration: 700, easingFunction: 'easeInOutQuad' }
                     });
-                    network.selectNodes([matched.id]);
+                    
                     if (matched.group === 'project') showTooltip(matched.id);
                 } else {
                     alert(`Nenhum autor ou projeto encontrado para "${query}".`);
@@ -446,6 +455,12 @@
 
             if (graphSearchBtn) graphSearchBtn.addEventListener('click', handleGraphSearch);
             if (graphSearchInput) {
+                graphSearchInput.addEventListener('input', () => {
+                    if (!graphSearchInput.value) {
+                        network.fit({ animation: { duration: 500 } });
+                        hideTooltip(true);
+                    }
+                });
                 graphSearchInput.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter') handleGraphSearch();
                 });
