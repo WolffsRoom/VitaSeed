@@ -665,7 +665,7 @@
                 window.setRating = function(starsCount) {
                     if (!window.currentUser) {
                         const fb = document.getElementById('vote-feedback');
-                        if (fb) fb.innerText = `⚠️ Faça login para votar neste projeto!`;
+                        if (fb) fb.innerText = `⚠️ Sign in to vote on this project!`;
                         if (typeof openModal === 'function') openModal('loginOverlay');
                         return;
                     }
