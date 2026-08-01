@@ -152,11 +152,16 @@
                 return (b.id || 0) - (a.id || 0);
             });
             let currentPage = 1;
-            const itemsPerPage = 15;
             let currentViewMode = 'card';
 
             const viewIconBtn = document.getElementById('view-icon-btn');
             
+            function getItemsPerPage() {
+                if (currentViewMode === 'icon') return 56;
+                if (currentViewMode === 'list') return 30;
+                return 15;
+            }
+
             function renderPage(page) {
                 currentPage = page;
                 grid.innerHTML = '';
@@ -165,11 +170,12 @@
                 const q = searchInput ? searchInput.value.toLowerCase().trim() : '';
                 const filtered = currentProjects.filter(p => p.title.toLowerCase().includes(q) || (p.responsibles && p.responsibles.toLowerCase().includes(q)));
                 
-                const totalPages = Math.ceil(filtered.length / itemsPerPage) || 1;
+                const perPage = getItemsPerPage();
+                const totalPages = Math.ceil(filtered.length / perPage) || 1;
                 if (currentPage > totalPages) currentPage = totalPages;
                 
-                const start = (currentPage - 1) * itemsPerPage;
-                const pageItems = filtered.slice(start, start + itemsPerPage);
+                const start = (currentPage - 1) * perPage;
+                const pageItems = filtered.slice(start, start + perPage);
                 
                 if (currentViewMode === 'list') {
                     grid.classList.add('list-mode');
