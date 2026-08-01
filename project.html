@@ -456,31 +456,40 @@
                 }
 
                 // Setup Download Buttons
-                const actionBar = document.querySelector('.action-bar');
-                // Remove old single button
-                const oldBtn = document.getElementById('btn-download');
-                if (oldBtn) oldBtn.remove();
+                const btnSource = document.getElementById('btn-source');
+                const btnGroup = btnSource ? btnSource.parentElement : null;
                 
-                let vpkUrl = window.location.href;
+                // Limpar botões dinâmicos de execuções anteriores
+                if (btnGroup) {
+                    const dynamicBtns = btnGroup.querySelectorAll('.dynamic-dl-btn');
+                    dynamicBtns.forEach(b => b.remove());
+                }
+                
+                const initialBtnDownload = document.getElementById('btn-download');
+                if (initialBtnDownload) initialBtnDownload.remove();
+                
+                let vpkUrl = window.location.href; // Fallback padrao
+                
                 if (proj.downloads_list && proj.downloads_list.length > 0) {
-                    // Priorizar o link de download que contenha .vpk no nome/URL
                     const vpkItem = proj.downloads_list.find(dl => (dl.name || '').toLowerCase().includes('vpk') || (dl.url || '').toLowerCase().includes('.vpk')) || proj.downloads_list[0];
                     vpkUrl = vpkItem.url;
                     
                     proj.downloads_list.forEach((dl, index) => {
                         const btn = document.createElement('a');
                         btn.href = dl.url;
-                        btn.className = index === 0 ? 'btn btn-primary' : 'btn btn-secondary';
+                        btn.target = '_blank';
+                        btn.className = (index === 0 ? 'btn btn-primary' : 'btn btn-secondary') + ' dynamic-dl-btn';
                         btn.innerHTML = `<i class="ph ph-download-simple"></i> ${dl.name}`;
-                        document.getElementById('btn-source').parentElement.insertBefore(btn, document.getElementById('btn-source'));
+                        if (btnGroup && btnSource) btnGroup.insertBefore(btn, btnSource);
                     });
-                } else {
+                } else if (proj.source_link) {
+                    vpkUrl = proj.source_link;
                     const btn = document.createElement('a');
-                    btn.href = proj.source_link || '#';
-                    btn.className = 'btn btn-primary';
+                    btn.href = proj.source_link;
+                    btn.target = '_blank';
+                    btn.className = 'btn btn-primary dynamic-dl-btn';
                     btn.innerHTML = `<i class="ph ph-download-simple"></i> Download`;
-                    document.getElementById('btn-source').parentElement.insertBefore(btn, document.getElementById('btn-source'));
-                    if (proj.source_link) vpkUrl = proj.source_link;
+                    if (btnGroup && btnSource) btnGroup.insertBefore(btn, btnSource);
                 }
 
                 window.openQrModal = function() {
@@ -501,11 +510,11 @@
                     openModal('qrOverlay');
                 };
 
-                // Gerar QR Code miniatura
+                // Gerar QR Code miniatura exclusivo do projeto
                 const qrBox = document.getElementById("qrcode");
                 const qrWrapper = document.querySelector(".qr-container");
                 if (qrBox) {
-                    qrBox.innerHTML = "";
+                    qrBox.innerHTML = ""; // Limpar completamente o canvas/img anterior
                     new QRCode(qrBox, {
                         text: vpkUrl,
                         width: 60,
