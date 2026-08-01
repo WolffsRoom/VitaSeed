@@ -455,13 +455,25 @@ body {
 .top10-tile .rank {
   position: absolute;
   top: 8px;
-  left: 10px;
+  left: 8px;
   font-family: var(--mono);
   font-weight: 800;
-  font-size: 13px;
-  color: var(--muted-2);
+  font-size: 11px;
+  color: var(--muted);
+  background: rgba(10, 10, 11, 0.85);
+  border: 1px solid var(--border-2);
+  border-radius: 4px;
+  padding: 2px 7px;
+  backdrop-filter: blur(4px);
+  z-index: 3;
+  letter-spacing: 0.5px;
 }
-.top10-item.top3 .top10-tile .rank { color: var(--green); }
+.top10-item.top3 .top10-tile .rank {
+  color: #000;
+  background: var(--green);
+  border-color: var(--green);
+  box-shadow: 0 0 10px rgba(0, 230, 118, 0.5);
+}
 .top10-tile .name {
   position: relative;
   z-index: 2;

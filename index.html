@@ -442,10 +442,13 @@
                     top10Track.innerHTML += `
                   <a href="project.html?id=${proj.id}" class="top10-item ${isTop3}" style="text-decoration:none;">
                       <div class="top10-tile" style="background-image: linear-gradient(to top, rgba(10,10,11,0.95) 0%, rgba(10,10,11,0.4) 50%, transparent 100%), url('${proj.bannerUrl}'); background-size: cover; background-position: center;">
-                          <span class="rank">${rankNum}</span>
+                          <span class="rank">#${rankNum}</span>
                           <span class="name">${proj.title}</span>
                       </div>
-                      <div class="cat-label">[${proj.category}]</div>
+                      <div class="cat-label">
+                          <span style="color: var(--text-muted);">[${proj.category}]</span>
+                          <span style="display: block; color: var(--green); margin-top: 2px; font-weight: 600;">by ${proj.responsibles || 'Wolff'}</span>
+                      </div>
                   </a>
               `;
                 });
