@@ -1,4 +1,17 @@
-// theme.js
+function updateThemeIcon(themeName) {
+    const themeBtnText = document.getElementById('theme-btn-text');
+    if (themeBtnText) {
+        const iconClass = themeName === 'light' ? 'ph-sun' : (themeName === 'sony' ? 'ph-game-controller' : 'ph-moon');
+        themeBtnText.innerHTML = `<i class="ph ${iconClass}"></i>`;
+    }
+}
+
+// Check and apply theme immediately before render
+(function() {
+    const savedTheme = localStorage.getItem('vita-theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+})();
+
 window.toggleTheme = function() {
     const current = document.documentElement.getAttribute('data-theme') || 'dark';
     let next = 'light';
@@ -8,12 +21,7 @@ window.toggleTheme = function() {
     
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('vita-theme', next);
-    
-    const themeBtnText = document.getElementById('theme-btn-text');
-    if (themeBtnText) {
-        const iconClass = next === 'light' ? 'ph-sun' : (next === 'sony' ? 'ph-game-controller' : 'ph-moon');
-        themeBtnText.innerHTML = `<i class="ph ${iconClass}"></i>`;
-    }
+    updateThemeIcon(next);
 };
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -94,11 +102,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 1. Check local storage for theme
     const savedTheme = localStorage.getItem('vita-theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
-    const themeBtnText = document.getElementById('theme-btn-text');
-    if (themeBtnText) {
-        const iconClass = savedTheme === 'light' ? 'ph-sun' : (savedTheme === 'sony' ? 'ph-game-controller' : 'ph-moon');
-        themeBtnText.innerHTML = `<i class="ph ${iconClass}"></i>`;
-    }
+    updateThemeIcon(savedTheme);
 
     // 2. Mobile Sidebar Toggle logic
     const menuToggle = document.getElementById('mobile-menu-toggle');
