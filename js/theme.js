@@ -11,7 +11,8 @@ window.toggleTheme = function() {
     
     const themeBtnText = document.getElementById('theme-btn-text');
     if (themeBtnText) {
-        themeBtnText.innerHTML = next === 'light' ? '<i class="ph ph-sun"></i>' : (next === 'sony' ? '<i class="ph ph-game-controller"></i>' : '<i class="ph ph-moon"></i>');
+        const iconClass = next === 'light' ? 'ph-sun' : (next === 'sony' ? 'ph-game-controller' : 'ph-moon');
+        themeBtnText.innerHTML = `<i class="ph ${iconClass}"></i>`;
     }
 };
 

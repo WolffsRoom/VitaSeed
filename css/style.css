@@ -506,10 +506,42 @@ body {
   }
 }
 .grid.list-mode { display: flex; flex-direction: column; gap: 10px; }
-.grid.list-mode .card { display: flex; align-items: center; justify-content: space-between; }
+.grid.list-mode .card { display: flex; align-items: center; justify-content: space-between; border-left: 3px solid var(--green); }
 .grid.list-mode .card-cover { aspect-ratio: 16/6; width: 140px; flex-shrink: 0; }
 .grid.list-mode .card-info { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 18px; }
 .grid.list-mode .card-info .sub { margin-bottom: 0; }
+
+/* Novo Modo Icones (Icon Mode) */
+.grid.icon-mode {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 14px;
+}
+.grid.icon-mode .card {
+  text-align: center;
+  padding: 10px;
+}
+.grid.icon-mode .card-cover {
+  aspect-ratio: 1/1;
+  border-radius: 10px;
+  width: 100%;
+}
+.grid.icon-mode .card-cover .name {
+  display: none;
+}
+.grid.icon-mode .card-info {
+  padding: 8px 2px 2px 2px;
+}
+.grid.icon-mode .card-info .sub {
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.grid.icon-mode .card-info .rating,
+.grid.icon-mode .card-info .btn-small {
+  display: none;
+}
 @media (max-width: 940px) { .grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .grid.list-mode .card { flex-direction: column; align-items: stretch; } .grid.list-mode .card-cover { width: 100%; } }
 
