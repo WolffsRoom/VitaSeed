@@ -133,7 +133,15 @@
             const viewListBtn = document.getElementById('view-list-btn');
             const paginationEl = document.getElementById('pagination-controls');
             
-            let currentProjects = cat === 'all' ? projectsData : projectsData.filter(p => p.category.toLowerCase() === cat.toLowerCase());
+            let rawProjects = cat === 'all' ? projectsData : projectsData.filter(p => (p.category || '').toLowerCase() === cat.toLowerCase());
+            
+            // Ordenar por lançamento/atualização mais recente sempre
+            let currentProjects = [...rawProjects].sort((a, b) => {
+                const dateA = new Date(a.update_date || a.publish_date || '2000-01-01').getTime();
+                const dateB = new Date(b.update_date || b.publish_date || '2000-01-01').getTime();
+                if (dateB !== dateA) return dateB - dateA;
+                return (b.id || 0) - (a.id || 0);
+            });
             let currentPage = 1;
             const itemsPerPage = 15;
             let currentViewMode = 'card';
@@ -180,7 +188,10 @@
                                 <span class="name">${proj.title}</span>
                             </div>
                             <div class="card-info">
-                                <div class="sub">${proj.responsibles || 'Wolff'} · v${proj.version || '1.0'}</div>
+                                <div class="card-info-main">
+                                    <div class="card-info-title">${proj.title}</div>
+                                    <div class="sub">${proj.responsibles || 'Wolff'} · v${proj.version || '1.0'}</div>
+                                </div>
                                 <div class="rating"><span class="stars"><span class="fill">★★★★</span>☆</span><span class="score">4.8/5</span></div>
                                 <div class="row">
                                     <span class="status ok">${proj.status || 'Completed'}</span>

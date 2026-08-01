@@ -508,7 +508,10 @@ body {
 .grid.list-mode { display: flex; flex-direction: column; gap: 10px; }
 .grid.list-mode .card { display: flex; align-items: center; justify-content: space-between; border-left: 3px solid var(--green); }
 .grid.list-mode .card-cover { aspect-ratio: 16/6; width: 140px; flex-shrink: 0; }
+.grid.list-mode .card-cover .name { display: none; }
 .grid.list-mode .card-info { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 18px; }
+.grid.list-mode .card-info-main { display: flex; flex-direction: column; gap: 2px; }
+.grid.list-mode .card-info-title { font-family: var(--mono); font-weight: 700; font-size: 15px; color: var(--text); }
 .grid.list-mode .card-info .sub { margin-bottom: 0; }
 
 /* Novo Modo Icones (Icon Mode) */
