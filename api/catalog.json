@@ -153,23 +153,6 @@
             "playable": "No"
         },
         {
-            "id": 223,
-            "title": "VitaSeed",
-            "category": "Apps",
-            "responsibles": "Wolff",
-            "description": "The native VitaSeed app for PSVita!",
-            "status": "In Development",
-            "playable": "In Progress",
-            "source_link": "https://github.com/WolffsRoom/VitaSeed",
-            "bannerUrl": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400",
-            "ai_used": false,
-            "vibecoded": false,
-            "downloads": 0,
-            "publish_date": "31/07/2026",
-            "update_date": "31/07/2026",
-            "install_instructions": "The application is still in the early stages of development. Stay tuned for future updates and releases of testable VPKs!"
-        },
-        {
             "id": 1449,
             "title": "OpenNow Vita",
             "category": "Apps",
