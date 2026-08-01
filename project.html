@@ -483,23 +483,14 @@
                     if (proj.source_link) qrUrl = proj.source_link;
                 }
 
-                // Gerar QR Code
-                document.getElementById("qrcode").innerHTML = ""; // Clear if previously rendered
-                new QRCode(document.getElementById("qrcode"), {
-                    text: qrUrl,
-                    width: 60,
-                    height: 60,
-                    colorDark : "#000000",
-                    colorLight : "#ffffff",
-                    correctLevel : QRCode.CorrectLevel.L
-                });
+                let currentQrUrl = qrUrl;
 
                 window.openQrModal = function() {
                     const modalQrContainer = document.getElementById("modal-qrcode");
                     if (modalQrContainer) {
                         modalQrContainer.innerHTML = "";
                         new QRCode(modalQrContainer, {
-                            text: qrUrl,
+                            text: currentQrUrl,
                             width: 196,
                             height: 196,
                             colorDark : "#000000",
@@ -508,9 +499,23 @@
                         });
                     }
                     const modalLink = document.getElementById("modal-qr-link");
-                    if (modalLink) modalLink.href = qrUrl;
+                    if (modalLink) modalLink.href = currentQrUrl;
                     openModal('qrOverlay');
                 };
+
+                // Gerar QR Code
+                const qrBox = document.getElementById("qrcode");
+                qrBox.innerHTML = ""; // Clear if previously rendered
+                new QRCode(qrBox, {
+                    text: currentQrUrl,
+                    width: 60,
+                    height: 60,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.L
+                });
+                
+                qrBox.onclick = window.openQrModal;
 
                 // Cover Banner
 
