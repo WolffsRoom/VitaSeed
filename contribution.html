@@ -351,10 +351,19 @@
                     const domPos = network.canvasToDOM(network.getPositions([nodeId])[nodeId]);
                     
                     tooltip.style.display = 'block';
-                    // Allow display block to apply before animating opacity
                     requestAnimationFrame(() => {
-                        tooltip.style.left = (domPos.x + 20) + 'px';
-                        tooltip.style.top = (domPos.y - 80) + 'px';
+                        // Posicionar próximo do nó (offset sutil de 12px à direita e centralizado verticalmente)
+                        const containerRect = container.getBoundingClientRect();
+                        let leftPos = domPos.x + 14;
+                        let topPos = domPos.y - 60;
+                        
+                        // Evitar que ultrapasse a borda direita da tela
+                        if (leftPos + 250 > containerRect.width) {
+                            leftPos = domPos.x - 254;
+                        }
+                        
+                        tooltip.style.left = leftPos + 'px';
+                        tooltip.style.top = Math.max(10, topPos) + 'px';
                         tooltip.style.opacity = '1';
                         tooltip.style.transform = 'translateY(0) scale(1)';
                     });
