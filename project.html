@@ -408,17 +408,17 @@
                 if(proj.status) {
                     document.getElementById('meta-status').innerText = proj.status;
                 } else {
-                    document.getElementById('meta-status').innerText = "Concluído"; // Default
+                    document.getElementById('meta-status').innerText = "Completed"; // Default
                 }
                 
                 if (proj.category === 'Mods' || proj.category === 'Plugins' || proj.category === 'Plugin') {
-                    document.getElementById('meta-playable-label').innerText = 'Funcional?';
+                    document.getElementById('meta-playable-label').innerText = 'Functional?';
                 }
 
                 if(proj.playable) {
                     document.getElementById('meta-playable').innerText = proj.playable;
                 } else {
-                    document.getElementById('meta-playable').innerText = "Sim"; // Default
+                    document.getElementById('meta-playable').innerText = "Yes"; // Default
                 }
 
                 
