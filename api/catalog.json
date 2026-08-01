@@ -43,7 +43,7 @@
             "id": 1,
             "title": "Beach Buggy Racing",
             "category": "Ports",
-            "responsibles": "MeninoSung",
+            "responsibles": "MeninoSung & Wolff",
             "description": "An exciting kart-style racing game to pass the time.",
             "warnings": "Requires compatible controller for best experience.",
             "source_link": "https://github.com/example/beach-buggy",
@@ -59,16 +59,13 @@
             "downloads": 6647,
             "publish_date": "30/05/2023",
             "update_date": "10/07/2023",
-            "support_link": "https://ko-fi.com/wolffsroom",
-            "collaborators": [
-                "Wolff"
-            ]
+            "support_link": "https://ko-fi.com/wolffsroom"
         },
         {
             "id": 2,
             "title": "Zombie Tsunami",
             "category": "Ports",
-            "responsibles": "MeninoSung",
+            "responsibles": "MeninoSung & Wolff",
             "description": "Infect the entire city with your zombie horde in this fun endless runner.",
             "warnings": "No warnings.",
             "source_link": "https://github.com/example/zombie-tsunami",
@@ -604,7 +601,7 @@
             "category": "Ports",
             "ai_used": true,
             "vibecoded": false,
-            "responsibles": "ChatGPT AI",
+            "responsibles": "MeninoSung & Wolff",
             "description": "Unofficial wrapper/port of Beach Buggy Racing for PlayStation Vita.\nThe port loads the official Android ARMv7 executable directly into memory, links its dependencies to native Vita functions, and applies the compatibility layer required to run it. In practice, this provides a lightweight Android-like environment in which the original game code can run natively on the PS Vita.",
             "install_instructions": "- First Release.",
             "bannerUrl": "https://raw.githubusercontent.com/DrDecki/VitaDBtoo-db/main/icons/a43a7e9835c72dc6b05702c136e6a5cbd6d142c9b9e004b48283dc2d7aee529a.png",
@@ -634,7 +631,7 @@
             "category": "Ports",
             "ai_used": true,
             "vibecoded": false,
-            "responsibles": "ChatGPT AI",
+            "responsibles": "MeninoSung & Wolff",
             "description": "Unofficial wrapper/port of Zombie Tsunami for PlayStation Vita.\nThe port operates by loading the official Android ARMv7 executable directly into memory, linking its dependencies to native functions, and applying the necessary patches for it to run correctly. In practice, this creates a lightweight Android-like environment where the original executable can run natively without modification.",
             "install_instructions": "- First Release.",
             "bannerUrl": "https://raw.githubusercontent.com/DrDecki/VitaDBtoo-db/main/icons/6d04d42d839fe8ec9d93b52385b5853bc2a7b997811554665a7e04c2fa78f551.png",
