@@ -341,12 +341,10 @@
                 if (progressBar) progressBar.style.width = '100%';
                 if (statusText) statusText.innerText = 'Ready!';
                 
-                // Manter física suave ativada para arrastar e interagir livremente
+                // Desativar física contínua após a estabilização para garantir movimentação perfeita e estática
                 network.setOptions({
                     physics: {
-                        barnesHut: { gravitationalConstant: -1200, centralGravity: 0.1, springLength: 90, springConstant: 0.02, damping: 0.7 },
-                        maxVelocity: 15,
-                        stabilization: false
+                        enabled: false
                     }
                 });
 
