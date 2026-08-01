@@ -183,7 +183,7 @@
             <section class="intro">
                 <div class="wrap">
                     <div class="intro-prompt">~/vitarch $ ls --catalog<span class="cur"></span></div>
-                    <h1 class="glitch-title" style="display: flex; align-items: center; gap: 10px;">
+                    <h1 class="glitch-title blend-title-wrapper" id="morphTitle" style="display: flex; align-items: center; gap: 10px;">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                             style="color: var(--green); flex-shrink: 0;">
                             <rect x="7" y="3" width="10" height="1.5" fill="currentColor" />
@@ -192,9 +192,16 @@
                             <path d="M7 12H4L12 19L20 12H17V12H7Z" fill="currentColor" />
                             <rect x="4" y="20.5" width="16" height="2" fill="currentColor" />
                         </svg>
-                        <span>Vit<b>ARCH</b></span>
+                        <span class="blend-text-container">
+                            <span class="blend-word-vita">Vit<span class="vita-tail">a</span></span>
+                            <span class="blend-word-archive">ARCH<span class="arch-tail">IVE</span></span>
+                        </span>
                     </h1>
                     <p>A brand new open repository for PS Vita homebrews.</p>
+                    <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(0, 230, 118, 0.1); border: 1px solid rgba(0, 230, 118, 0.3); border-radius: 6px; padding: 4px 10px; font-family: var(--mono); font-size: 11.5px; color: var(--green); margin-bottom: 16px;">
+                        <i class="ph ph-info" style="font-size: 14px;"></i>
+                        <span><b>Notice:</b> VitARCH is a concept prototype and concept under active development.</span>
+                    </div>
                     <div class="chip-row" id="chipRow">
                         <span class="chip active" data-cat="all">all</span>
                         <span class="chip" data-cat="ports">ports</span>
@@ -511,6 +518,17 @@
             }
 
             renderGrid('all');
+
+            // Title Morphing Animation: "Vita ARCHIVE" <-> "VitARCH"
+            const morphTitle = document.getElementById('morphTitle');
+            if (morphTitle) {
+                setInterval(() => {
+                    morphTitle.classList.toggle('blending');
+                }, 3000);
+                morphTitle.addEventListener('click', () => {
+                    morphTitle.classList.toggle('blending');
+                });
+            }
 
             // Chips & Tabs Filtering
             document.querySelectorAll('.chip, .tab').forEach(el => {
