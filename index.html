@@ -525,10 +525,13 @@
                     return matchesSearch && matchesCat;
                 });
 
-                if (filtered.length === 0) {
-                    grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--muted); font-family: var(--mono);">No projects found.</div>`;
-                    return;
-                }
+                // Ordenar por data mais recente de lançamento/atualização
+                filtered.sort((a, b) => {
+                    const dateA = new Date(a.update_date || a.publish_date || '2000-01-01').getTime();
+                    const dateB = new Date(b.update_date || b.publish_date || '2000-01-01').getTime();
+                    if (dateB !== dateA) return dateB - dateA;
+                    return (b.id || 0) - (a.id || 0);
+                });
 
                 const limited = filtered.slice(0, 9);
                 limited.forEach(proj => {
