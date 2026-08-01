@@ -48,11 +48,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Determine initial command text
     const params = new URLSearchParams(window.location.search);
-    let catParam = params.get('cat') || 'catalogo';
-    if (window.location.pathname.includes('project.html')) catParam = 'project';
-    if (window.location.pathname.includes('contribution.html')) catParam = 'colaboracoes';
+    let pageName = 'home';
     
-    const commandText = isHomePage ? "" : `ls --${catParam.toLowerCase().replace(/\s+/g, '')}`;
+    if (window.location.pathname.includes('project.html')) {
+        pageName = 'project';
+    } else if (window.location.pathname.includes('contribution.html')) {
+        pageName = 'collaborations';
+    } else if (window.location.pathname.includes('category.html')) {
+        const cat = params.get('cat');
+        const engine = params.get('engine');
+        if (engine) pageName = engine.toLowerCase();
+        else if (cat) pageName = cat.toLowerCase();
+        else pageName = 'all';
+    }
+    
+    const commandText = isHomePage ? "" : `ls --${pageName.replace(/\s+/g, '')}`;
     const typedEl = document.getElementById('cmd-typed');
     let charIdx = 0;
 
@@ -74,11 +84,18 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (isNavigating) return;
             isNavigating = true;
 
-            let linkCat = urlObj.searchParams.get('cat') || 'all';
-            if (urlObj.pathname.includes('contribution.html')) linkCat = 'collaborations';
-            if (urlObj.pathname.endsWith('index.html') || urlObj.pathname === '/' || urlObj.pathname.endsWith('/VitARCH/') || urlObj.pathname.endsWith('/vitarch/')) linkCat = 'home';
+            let linkCat = 'home';
+            if (urlObj.pathname.includes('contribution.html')) {
+                linkCat = 'collaborations';
+            } else if (urlObj.pathname.includes('category.html')) {
+                const cat = urlObj.searchParams.get('cat');
+                const engine = urlObj.searchParams.get('engine');
+                if (engine) linkCat = engine.toLowerCase();
+                else if (cat) linkCat = cat.toLowerCase();
+                else linkCat = 'all';
+            }
             
-            const navCmdText = `ls --${linkCat.toLowerCase().replace(/\s+/g, '')}`;
+            const navCmdText = `ls --${linkCat.replace(/\s+/g, '')}`;
             
             e.preventDefault();
             termLoader.classList.remove('fade-out');
