@@ -193,24 +193,61 @@
                 if (totalPages > 1) {
                     const prevBtn = document.createElement('button');
                     prevBtn.className = 'btn-ghost-sm';
-                    prevBtn.innerText = '← anterior';
+                    prevBtn.innerText = '← Previous';
                     prevBtn.disabled = currentPage === 1;
-                    prevBtn.onclick = () => renderPage(currentPage - 1);
+                    prevBtn.onclick = () => { renderPage(currentPage - 1); window.scrollTo({ top: 0, behavior: 'smooth' }); };
                     paginationEl.appendChild(prevBtn);
 
-                    for (let i = 1; i <= totalPages; i++) {
-                        const pageBtn = document.createElement('button');
-                        pageBtn.className = i === currentPage ? 'btn-green-sm' : 'btn-ghost-sm';
-                        pageBtn.innerText = i;
-                        pageBtn.onclick = () => renderPage(i);
-                        paginationEl.appendChild(pageBtn);
+                    // Paginação inteligente com no máximo 5 números visíveis + reticências
+                    const pagesToShow = [];
+                    pagesToShow.push(1);
+
+                    let startPage = Math.max(2, currentPage - 1);
+                    let endPage = Math.min(totalPages - 1, currentPage + 1);
+
+                    if (currentPage <= 3) {
+                        endPage = Math.min(totalPages - 1, 4);
                     }
+                    if (currentPage >= totalPages - 2) {
+                        startPage = Math.max(2, totalPages - 3);
+                    }
+
+                    if (startPage > 2) {
+                        pagesToShow.push('...');
+                    }
+
+                    for (let i = startPage; i <= endPage; i++) {
+                        pagesToShow.push(i);
+                    }
+
+                    if (endPage < totalPages - 1) {
+                        pagesToShow.push('...');
+                    }
+
+                    if (totalPages > 1) {
+                        pagesToShow.push(totalPages);
+                    }
+
+                    pagesToShow.forEach(p => {
+                        if (p === '...') {
+                            const dots = document.createElement('span');
+                            dots.style.cssText = 'color: var(--muted); padding: 4px 8px; font-family: var(--mono); font-size: 13px;';
+                            dots.innerText = '...';
+                            paginationEl.appendChild(dots);
+                        } else {
+                            const pageBtn = document.createElement('button');
+                            pageBtn.className = p === currentPage ? 'btn-green-sm' : 'btn-ghost-sm';
+                            pageBtn.innerText = p;
+                            pageBtn.onclick = () => { renderPage(p); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+                            paginationEl.appendChild(pageBtn);
+                        }
+                    });
 
                     const nextBtn = document.createElement('button');
                     nextBtn.className = 'btn-ghost-sm';
-                    nextBtn.innerText = 'próxima →';
+                    nextBtn.innerText = 'Next →';
                     nextBtn.disabled = currentPage === totalPages;
-                    nextBtn.onclick = () => renderPage(currentPage + 1);
+                    nextBtn.onclick = () => { renderPage(currentPage + 1); window.scrollTo({ top: 0, behavior: 'smooth' }); };
                     paginationEl.appendChild(nextBtn);
                 }
             }

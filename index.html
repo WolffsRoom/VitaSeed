@@ -432,7 +432,9 @@
 
             if (top10Track && data.length > 0) {
                 top10Track.innerHTML = '';
-                const topList = data.slice(0, 10);
+                // Ordenar projetos por número de downloads decrescente para o Top 10
+                const sortedByDownloads = [...data].sort((a, b) => (b.downloads || 0) - (a.downloads || 0));
+                const topList = sortedByDownloads.slice(0, 10);
 
                 topList.forEach((proj, idx) => {
                     const rankNum = (idx + 1).toString().padStart(2, '0');
