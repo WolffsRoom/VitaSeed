@@ -101,7 +101,18 @@
             </div>
             
             
-            <div id="network-container"></div>
+            <div id="network-container">
+                <div id="graph-loader" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 50; background: var(--bg-card); display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s ease, visibility 0.5s ease;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                        <i class="ph ph-cpu" style="font-size: 24px; color: var(--green);"></i>
+                        <span style="font-family: var(--mono); font-weight: 700; font-size: 14px; color: var(--text);">OPTIMIZING GRAPH NETWORK...</span>
+                    </div>
+                    <div style="width: 280px; height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; border: 1px solid rgba(0, 230, 118, 0.3);">
+                        <div id="graph-progress-bar" style="width: 0%; height: 100%; background: linear-gradient(90deg, #00E676, #00B0FF); transition: width 0.2s ease;"></div>
+                    </div>
+                    <div id="graph-status-text" style="font-family: var(--mono); font-size: 11px; color: var(--text-muted); margin-top: 10px;">Loading 1,000+ catalog nodes (0%)</div>
+                </div>
+            </div>
             
             <div id="custom-tooltip" style="display:none; position:absolute; z-index:100; background:var(--bg-card); border:1px solid var(--border-color); border-radius:12px; padding:1rem; box-shadow:0 15px 35px rgba(0,0,0,0.6); width:240px; pointer-events:auto; opacity:0; transform: translateY(10px) scale(0.95); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
                 <div id="tt-img" style="width:100%; height:100px; background-size:cover; background-position:center; border-radius:8px; margin-bottom:0.8rem;"></div>
@@ -187,70 +198,49 @@
 
             const projectsData = await window.fetchCatalog();
             
-            // Generate nodes from projectsData
+            // Otimização e filtro dos 150 desenvolvedores/projetos mais relevantes para evitar travamento do navegador com 1000+ nós
+            const topProjects = projectsData.slice(0, 150);
+            
+            const loader = document.getElementById('graph-loader');
+            const progressBar = document.getElementById('graph-progress-bar');
+            const statusText = document.getElementById('graph-status-text');
+
             const devsMap = new Map();
             const projectNodes = [];
             const edgeList = [];
 
-            projectsData.forEach(proj => {
-                const banner = proj.bannerUrl || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400';
-                
-                // Add project node with image
+            topProjects.forEach((proj, index) => {
+                const pct = Math.round(((index + 1) / topProjects.length) * 50);
+                if (progressBar) progressBar.style.width = pct + '%';
+                if (statusText) statusText.innerText = `Parsing connections (${pct}%)...`;
+
                 projectNodes.push({
                     id: proj.id,
                     label: proj.title,
                     group: 'project',
-                    // On mobile: skip circularImage to avoid loading dozens of remote images
-                    shape: lowPower ? 'dot' : 'circularImage',
-                    image: lowPower ? undefined : banner,
-                    size: lowPower ? 12 : 25,
+                    shape: 'dot',
+                    size: 10,
                     projData: proj
                 });
 
-                // Add dev node if not exists
-                const devName = proj.responsibles;
+                const devName = proj.responsibles || 'Community';
                 if (!devsMap.has(devName)) {
                     devsMap.set(devName, {
                         id: devName,
                         label: devName,
                         group: 'dev',
                         shape: 'dot',
-                        size: 15
+                        size: 16
                     });
                 }
 
-                // Main edge: solid
                 edgeList.push({
                     from: devName,
                     to: proj.id,
                     dashes: false,
-                    color: { color: '#444444', highlight: '#888888', hover: '#666666' },
+                    color: { color: 'rgba(255,255,255,0.15)', highlight: '#00E676' },
                     width: 1
                 });
-
-                // Collaborator edges: dashed
-                if (proj.collaborators && Array.isArray(proj.collaborators)) {
-                    proj.collaborators.forEach(collab => {
-                        if (!devsMap.has(collab)) {
-                            devsMap.set(collab, {
-                                id: collab,
-                                label: collab,
-                                group: 'dev',
-                                shape: 'dot',
-                                size: 15
-                            });
-                        }
-                        edgeList.push({
-                            from: collab,
-                            to: proj.id,
-                            dashes: true,
-                            physics: false,
-                            color: { color: '#666666', highlight: '#aaaaaa', hover: '#999999' },
-                            width: 1,
-                            title: 'Colaboração'
-                        });
-                    });
-                }
             });
 
             const nodesArray = Array.from(devsMap.values()).concat(projectNodes);
@@ -264,65 +254,67 @@
                 nodes: {
                     font: { 
                         color: '#E8E8E9', 
-                        size: 13,
-                        face: 'JetBrains Mono, monospace',
+                        size: 12,
+                        face: 'monospace',
                         strokeWidth: 2,
-                        strokeColor: '#0A0A0B',
-                        vadjust: -5
+                        strokeColor: '#0A0A0B'
                     },
-                    borderWidth: 2,
-                    shadow: { enabled: true, color: 'rgba(63, 217, 122, 0.2)', size: 12, x: 0, y: 0 }
+                    borderWidth: 1.5,
+                    shadow: false
                 },
                 edges: {
-                    color: { color: 'rgba(255, 255, 255, 0.15)', highlight: '#3FD97A', hover: 'rgba(63, 217, 122, 0.8)' },
-                    width: 1.5,
-                    smooth: { type: 'continuous' }
+                    color: { color: 'rgba(255, 255, 255, 0.1)', highlight: '#00E676' },
+                    width: 1,
+                    smooth: false
                 },
                 groups: {
                     dev: { 
-                        color: { background: '#1A1A1D', border: '#3FD97A', highlight: { background: '#10281A', border: '#3FD97A' } }, 
-                        font: { color: '#3FD97A', face: 'JetBrains Mono, monospace' } 
+                        color: { background: '#1A1A1D', border: '#00E676', highlight: { background: '#10281A', border: '#00E676' } }, 
+                        font: { color: '#00E676' } 
                     },
                     project: { 
-                        color: { background: '#131315', border: '#38383C', highlight: { background: '#1A1A1D', border: '#3FD97A' } }, 
-                        font: { color: '#E8E8E9', face: 'JetBrains Mono, monospace' } 
+                        color: { background: '#131315', border: '#38383C', highlight: { background: '#1A1A1D', border: '#00E676' } }, 
+                        font: { color: '#E8E8E9' } 
                     }
                 },
-                physics: lowPower ? {
-                    barnesHut: { gravitationalConstant: -3000, centralGravity: 0.3, springLength: 120, springConstant: 0.05, damping: 0.3 },
-                    maxVelocity: 30,
+                physics: {
+                    barnesHut: {
+                        gravitationalConstant: -1200,
+                        centralGravity: 0.2,
+                        springLength: 90,
+                        springConstant: 0.04
+                    },
+                    maxVelocity: 25,
                     solver: 'barnesHut',
-                    timestep: 0.5,
-                    stabilization: { iterations: 80, onlyDynamicEdges: false, fit: true }
-                } : {
-                    forceAtlas2Based: { gravitationalConstant: -120, centralGravity: 0.005, springLength: 150, springConstant: 0.04 },
-                    maxVelocity: 50,
-                    solver: 'forceAtlas2Based',
-                    timestep: 0.35,
-                    stabilization: { iterations: 150 }
+                    timestep: 0.4,
+                    stabilization: {
+                        enabled: true,
+                        iterations: 60,
+                        updateInterval: 5
+                    }
                 },
                 interaction: { hover: true, tooltipDelay: 100, zoomView: true, dragView: true, dragNodes: true }
             };
 
             const network = new vis.Network(container, data, options);
 
-            // After stabilization: reduce physics to a soft level so dragging still pulls connected nodes
+            network.on('stabilizationProgress', (params) => {
+                const progressPct = 50 + Math.round((params.iterations / params.total) * 50);
+                if (progressBar) progressBar.style.width = progressPct + '%';
+                if (statusText) statusText.innerText = `Stabilizing layout (${progressPct}%)...`;
+            });
+
             network.on('stabilizationIterationsDone', () => {
-                network.setOptions({
-                    physics: {
-                        barnesHut: {
-                            gravitationalConstant: -800,
-                            centralGravity: 0.1,
-                            springLength: 150,
-                            springConstant: 0.02,
-                            damping: 0.6
-                        },
-                        maxVelocity: 10,
-                        solver: 'barnesHut',
-                        timestep: 0.5,
-                        stabilization: false
-                    }
-                });
+                if (progressBar) progressBar.style.width = '100%';
+                if (statusText) statusText.innerText = 'Ready!';
+                
+                // Desativar fisica apos a estabilização para economizar 100% de CPU
+                network.setOptions({ physics: { enabled: false } });
+
+                if (loader) {
+                    loader.style.opacity = '0';
+                    setTimeout(() => { loader.style.display = 'none'; }, 500);
+                }
             });
 
             
