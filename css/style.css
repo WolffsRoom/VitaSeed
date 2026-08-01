@@ -94,20 +94,18 @@ button { font-family: inherit; }
 }
 .sb-brand { display: flex; align-items: center; gap: 8px; margin-bottom: 28px; padding: 4px 2px; text-decoration: none; cursor: pointer; }
 .sb-brand .mark {
-  width: auto;
-  height: auto;
-  border: none;
-  background: transparent;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   color: var(--green);
-  box-shadow: none;
   flex-shrink: 0;
 }
 .sb-brand .mark svg {
-  width: 42px;
-  height: 42px;
+  width: 100%;
+  height: 100%;
+  max-width: 50px;
+  max-height: 50px;
+  display: block;
 }
 .sb-brand .names { line-height: 1.2; }
 .sb-brand .n1 { font-family: var(--mono); font-weight: 800; font-size: 22px; color: var(--text); letter-spacing: -0.02em; }

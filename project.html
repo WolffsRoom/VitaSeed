@@ -99,12 +99,11 @@
   <aside class="sidebar" id="sidebar">
     <a href="index.html" class="sb-brand">
       <span class="mark">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="7" y="3" width="10" height="1.5" fill="currentColor"/>
-          <rect x="7" y="5.5" width="10" height="2" fill="currentColor"/>
-          <rect x="7" y="8.5" width="10" height="2.5" fill="currentColor"/>
-          <path d="M7 12H4L12 19L20 12H17V12H7Z" fill="currentColor"/>
-          <rect x="4" y="20.5" width="16" height="2" fill="currentColor"/>
+        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="7" y="2" width="10" height="1.8" fill="currentColor" />
+          <rect x="7" y="4.8" width="10" height="1.8" fill="currentColor" />
+          <path d="M7 7.5H17V11H20.5L12 18L3.5 11H7V7.5Z" fill="currentColor" />
+          <path d="M3 20.5H21V22.5H3V20.5ZM3 17.5H5.5V20.5H3V17.5ZM18.5 17.5H21V20.5H18.5V17.5Z" fill="currentColor" />
         </svg>
       </span>
       <div class="names">
@@ -631,11 +630,10 @@
     <div class="sb-brand" style="justify-content: center; margin-bottom: 16px;">
       <span class="mark">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="7" y="3" width="10" height="1.5" fill="currentColor"/>
-          <rect x="7" y="5.5" width="10" height="2" fill="currentColor"/>
-          <rect x="7" y="8.5" width="10" height="2.5" fill="currentColor"/>
-          <path d="M7 12H4L12 19L20 12H17V12H7Z" fill="currentColor"/>
-          <rect x="4" y="20.5" width="16" height="2" fill="currentColor"/>
+          <rect x="7" y="2" width="10" height="1.8" fill="currentColor"/>
+          <rect x="7" y="4.8" width="10" height="1.8" fill="currentColor"/>
+          <path d="M7 7.5H17V11H20.5L12 18L3.5 11H7V7.5Z" fill="currentColor"/>
+          <path d="M3 20.5H21V22.5H3V20.5ZM3 17.5H5.5V20.5H3V17.5ZM18.5 17.5H21V20.5H18.5V17.5Z" fill="currentColor"/>
         </svg>
       </span>
       <div class="names" style="text-align: left;">
@@ -643,10 +641,10 @@
         <div class="n2">by Wolff</div>
       </div>
     </div>
-    <h3>acesse o vitarch</h3>
-    <p>Faça login para solicitar a adição de novos jogos ao catálogo.</p>
-    <button class="oauth-btn" onclick="loginWithGoogle()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" width="16" height="16"> entrar com google</button>
-    <button class="oauth-btn" onclick="loginWithGitHub()"><i class="fa-brands fa-github"></i> entrar com github</button>
+    <h3>access vitarch</h3>
+    <p>Sign in to request new games and submit projects to the catalog.</p>
+    <button class="oauth-btn" onclick="loginWithGoogle()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" width="16" height="16"> sign in with google</button>
+    <button class="oauth-btn" onclick="loginWithGitHub()"><i class="fa-brands fa-github"></i> sign in with github</button>
   </div>
 </div>
 
@@ -657,11 +655,10 @@
     <div class="sb-brand" style="justify-content: center; margin-bottom: 16px;">
       <span class="mark">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="7" y="3" width="10" height="1.5" fill="currentColor"/>
-          <rect x="7" y="5.5" width="10" height="2" fill="currentColor"/>
-          <rect x="7" y="8.5" width="10" height="2.5" fill="currentColor"/>
-          <path d="M7 12H4L12 19L20 12H17V12H7Z" fill="currentColor"/>
-          <rect x="4" y="20.5" width="16" height="2" fill="currentColor"/>
+          <rect x="7" y="2" width="10" height="1.8" fill="currentColor"/>
+          <rect x="7" y="4.8" width="10" height="1.8" fill="currentColor"/>
+          <path d="M7 7.5H17V11H20.5L12 18L3.5 11H7V7.5Z" fill="currentColor"/>
+          <path d="M3 20.5H21V22.5H3V20.5ZM3 17.5H5.5V20.5H3V17.5ZM18.5 17.5H21V20.5H18.5V17.5Z" fill="currentColor"/>
         </svg>
       </span>
       <div class="names" style="text-align: left;">
@@ -669,8 +666,8 @@
         <div class="n2">by Wolff</div>
       </div>
     </div>
-    <h3>sobre o vitarch</h3>
-    <p>O VitARCH (Vita + Archive) é o novo repositório agregador para a cena homebrew do PSVita. Centralizamos Ports, Mods, Traduções, Plugins, Apps e Ferramentas.</p>
+    <h3>about vitarch</h3>
+    <p>VitARCH (Vita + Archive) is the new open aggregator repository for the PS Vita homebrew scene. We centralize Ports, Mods, Translations, Plugins, Apps, and Tools.</p>
   </div>
 </div>
 
@@ -678,12 +675,12 @@
 <div class="overlay" id="requestOverlay">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('requestOverlay')">×</button>
-    <h3>solicitar projeto</h3>
-    <p>Não encontrou o que procurava? Envie um pedido pra adicionarmos o projeto ao catálogo.</p>
-    <input type="text" id="req-title" class="btn-ghost-sm" placeholder="nome do projeto..." style="width:100%; margin-bottom:8px; text-align:left;">
-    <input type="text" id="req-link" class="btn-ghost-sm" placeholder="link de referência..." style="width:100%; margin-bottom:8px; text-align:left;">
-    <textarea id="req-desc" placeholder="detalhes do pedido..."></textarea>
-    <button class="btn-green-sm" style="width:100%; padding:10px;" onclick="sendRequest()">enviar pedido</button>
+    <h3>request project</h3>
+    <p>Didn't find what you were looking for? Submit a request to add a new project to the catalog.</p>
+    <input type="text" id="req-title" class="btn-ghost-sm" placeholder="project name..." style="width:100%; margin-bottom:8px; text-align:left;">
+    <input type="text" id="req-link" class="btn-ghost-sm" placeholder="reference link..." style="width:100%; margin-bottom:8px; text-align:left;">
+    <textarea id="req-desc" placeholder="request details..."></textarea>
+    <button class="btn-green-sm" style="width:100%; padding:10px;" onclick="sendRequest()">submit request</button>
     <div id="req-msg" style="margin-top:8px; font-size:12px;"></div>
   </div>
 </div>
