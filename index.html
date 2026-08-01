@@ -573,7 +573,7 @@
                 });
             }
 
-            // Chips & Tabs Filtering
+            // Chips & Tabs Filtering with smooth scroll to catalog section
             document.querySelectorAll('.chip, .tab').forEach(el => {
                 el.addEventListener('click', (e) => {
                     const cat = el.getAttribute('data-cat') || el.getAttribute('data-filter');
@@ -586,6 +586,12 @@
                         }
                     });
                     renderGrid(cat);
+
+                    // Auto-scroll to catalog section on category select
+                    const catalogEl = document.getElementById('catalogo');
+                    if (catalogEl) {
+                        catalogEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
                 });
             });
         });

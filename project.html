@@ -239,27 +239,26 @@
                             <div id="install-text" style="font-family: var(--mono); font-size: 13px; line-height: 1.6; color: var(--text);"></div>
                         </div>
 
-                        <!-- Community Reviews -->
+                        <!-- Community Rating & Star Vote -->
                         <div class="reviews-container section-box">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
                                 <div>
-                                    <h3 style="font-size: 15px; margin-bottom: 4px; font-family: var(--mono); text-transform: uppercase;"><i class="fa-solid fa-star" style="color: #fbbf24;"></i> Community Reviews</h3>
-                                    <p style="color: var(--muted); font-size: 12.5px; margin: 0;">Real ratings from PS Vita players</p>
+                                    <h3 style="font-size: 15px; margin-bottom: 4px; font-family: var(--mono); text-transform: uppercase;"><i class="fa-solid fa-star" style="color: #fbbf24;"></i> Community Rating</h3>
+                                    <p style="color: var(--muted); font-size: 12.5px; margin: 0;">Overall rating voted by PS Vita players</p>
                                 </div>
                                 <div style="text-align: right;">
-                                    <div id="avg-rating-stars" class="star-rating" style="font-size: 1.3rem;">
+                                    <div id="avg-rating-stars" class="star-rating" style="font-size: 1.5rem;">
                                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
                                     </div>
-                                    <span id="rating-count" style="font-size: 11.5px; font-family: var(--mono); color: var(--muted-2);">4.8 of 5.0 (12 reviews)</span>
+                                    <span id="rating-count" style="font-size: 12px; font-family: var(--mono); color: var(--muted-2);">4.8 of 5.0 (12 votes)</span>
                                 </div>
                             </div>
 
-                            <!-- Single Review Form -->
-                            <div id="user-review-box" style="background: var(--surface-2); border: 1px solid var(--border); padding: 18px; border-radius: var(--r); margin-bottom: 24px;">
-                                <h4 style="margin: 0 0 12px; font-size: 13.5px; font-family: var(--mono); text-transform: uppercase;"><i class="fa-solid fa-pen"></i> Leave or Edit Your Review</h4>
-                                <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; font-family: var(--mono); font-size: 12.5px;">
-                                    <span>Your Rating:</span>
-                                    <div class="star-rating" id="input-star-rating">
+                            <!-- Star Rating Selector -->
+                            <div id="user-review-box" style="background: var(--surface-2); border: 1px solid var(--border); padding: 18px; border-radius: var(--r); text-align: center;">
+                                <h4 style="margin: 0 0 12px; font-size: 13.5px; font-family: var(--mono); text-transform: uppercase;"><i class="fa-solid fa-star" style="color: #fbbf24;"></i> Rate This Project</h4>
+                                <div style="display: flex; gap: 1rem; align-items: center; justify-content: center; margin-bottom: 0.5rem; font-family: var(--mono); font-size: 14px;">
+                                    <div class="star-rating" id="input-star-rating" style="font-size: 1.8rem; cursor: pointer;">
                                         <i class="fa-solid fa-star empty" data-star="1" onclick="setRating(1)"></i>
                                         <i class="fa-solid fa-star empty" data-star="2" onclick="setRating(2)"></i>
                                         <i class="fa-solid fa-star empty" data-star="3" onclick="setRating(3)"></i>
@@ -267,27 +266,7 @@
                                         <i class="fa-solid fa-star empty" data-star="5" onclick="setRating(5)"></i>
                                     </div>
                                 </div>
-                                <textarea id="review-comment" style="width: 100%; height: 80px; background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 10px; border-radius: var(--r); font-family: var(--sans); font-size: 13px; margin-bottom: 12px; resize: vertical;" placeholder="Write about gameplay, performance, or tips for this project on PS Vita..."></textarea>
-                                <div style="display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 1rem;">
-                                    <button class="btn-primary" onclick="submitReview()"><i class="fa-solid fa-paper-plane"></i> Post Review</button>
-                                </div>
-                            </div>
-
-                            <!-- Lista de Comentários -->
-                            <div id="reviews-list">
-                                <div class="review-card">
-                                    <div class="review-author">
-                                        <div class="review-avatar">W</div>
-                                        <div>
-                                            <strong style="font-family: var(--mono); font-size: 13px;">Wolff (Dev)</strong>
-                                            <div style="font-size: 11px; font-family: var(--mono); color: var(--muted-2);">Publicado em 31/07/2026</div>
-                                        </div>
-                                    </div>
-                                    <div class="star-rating" style="font-size: 0.9rem; margin-bottom: 0.4rem;">
-                                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                    </div>
-                                    <p style="font-size: 13.5px; line-height: 1.5; color: var(--text); margin: 0;">Port incrível rodando perfeitamente a 60fps constantes no PS Vita sem overclock. Recomendado!</p>
-                                </div>
+                                <div id="vote-feedback" style="font-family: var(--mono); font-size: 12px; color: var(--green); margin-top: 6px;">Click stars to cast your vote</div>
                             </div>
                         </div>
                 </div>

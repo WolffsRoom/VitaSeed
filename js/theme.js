@@ -11,7 +11,7 @@ window.toggleTheme = function() {
     
     const themeBtnText = document.getElementById('theme-btn-text');
     if (themeBtnText) {
-        themeBtnText.innerText = next === 'light' ? 'modo claro' : (next === 'sony' ? 'modo sony' : 'modo escuro');
+        themeBtnText.innerHTML = next === 'light' ? '<i class="ph ph-sun"></i>' : (next === 'sony' ? '<i class="ph ph-game-controller"></i>' : '<i class="ph ph-moon"></i>');
     }
 };
 
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.documentElement.setAttribute('data-theme', savedTheme);
     const themeBtnText = document.getElementById('theme-btn-text');
     if (themeBtnText) {
-        themeBtnText.innerText = savedTheme === 'light' ? 'modo claro' : (savedTheme === 'sony' ? 'modo sony' : 'modo escuro');
+        themeBtnText.innerHTML = savedTheme === 'light' ? '<i class="ph ph-sun"></i>' : (savedTheme === 'sony' ? '<i class="ph ph-game-controller"></i>' : '<i class="ph ph-moon"></i>');
     }
 
     // 2. Mobile Sidebar Toggle logic
