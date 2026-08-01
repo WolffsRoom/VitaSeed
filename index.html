@@ -429,13 +429,26 @@
             const grid = document.getElementById('project-grid');
             const top10Track = document.getElementById('top10Track');
 
+            function parseCustomDate(str) {
+                if (!str) return 0;
+                if (str.includes('/')) {
+                    const parts = str.split('/');
+                    if (parts.length === 3) return new Date(`${parts[2]}-${parts[1]}-${parts[0]}`).getTime() || 0;
+                }
+                return new Date(str).getTime() || 0;
+            }
+
             if (top10Track && data.length > 0) {
                 top10Track.innerHTML = '';
-                // Ordenar projetos por data mais recente para os Latest Posts
+                // Filtrar VitaSeed / VitaDB e ordenar por publicação mais recente
                 const sortedByNewest = [...data]
+                    .filter(p => {
+                        const t = (p.title || '').toLowerCase();
+                        return !t.includes('vitaseed') && !t.includes('vitadb');
+                    })
                     .sort((a, b) => {
-                        const dateA = new Date(a.update_date || a.publish_date || '2000-01-01').getTime();
-                        const dateB = new Date(b.update_date || b.publish_date || '2000-01-01').getTime();
+                        const dateA = parseCustomDate(a.publish_date || a.update_date);
+                        const dateB = parseCustomDate(b.publish_date || b.update_date);
                         if (dateB !== dateA) return dateB - dateA;
                         return (b.id || 0) - (a.id || 0);
                     });

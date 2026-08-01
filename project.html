@@ -605,11 +605,11 @@
                 const storageSumKey = `vitarch_vote_sum_${proj.id}`;
 
                 let savedVote = localStorage.getItem(storageVoteKey);
-                let currentCount = parseInt(localStorage.getItem(storageCountKey) || '12');
-                let currentSum = parseFloat(localStorage.getItem(storageSumKey) || (12 * 4.8).toString());
+                let currentCount = parseInt(localStorage.getItem(storageCountKey) || '0');
+                let currentSum = parseFloat(localStorage.getItem(storageSumKey) || '0');
 
                 function updateRatingDisplay() {
-                    const avg = (currentSum / currentCount).toFixed(1);
+                    const avg = currentCount > 0 ? (currentSum / currentCount).toFixed(1) : '0.0';
                     document.getElementById('rating-count').innerText = `${avg} of 5.0 (${currentCount} votes)`;
                     
                     const starsBox = document.getElementById('input-star-rating');
@@ -629,6 +629,12 @@
                 }
 
                 window.setRating = function(starsCount) {
+                    if (!window.currentUser) {
+                        const fb = document.getElementById('vote-feedback');
+                        if (fb) fb.innerText = `⚠️ Faça login para votar neste projeto!`;
+                        if (typeof openModal === 'function') openModal('loginOverlay');
+                        return;
+                    }
                     if (savedVote) {
                         currentSum = currentSum - parseInt(savedVote) + starsCount;
                     } else {
@@ -642,7 +648,7 @@
 
                     updateRatingDisplay();
                     const fb = document.getElementById('vote-feedback');
-                    if (fb) fb.innerText = `Thank you! You rated this project ${starsCount} stars ★`;
+                    if (fb) fb.innerText = `Obrigado! Você avaliou este projeto com ${starsCount} estrela(s) ★`;
                 };
 
                 updateRatingDisplay();
