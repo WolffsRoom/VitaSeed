@@ -535,10 +535,12 @@
                 el.addEventListener('click', (e) => {
                     const cat = el.getAttribute('data-cat') || el.getAttribute('data-filter');
                     document.querySelectorAll('.chip, .tab').forEach(i => {
-                        if ((i.getAttribute('data-cat') === cat) || (i.getAttribute('data-filter') === cat)) {
+                        const iCat = i.getAttribute('data-cat') || i.getAttribute('data-filter');
+                        if (iCat === cat) {
                             i.classList.add('active');
                         } else {
                             i.classList.remove('active');
+                        }
                     });
                     renderGrid(cat);
                 });
