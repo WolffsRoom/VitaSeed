@@ -122,11 +122,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         }
     }
-});
-
-    const path = window.location.pathname;
-    const params = new URLSearchParams(window.location.search);
-    const cat = params.get('cat')?.toLowerCase();
+    const pagePath = window.location.pathname;
+    const pageParams = new URLSearchParams(window.location.search);
+    const cat = pageParams.get('cat')?.toLowerCase();
     
     document.querySelectorAll('.nav-links a, .sidebar-footer a').forEach(link => {
         const dataPage = link.getAttribute('data-page');
@@ -134,9 +132,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         if (cat && dataPage === cat) {
             link.classList.add('active');
-        } else if (!cat && path.includes(dataPage)) {
+        } else if (!cat && pagePath.includes(dataPage)) {
             link.classList.add('active');
-        } else if (!cat && (path.endsWith('/') || path.endsWith('index.html')) && dataPage === 'index') {
+        } else if (!cat && (pagePath.endsWith('/') || pagePath.endsWith('index.html')) && dataPage === 'index') {
             link.classList.add('active');
         }
     });
+});

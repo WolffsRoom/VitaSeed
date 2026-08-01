@@ -105,7 +105,8 @@ async function loginWithGoogle() {
     }
     try {
         await auth.signInWithPopup(googleProvider);
-        closeModal('modal-login');
+        closeModal('loginOverlay');
+        if (typeof closeModal === 'function') closeModal('modal-login');
     } catch (error) {
         console.error("Erro ao fazer login:", error);
         alert("Erro ao fazer login. Tente novamente.");
@@ -119,7 +120,8 @@ async function loginWithGitHub() {
     }
     try {
         await auth.signInWithPopup(githubProvider);
-        closeModal('modal-login');
+        closeModal('loginOverlay');
+        if (typeof closeModal === 'function') closeModal('modal-login');
     } catch (error) {
         console.error("Erro ao fazer login com GitHub:", error);
         alert("Erro ao fazer login. Tente novamente.");
@@ -134,15 +136,15 @@ async function logout() {
 
 // Interceptar o botão de request
 function handleRequestButtonClick(event) {
-    if (event.altKey) {
+    if (event && event.altKey) {
         window.location.href = 'admin.html';
         return;
     }
     
     if (currentUser) {
-        document.getElementById('modal-request').classList.add('show');
+        if (typeof openModal === 'function') openModal('requestOverlay');
     } else {
-        document.getElementById('modal-login').classList.add('show');
+        if (typeof openModal === 'function') openModal('loginOverlay');
     }
 }
 
@@ -157,9 +159,8 @@ async function fetchUserProfile() {
         });
         if (res.ok) {
             userProfileData = await res.json();
-            // Store global role to check admin
-            currentUser.dbRole = userProfileData.role;
-            if (userProfileData.role === 'admin') {
+            if (userProfileData && userProfileData.role === 'admin') {
+                window.isAdmin = true;
                 const adminBtn = document.getElementById('menu-admin-publish');
                 if (adminBtn) adminBtn.classList.remove('hidden');
             }
@@ -167,7 +168,6 @@ async function fetchUserProfile() {
             userProfileData = {};
         }
     } catch (e) {
-        console.error('Erro ao buscar perfil', e);
         userProfileData = {};
     }
 }

@@ -594,11 +594,58 @@
                 });
 
                 // Install Instructions
-
                 if (proj.install_instructions) {
                     document.getElementById('install-section').classList.remove('hidden');
                     document.getElementById('install-text').innerHTML = marked.parse(proj.install_instructions);
                 }
+
+                // Interactive Star Rating System Persistence
+                const storageVoteKey = `vitarch_vote_${proj.id}`;
+                const storageCountKey = `vitarch_vote_count_${proj.id}`;
+                const storageSumKey = `vitarch_vote_sum_${proj.id}`;
+
+                let savedVote = localStorage.getItem(storageVoteKey);
+                let currentCount = parseInt(localStorage.getItem(storageCountKey) || '12');
+                let currentSum = parseFloat(localStorage.getItem(storageSumKey) || (12 * 4.8).toString());
+
+                function updateRatingDisplay() {
+                    const avg = (currentSum / currentCount).toFixed(1);
+                    document.getElementById('rating-count').innerText = `${avg} of 5.0 (${currentCount} votes)`;
+                    
+                    const starsBox = document.getElementById('input-star-rating');
+                    if (starsBox) {
+                        const stars = starsBox.querySelectorAll('i');
+                        const val = parseInt(savedVote || '0');
+                        stars.forEach((s, idx) => {
+                            if (idx < val) {
+                                s.classList.remove('empty');
+                                s.style.color = '#fbbf24';
+                            } else {
+                                s.classList.add('empty');
+                                s.style.color = 'var(--border)';
+                            }
+                        });
+                    }
+                }
+
+                window.setRating = function(starsCount) {
+                    if (savedVote) {
+                        currentSum = currentSum - parseInt(savedVote) + starsCount;
+                    } else {
+                        currentSum += starsCount;
+                        currentCount += 1;
+                    }
+                    savedVote = starsCount.toString();
+                    localStorage.setItem(storageVoteKey, savedVote);
+                    localStorage.setItem(storageCountKey, currentCount.toString());
+                    localStorage.setItem(storageSumKey, currentSum.toString());
+
+                    updateRatingDisplay();
+                    const fb = document.getElementById('vote-feedback');
+                    if (fb) fb.innerText = `Thank you! You rated this project ${starsCount} stars ★`;
+                };
+
+                updateRatingDisplay();
 
             } else {
                 document.getElementById('proj-title').innerText = "Projeto não encontrado.";
@@ -687,8 +734,8 @@
 
     <script src="js/theme.js?v=3"></script>
     <script>
-      function openModal(id){ document.getElementById(id).classList.add('open'); }
-      function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+      function openModal(id){ const el = document.getElementById(id); if (el) el.classList.add('open'); }
+      function closeModal(id){ const el = document.getElementById(id); if (el) el.classList.remove('open'); }
 
       var sidebar = document.getElementById('sidebar');
       var burgerBtn = document.getElementById('burgerBtn');
