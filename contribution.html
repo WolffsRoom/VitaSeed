@@ -198,8 +198,7 @@
 
             const projectsData = await window.fetchCatalog();
             
-            // Otimização e filtro dos 150 desenvolvedores/projetos mais relevantes para evitar travamento do navegador com 1000+ nós
-            const topProjects = projectsData.slice(0, 150);
+            const topProjects = projectsData.slice(0, 300);
             
             const loader = document.getElementById('graph-loader');
             const progressBar = document.getElementById('graph-progress-bar');
@@ -210,16 +209,19 @@
             const edgeList = [];
 
             topProjects.forEach((proj, index) => {
-                const pct = Math.round(((index + 1) / topProjects.length) * 50);
+                const pct = Math.round(((index + 1) / topProjects.length) * 40);
                 if (progressBar) progressBar.style.width = pct + '%';
-                if (statusText) statusText.innerText = `Parsing connections (${pct}%)...`;
+                if (statusText) statusText.innerText = `Loading network nodes (${pct}%)...`;
+
+                const banner = proj.bannerUrl || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400';
 
                 projectNodes.push({
                     id: proj.id,
                     label: proj.title,
                     group: 'project',
-                    shape: 'dot',
-                    size: 10,
+                    shape: index < 50 ? 'circularImage' : 'dot',
+                    image: index < 50 ? banner : undefined,
+                    size: index < 50 ? 22 : 10,
                     projData: proj
                 });
 
@@ -230,7 +232,7 @@
                         label: devName,
                         group: 'dev',
                         shape: 'dot',
-                        size: 16
+                        size: 18
                     });
                 }
 
@@ -238,8 +240,8 @@
                     from: devName,
                     to: proj.id,
                     dashes: false,
-                    color: { color: 'rgba(255,255,255,0.15)', highlight: '#00E676' },
-                    width: 1
+                    color: { color: 'rgba(0, 230, 118, 0.25)', highlight: '#00E676', hover: '#00E676' },
+                    width: 1.2
                 });
             });
 
@@ -254,18 +256,18 @@
                 nodes: {
                     font: { 
                         color: '#E8E8E9', 
-                        size: 12,
+                        size: 13,
                         face: 'monospace',
                         strokeWidth: 2,
                         strokeColor: '#0A0A0B'
                     },
-                    borderWidth: 1.5,
-                    shadow: false
+                    borderWidth: 2,
+                    shadow: { enabled: true, color: 'rgba(0, 230, 118, 0.3)', size: 10, x: 0, y: 0 }
                 },
                 edges: {
-                    color: { color: 'rgba(255, 255, 255, 0.1)', highlight: '#00E676' },
-                    width: 1,
-                    smooth: false
+                    color: { color: 'rgba(255, 255, 255, 0.15)', highlight: '#00E676', hover: 'rgba(0, 230, 118, 0.8)' },
+                    width: 1.5,
+                    smooth: { type: 'continuous' }
                 },
                 groups: {
                     dev: { 
@@ -279,18 +281,19 @@
                 },
                 physics: {
                     barnesHut: {
-                        gravitationalConstant: -1200,
-                        centralGravity: 0.2,
-                        springLength: 90,
-                        springConstant: 0.04
+                        gravitationalConstant: -1800,
+                        centralGravity: 0.15,
+                        springLength: 100,
+                        springConstant: 0.03,
+                        damping: 0.5
                     },
                     maxVelocity: 25,
                     solver: 'barnesHut',
                     timestep: 0.4,
                     stabilization: {
                         enabled: true,
-                        iterations: 60,
-                        updateInterval: 5
+                        iterations: 120,
+                        updateInterval: 10
                     }
                 },
                 interaction: { hover: true, tooltipDelay: 100, zoomView: true, dragView: true, dragNodes: true }
@@ -299,21 +302,27 @@
             const network = new vis.Network(container, data, options);
 
             network.on('stabilizationProgress', (params) => {
-                const progressPct = 50 + Math.round((params.iterations / params.total) * 50);
+                const progressPct = 40 + Math.round((params.iterations / params.total) * 60);
                 if (progressBar) progressBar.style.width = progressPct + '%';
-                if (statusText) statusText.innerText = `Stabilizing layout (${progressPct}%)...`;
+                if (statusText) statusText.innerText = `Stabilizing connections (${progressPct}%)...`;
             });
 
             network.on('stabilizationIterationsDone', () => {
                 if (progressBar) progressBar.style.width = '100%';
                 if (statusText) statusText.innerText = 'Ready!';
                 
-                // Desativar fisica apos a estabilização para economizar 100% de CPU
-                network.setOptions({ physics: { enabled: false } });
+                // Reduzir física levemente sem travar a tela
+                network.setOptions({
+                    physics: {
+                        barnesHut: { gravitationalConstant: -600, centralGravity: 0.1, springLength: 100, springConstant: 0.01, damping: 0.8 },
+                        maxVelocity: 5,
+                        stabilization: false
+                    }
+                });
 
                 if (loader) {
                     loader.style.opacity = '0';
-                    setTimeout(() => { loader.style.display = 'none'; }, 500);
+                    setTimeout(() => { loader.style.display = 'none'; }, 400);
                 }
             });
 
