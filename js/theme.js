@@ -50,13 +50,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Hide loader initial state unless navigating
     if (termLoader) termLoader.classList.add('fade-out');
 
-    // Re-trigger typing animation when clicking internal links
+    // Re-trigger typing animation when clicking internal links (Instant navigation for project details)
     document.addEventListener('click', (e) => {
         const link = e.target.closest('a');
         if (link && link.href && link.href.startsWith(window.location.origin) && !link.target && !link.href.includes('#')) {
             const urlObj = new URL(link.href);
+            
+            // If navigating to project.html, navigate instantly without artificial delay
+            if (urlObj.pathname.includes('project.html')) {
+                return; // Let standard link navigation proceed instantly
+            }
+
             let linkCat = urlObj.searchParams.get('cat') || 'all';
-            if (urlObj.pathname.includes('project.html')) linkCat = 'details';
             if (urlObj.pathname.includes('contribution.html')) linkCat = 'colaboracoes';
             if (urlObj.pathname.endsWith('index.html') || urlObj.pathname === '/') linkCat = 'home';
             
@@ -72,11 +77,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (charIdx < navCmdText.length) {
                     if (typedEl) typedEl.textContent += navCmdText.charAt(charIdx);
                     charIdx++;
-                    setTimeout(typeOutNav, 25);
+                    setTimeout(typeOutNav, 15);
                 } else {
-                    setTimeout(() => {
-                        window.location.href = targetUrl;
-                    }, 120);
+                    window.location.href = targetUrl;
                 }
             }
             typeOutNav();
