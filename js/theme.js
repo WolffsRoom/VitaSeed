@@ -99,20 +99,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             e.preventDefault();
             termLoader.classList.remove('fade-out');
-            if (typedEl) typedEl.textContent = '';
-            charIdx = 0;
+            if (typedEl) typedEl.textContent = navCmdText;
             const targetUrl = link.href;
             
-            function typeOutNav() {
-                if (charIdx < navCmdText.length) {
-                    if (typedEl) typedEl.textContent += navCmdText.charAt(charIdx);
-                    charIdx++;
-                    setTimeout(typeOutNav, 15);
-                } else {
-                    window.location.href = targetUrl;
-                }
-            }
-            typeOutNav();
+            setTimeout(() => {
+                window.location.href = targetUrl;
+            }, 120);
         }
     });
 

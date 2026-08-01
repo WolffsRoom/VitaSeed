@@ -461,10 +461,11 @@
                 const oldBtn = document.getElementById('btn-download');
                 if (oldBtn) oldBtn.remove();
                 
-                let qrUrl = window.location.href; // Fallback to current page
-                
+                let vpkUrl = window.location.href;
                 if (proj.downloads_list && proj.downloads_list.length > 0) {
-                    qrUrl = proj.downloads_list[0].url; // First download link for QR code
+                    // Priorizar o link de download que contenha .vpk no nome/URL
+                    const vpkItem = proj.downloads_list.find(dl => (dl.name || '').toLowerCase().includes('vpk') || (dl.url || '').toLowerCase().includes('.vpk')) || proj.downloads_list[0];
+                    vpkUrl = vpkItem.url;
                     
                     proj.downloads_list.forEach((dl, index) => {
                         const btn = document.createElement('a');
@@ -474,48 +475,50 @@
                         document.getElementById('btn-source').parentElement.insertBefore(btn, document.getElementById('btn-source'));
                     });
                 } else {
-                    // Fallback to source link
                     const btn = document.createElement('a');
                     btn.href = proj.source_link || '#';
                     btn.className = 'btn btn-primary';
                     btn.innerHTML = `<i class="ph ph-download-simple"></i> Download`;
                     document.getElementById('btn-source').parentElement.insertBefore(btn, document.getElementById('btn-source'));
-                    if (proj.source_link) qrUrl = proj.source_link;
+                    if (proj.source_link) vpkUrl = proj.source_link;
                 }
-
-                let currentQrUrl = qrUrl;
 
                 window.openQrModal = function() {
                     const modalQrContainer = document.getElementById("modal-qrcode");
                     if (modalQrContainer) {
                         modalQrContainer.innerHTML = "";
                         new QRCode(modalQrContainer, {
-                            text: currentQrUrl,
+                            text: vpkUrl,
                             width: 196,
                             height: 196,
                             colorDark : "#000000",
                             colorLight : "#ffffff",
-                            correctLevel : QRCode.CorrectLevel.H
+                            correctLevel : QRCode.CorrectLevel.M
                         });
                     }
                     const modalLink = document.getElementById("modal-qr-link");
-                    if (modalLink) modalLink.href = currentQrUrl;
+                    if (modalLink) modalLink.href = vpkUrl;
                     openModal('qrOverlay');
                 };
 
-                // Gerar QR Code
+                // Gerar QR Code miniatura
                 const qrBox = document.getElementById("qrcode");
-                qrBox.innerHTML = ""; // Clear if previously rendered
-                new QRCode(qrBox, {
-                    text: currentQrUrl,
-                    width: 60,
-                    height: 60,
-                    colorDark : "#000000",
-                    colorLight : "#ffffff",
-                    correctLevel : QRCode.CorrectLevel.L
-                });
-                
-                qrBox.onclick = window.openQrModal;
+                const qrWrapper = document.querySelector(".qr-container");
+                if (qrBox) {
+                    qrBox.innerHTML = "";
+                    new QRCode(qrBox, {
+                        text: vpkUrl,
+                        width: 60,
+                        height: 60,
+                        colorDark : "#000000",
+                        colorLight : "#ffffff",
+                        correctLevel : QRCode.CorrectLevel.L
+                    });
+                    qrBox.onclick = window.openQrModal;
+                }
+                if (qrWrapper) {
+                    qrWrapper.onclick = window.openQrModal;
+                }
 
                 // Cover Banner
 
