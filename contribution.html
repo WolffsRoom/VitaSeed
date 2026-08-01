@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Colaborações - VitARCH by Wolff</title>
+    <title>Collaborations - VitARCH by Wolff</title>
     <meta name="description" content="Grafo interativo de colaborações e desenvolvedores da cena PS Vita.">
     <link rel="icon" href="favicon.svg?v=60" type="image/svg+xml">
     <link rel="alternate icon" href="seed.svg?v=60" type="image/svg+xml">
@@ -92,11 +92,14 @@
       </div>
     </div>
 
-    <main class="wrap" style="padding-top: 2.5rem; padding-bottom: 3rem;">
-            <div class="graph-header">
+            <div class="graph-header" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.2rem;">
                 <div>
                     <h2 style="display:flex; align-items:center; gap:0.5rem;"><i class="ph ph-graph" style="color: var(--accent-green); font-size:1.5rem;"></i> Collaborations</h2>
                     <p style="color: var(--text-muted); margin-top: 0.5rem;">Explore connections and collaborations between PS Vita scene developers.</p>
+                </div>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <input type="text" id="graph-search-input" class="btn-ghost-sm" placeholder="search dev or project..." style="padding: 8px 14px; font-family: var(--mono); text-align: left; width: 220px; background: var(--surface); border: 1px solid var(--border-2); border-radius: var(--r);">
+                    <button id="graph-search-btn" class="btn-green-sm" style="padding: 8px 14px;"><i class="ph ph-magnifying-glass"></i> Filter</button>
                 </div>
             </div>
             
@@ -233,7 +236,7 @@
                     if (!devsMap.has(devName)) {
                         devsMap.set(devName, {
                             id: devName,
-                            label: devName,
+                            label: `👨‍💻 ${devName}`,
                             group: 'dev',
                             shape: 'dot',
                             size: 18
@@ -410,6 +413,39 @@
             // Keep alive when hovering tooltip
             tooltip.addEventListener('mouseenter', () => clearTimeout(hoverTimer));
             tooltip.addEventListener('mouseleave', () => hideTooltip());
+
+            // Search & Focus Nodes in Graph
+            const graphSearchInput = document.getElementById('graph-search-input');
+            const graphSearchBtn = document.getElementById('graph-search-btn');
+
+            function handleGraphSearch() {
+                const query = (graphSearchInput ? graphSearchInput.value : '').toLowerCase().trim();
+                if (!query) return;
+
+                const allNodes = nodes.get();
+                const matched = allNodes.find(n => {
+                    const lbl = (n.label || '').toLowerCase();
+                    return lbl.includes(query);
+                });
+
+                if (matched) {
+                    network.focus(matched.id, {
+                        scale: 1.2,
+                        animation: { duration: 800, easingFunction: 'easeInOutQuad' }
+                    });
+                    network.selectNodes([matched.id]);
+                    if (matched.group === 'project') showTooltip(matched.id);
+                } else {
+                    alert(`Nenhum autor ou projeto encontrado para "${query}".`);
+                }
+            }
+
+            if (graphSearchBtn) graphSearchBtn.addEventListener('click', handleGraphSearch);
+            if (graphSearchInput) {
+                graphSearchInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') handleGraphSearch();
+                });
+            }
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
