@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (termLoader) termLoader.classList.add('fade-out');
 
     // Re-trigger typing animation when clicking internal links (Instant navigation for project details)
+    let isNavigating = false;
     document.addEventListener('click', (e) => {
         const link = e.target.closest('a');
         if (link && link.href && link.href.startsWith(window.location.origin) && !link.target && !link.href.includes('#')) {
@@ -59,12 +60,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             // If navigating to project.html, navigate instantly without artificial delay
             if (urlObj.pathname.includes('project.html')) {
-                return; // Let standard link navigation proceed instantly
+                return; // Standard link navigation
             }
 
+            if (isNavigating) return;
+            isNavigating = true;
+
             let linkCat = urlObj.searchParams.get('cat') || 'all';
-            if (urlObj.pathname.includes('contribution.html')) linkCat = 'colaboracoes';
-            if (urlObj.pathname.endsWith('index.html') || urlObj.pathname === '/') linkCat = 'home';
+            if (urlObj.pathname.includes('contribution.html')) linkCat = 'collaborations';
+            if (urlObj.pathname.endsWith('index.html') || urlObj.pathname === '/' || urlObj.pathname.endsWith('/VitARCH/') || urlObj.pathname.endsWith('/vitarch/')) linkCat = 'home';
             
             const navCmdText = `ls --${linkCat.toLowerCase().replace(/\s+/g, '')}`;
             
@@ -92,7 +96,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.documentElement.setAttribute('data-theme', savedTheme);
     const themeBtnText = document.getElementById('theme-btn-text');
     if (themeBtnText) {
-        themeBtnText.innerHTML = savedTheme === 'light' ? '<i class="ph ph-sun"></i>' : (savedTheme === 'sony' ? '<i class="ph ph-game-controller"></i>' : '<i class="ph ph-moon"></i>');
+        const iconClass = savedTheme === 'light' ? 'ph-sun' : (savedTheme === 'sony' ? 'ph-game-controller' : 'ph-moon');
+        themeBtnText.innerHTML = `<i class="ph ${iconClass}"></i>`;
     }
 
     // 2. Mobile Sidebar Toggle logic

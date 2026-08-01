@@ -124,7 +124,7 @@
             const projectsData = await window.fetchCatalog();
             const cat = params.get('cat') || 'all';
             
-            const catTitle = cat === 'all' ? 'TODOS OS PROJETOS' : cat.toUpperCase();
+            const catTitle = cat === 'all' ? 'ALL PROJECTS' : cat.toUpperCase();
             document.getElementById('cat-title').innerText = catTitle;
             
             const grid = document.getElementById('project-grid');
