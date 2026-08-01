@@ -186,7 +186,7 @@
                                     <a id="btn-download" href="#" target="_blank" class="btn-primary"><i class="ph ph-download-simple"></i> Download</a>
                                     <a id="btn-source" href="#" target="_blank" class="btn-secondary" style="display:none;"><i class="ph ph-github-logo"></i> Source Code</a>
                                 </div>
-                                <div class="qr-container" title="Scan to download on Vita">
+                                <div class="qr-container" title="Click to enlarge & scan" onclick="openQrModal()" style="cursor: pointer; transition: transform 0.2s ease;">
                                     <div id="qrcode"></div>
                                 </div>
                             </div>
@@ -494,6 +494,24 @@
                     correctLevel : QRCode.CorrectLevel.L
                 });
 
+                window.openQrModal = function() {
+                    const modalQrContainer = document.getElementById("modal-qrcode");
+                    if (modalQrContainer) {
+                        modalQrContainer.innerHTML = "";
+                        new QRCode(modalQrContainer, {
+                            text: qrUrl,
+                            width: 196,
+                            height: 196,
+                            colorDark : "#000000",
+                            colorLight : "#ffffff",
+                            correctLevel : QRCode.CorrectLevel.H
+                        });
+                    }
+                    const modalLink = document.getElementById("modal-qr-link");
+                    if (modalLink) modalLink.href = qrUrl;
+                    openModal('qrOverlay');
+                };
+
                 // Cover Banner
 
                 const bannerUrl = proj.bannerUrl || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400';
@@ -734,6 +752,15 @@
     <textarea id="req-desc" placeholder="request details..."></textarea>
     <button class="btn-green-sm" style="width:100%; padding:10px;" onclick="sendRequest()">submit request</button>
     <div id="req-msg" style="margin-top:8px; font-size:12px;"></div>
+  </div>
+<!-- QR CODE ENLARGE MODAL -->
+<div class="overlay" id="qrOverlay">
+  <div class="modal" style="text-align: center; max-width: 340px;">
+    <button class="modal-close" onclick="closeModal('qrOverlay')">×</button>
+    <h3 style="margin-bottom: 8px;"><i class="ph ph-qr-code"></i> Direct VPK Download</h3>
+    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">Scan with VitaShell or mobile device to download VPK file directly.</p>
+    <div id="modal-qrcode" style="display: flex; justify-content: center; padding: 12px; background: #fff; border-radius: 12px; margin: 0 auto 1.2rem auto; width: 220px; height: 220px;"></div>
+    <a id="modal-qr-link" href="#" target="_blank" class="btn-green-sm" style="display: block; width: 100%; text-decoration: none; padding: 10px 0;"><i class="ph ph-download-simple"></i> Download VPK File</a>
   </div>
 </div>
 
