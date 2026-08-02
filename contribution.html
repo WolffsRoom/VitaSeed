@@ -326,7 +326,7 @@
                         updateInterval: 10
                     }
                 },
-                interaction: { hover: true, tooltipDelay: 100, zoomView: true, dragView: true, dragNodes: true }
+                interaction: { hover: true, tooltipDelay: 100, zoomView: true, dragView: true, dragNodes: true, multiselect: false, selectionWidth: 0 }
             };
 
             const network = new vis.Network(container, data, options);
@@ -410,25 +410,34 @@
                 }
             }
 
-            // Desktop Hover / Mobile Click Tooltip
+            // Tooltip on hover (desktop)
             network.on("hoverNode", function (params) {
                 if (params.node) showTooltip(params.node);
             });
 
-            network.on("blurNode", function (params) {
+            network.on("blurNode", function () {
                 hideTooltip();
             });
 
+            // Tooltip on click (mobile/touch)
             network.on("click", function (params) {
                 if (params.nodes.length > 0) {
+                    // Deselect immediately so selection highlight never stays active
+                    network.unselectAll();
                     showTooltip(params.nodes[0]);
                 } else {
                     hideTooltip(true);
                 }
             });
-            
+
+            // On drag start: hide tooltip only — do NOT change selection
             network.on("dragStart", function (params) {
                 hideTooltip(true);
+                // Ensure only the clicked node is selected/moved (no multi-select side-effects)
+                if (params.nodes.length > 0) {
+                    network.unselectAll();
+                    network.selectNodes([params.nodes[0]]);
+                }
             });
 
             // Keep alive when hovering tooltip
