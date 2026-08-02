@@ -498,13 +498,15 @@
                         modalQrContainer.innerHTML = "";
                         new QRCode(modalQrContainer, {
                             text: vpkUrl,
-                            width: 196,
-                            height: 196,
+                            width: 200,
+                            height: 200,
                             colorDark : "#000000",
                             colorLight : "#ffffff",
                             correctLevel : QRCode.CorrectLevel.M
                         });
                     }
+                    const modalTitle = document.getElementById("qr-modal-title");
+                    if (modalTitle) modalTitle.innerText = proj.title || "Direct VPK Download";
                     const modalLink = document.getElementById("modal-qr-link");
                     if (modalLink) modalLink.href = vpkUrl;
                     openModal('qrOverlay');
@@ -769,15 +771,24 @@
     <textarea id="req-desc" placeholder="request details..."></textarea>
     <button class="btn-green-sm" style="width:100%; padding:10px;" onclick="sendRequest()">submit request</button>
     <div id="req-msg" style="margin-top:8px; font-size:12px;"></div>
-  </div>
-<!-- QR CODE ENLARGE MODAL -->
-<div class="overlay" id="qrOverlay">
-  <div class="modal" style="text-align: center; max-width: 340px;">
-    <button class="modal-close" onclick="closeModal('qrOverlay')">×</button>
-    <h3 style="margin-bottom: 8px;"><i class="ph ph-qr-code"></i> Direct VPK Download</h3>
-    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">Scan with VitaShell or mobile device to download VPK file directly.</p>
-    <div id="modal-qrcode" style="display: flex; justify-content: center; padding: 12px; background: #fff; border-radius: 12px; margin: 0 auto 1.2rem auto; width: 220px; height: 220px;"></div>
-    <a id="modal-qr-link" href="#" target="_blank" class="btn-green-sm" style="display: block; width: 100%; text-decoration: none; padding: 10px 0;"><i class="ph ph-download-simple"></i> Download VPK File</a>
+</div>
+</div>
+
+<!-- QR CODE LIGHTBOX PREVIEW MODAL -->
+<div class="overlay" id="qrOverlay" onclick="if(event.target === this) closeModal('qrOverlay')">
+  <div class="modal" style="text-align: center; max-width: 360px; padding: 1.8rem; background: var(--surface); border: 1px solid var(--border); box-shadow: 0 25px 60px rgba(0,0,0,0.8); border-radius: 16px; position: relative;">
+    <button class="modal-close" onclick="closeModal('qrOverlay')" style="position: absolute; top: 12px; right: 16px; font-size: 24px; background: none; border: none; color: var(--text-muted); cursor: pointer;">×</button>
+    <div style="font-family: var(--mono); font-size: 11px; color: var(--green); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;"><i class="ph ph-qr-code" style="font-size: 14px; vertical-align: middle;"></i> Scan to Install</div>
+    <h3 id="qr-modal-title" style="margin-bottom: 6px; font-size: 1.2rem;">Direct VPK Download</h3>
+    <p style="color: var(--text-muted); font-size: 0.82rem; margin-bottom: 1.2rem; line-height: 1.4;">Scan with VitaShell camera or mobile device to download the VPK directly to your console.</p>
+    
+    <div style="background: #ffffff; padding: 16px; border-radius: 12px; display: inline-block; box-shadow: 0 8px 25px rgba(0,0,0,0.4); margin-bottom: 1.2rem;">
+      <div id="modal-qrcode" style="display: flex; justify-content: center; align-items: center; width: 200px; height: 200px;"></div>
+    </div>
+    
+    <a id="modal-qr-link" href="#" target="_blank" class="btn-green-sm" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; text-decoration: none; padding: 12px; font-size: 0.85rem; border-radius: 8px; font-weight: 700;">
+      <i class="ph ph-download-simple" style="font-size: 16px;"></i> Download VPK File
+    </a>
   </div>
 </div>
 
