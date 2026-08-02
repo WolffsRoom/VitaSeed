@@ -432,10 +432,27 @@
                     hideTooltip(true);
                 }
             });
-            
-            // Dragging hides tooltip
+            network.on("selectNode", function (params) {
+                if (params.nodes.length === 1) {
+                    const nodeId = params.nodes[0];
+                    const node = nodes.get(nodeId);
+                    if (node && node.group === 'dev') {
+                        const connectedProjects = network.getConnectedNodes(nodeId);
+                        network.selectNodes([nodeId, ...connectedProjects]);
+                    }
+                }
+            });
+
             network.on("dragStart", function (params) {
                 hideTooltip(true);
+                if (params.nodes.length === 1) {
+                    const nodeId = params.nodes[0];
+                    const node = nodes.get(nodeId);
+                    if (node && node.group === 'dev') {
+                        const connectedProjects = network.getConnectedNodes(nodeId);
+                        network.selectNodes([nodeId, ...connectedProjects]);
+                    }
+                }
             });
 
             // Keep alive when hovering tooltip
