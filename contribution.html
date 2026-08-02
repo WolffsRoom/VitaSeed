@@ -415,16 +415,15 @@
                 }
             }
 
-            // Desktop Hover
+            // Desktop Hover / Mobile Click Tooltip
             network.on("hoverNode", function (params) {
-                showTooltip(params.node);
+                if (params.node) showTooltip(params.node);
             });
 
             network.on("blurNode", function (params) {
                 hideTooltip();
             });
 
-            // Mobile Click/Touch
             network.on("click", function (params) {
                 if (params.nodes.length > 0) {
                     showTooltip(params.nodes[0]);
@@ -432,27 +431,9 @@
                     hideTooltip(true);
                 }
             });
-            network.on("selectNode", function (params) {
-                if (params.nodes.length === 1) {
-                    const nodeId = params.nodes[0];
-                    const node = nodes.get(nodeId);
-                    if (node && node.group === 'dev') {
-                        const connectedProjects = network.getConnectedNodes(nodeId);
-                        network.selectNodes([nodeId, ...connectedProjects]);
-                    }
-                }
-            });
-
+            
             network.on("dragStart", function (params) {
                 hideTooltip(true);
-                if (params.nodes.length === 1) {
-                    const nodeId = params.nodes[0];
-                    const node = nodes.get(nodeId);
-                    if (node && node.group === 'dev') {
-                        const connectedProjects = network.getConnectedNodes(nodeId);
-                        network.selectNodes([nodeId, ...connectedProjects]);
-                    }
-                }
             });
 
             // Keep alive when hovering tooltip
