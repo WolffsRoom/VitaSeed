@@ -372,32 +372,27 @@
                     document.getElementById('tt-btn').href = `project.html?id=${proj.id}`;
 
                     const domPos = network.canvasToDOM(network.getPositions([nodeId])[nodeId]);
+                    const containerRect = container.getBoundingClientRect();
+                    const tooltipWidth = 240;
+                    const tooltipHeight = tooltip.offsetHeight || 180;
                     
-                    tooltip.style.display = 'block';
-                    requestAnimationFrame(() => {
-                        const containerRect = container.getBoundingClientRect();
-                        const tooltipWidth = 240;
-                        const tooltipHeight = tooltip.offsetHeight || 180;
-                        
-                        let leftPos = domPos.x + 16;
-                        let topPos = domPos.y - (tooltipHeight / 2);
-                        
-                        // Se ultrapassar a direita do container, inverte para o lado esquerdo do nó
-                        if (leftPos + tooltipWidth > containerRect.width - 10) {
-                            leftPos = domPos.x - tooltipWidth - 16;
-                        }
+                    let leftPos = domPos.x + 16;
+                    let topPos = domPos.y - (tooltipHeight / 2);
+                    
+                    if (leftPos + tooltipWidth > containerRect.width - 10) {
+                        leftPos = domPos.x - tooltipWidth - 16;
+                    }
 
-                        // Manter dentro do limite vertical do container
-                        if (topPos < 10) topPos = 10;
-                        if (topPos + tooltipHeight > containerRect.height - 10) {
-                            topPos = containerRect.height - tooltipHeight - 10;
-                        }
-                        
-                        tooltip.style.left = leftPos + 'px';
-                        tooltip.style.top = topPos + 'px';
-                        tooltip.style.opacity = '1';
-                        tooltip.style.transform = 'translateY(0) scale(1)';
-                    });
+                    if (topPos < 10) topPos = 10;
+                    if (topPos + tooltipHeight > containerRect.height - 10) {
+                        topPos = containerRect.height - tooltipHeight - 10;
+                    }
+                    
+                    tooltip.style.left = leftPos + 'px';
+                    tooltip.style.top = topPos + 'px';
+                    tooltip.style.display = 'block';
+                    tooltip.style.opacity = '1';
+                    tooltip.style.transform = 'translateY(0) scale(1)';
                 }
             }
 
