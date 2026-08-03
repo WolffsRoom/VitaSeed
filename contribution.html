@@ -471,9 +471,9 @@
             if (grid) {
                 grid.innerHTML = '';
                 sortedDevs.forEach(dev => {
-                    let role = "Contribuidor";
-                    if (dev.projects.length >= 5) role = "Desenvolvedor Core";
-                    else if (dev.projects.length >= 2) role = "Colaborador Ativo";
+                    let role = "Contributor";
+                    if (dev.projects.length >= 5) role = "Core Developer";
+                    else if (dev.projects.length >= 2) role = "Active Contributor";
                     
                     const initials = dev.name.slice(0, 2).toUpperCase();
                     
@@ -485,7 +485,7 @@
                     const avatarBg = `linear-gradient(135deg, hsl(${hue}, 80%, 45%) 0%, hsl(${(hue + 60) % 360}, 80%, 25%) 100%)`;
                     
                     const projectTagsHTML = dev.projects.map(p => `
-                        <a href="project.html?id=${p.id}" class="dev-proj-tag" title="Ver detalhes de ${p.title}">
+                        <a href="project.html?id=${p.id}" class="dev-proj-tag" title="View details of ${p.title}">
                             <i class="ph ph-link-simple" style="font-size: 10px;"></i> ${p.title}
                         </a>
                     `).join('');
@@ -513,23 +513,23 @@
                         </div>
                         <div class="dev-stats-row">
                             <div class="dev-stat-item">
-                                <strong>${dev.projects.length}</strong> projetos
+                                <strong>${dev.projects.length}</strong> projects
                             </div>
                             <div class="dev-stat-item">
-                                <strong>${dev.collaborators.size}</strong> conexões
+                                <strong>${dev.collaborators.size}</strong> connections
                             </div>
                         </div>
                         <div>
-                            <div class="dev-section-title">Principais Áreas</div>
-                            <div style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--mono);">${categoriesList || 'Geral'}</div>
+                            <div class="dev-section-title">Primary Areas</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--mono);">${categoriesList || 'General'}</div>
                         </div>
                         <div>
-                            <div class="dev-section-title">Projetos</div>
+                            <div class="dev-section-title">Projects</div>
                             <div class="dev-links-list">${projectTagsHTML}</div>
                         </div>
                         ${dev.collaborators.size > 0 ? `
                         <div>
-                            <div class="dev-section-title">Colaboradores Frequentes</div>
+                            <div class="dev-section-title">Frequent Collaborators</div>
                             <div class="dev-links-list">${colabTagsHTML}</div>
                         </div>
                         ` : ''}
@@ -832,12 +832,12 @@
                         .filter(n => n && n.group === 'project').length;
 
                     document.getElementById('tt-title').innerText = devName;
-                    document.getElementById('tt-cat').innerText = `${projectsCount} projeto(s) no catálogo`;
+                    document.getElementById('tt-cat').innerText = `${projectsCount} project(s) in catalog`;
                     document.getElementById('tt-img').style.backgroundImage = `linear-gradient(135deg, var(--green-dim) 0%, var(--surface-2) 100%)`;
 
                     const btn = document.getElementById('tt-btn');
                     btn.href = '#';
-                    btn.innerHTML = `<i class="ph ph-funnel"></i> Filtrar Conexões`;
+                    btn.innerHTML = `<i class="ph ph-funnel"></i> Filter Connections`;
                     btn.onclick = (e) => {
                         e.preventDefault();
                         graphSearchInput.value = devName;
@@ -990,7 +990,7 @@
                     
                     showTooltip(matched.id);
                 } else {
-                    showToast(`Nenhum autor ou projeto encontrado no grafo para "${query}".`, 'error');
+                    showToast(`No author or project found in graph for "${query}".`, 'error');
                 }
             }
 
@@ -1014,11 +1014,11 @@
     <footer>
       <div class="wrap foot-row">
         <div>
-          <div class="foot-copy">© 2026 VitARCH. Todos os direitos reservados.</div>
-          <div class="foot-disclaimer">Repositório não oficial. Todos os jogos, ports e marcas pertencem aos seus respectivos donos.</div>
+          <div class="foot-copy">© 2026 VitARCH. All rights reserved.</div>
+          <div class="foot-disclaimer">Unofficial repository. All games, ports, and trademarks belong to their respective owners.</div>
         </div>
         <div class="foot-links">
-          <a href="https://github.com/WolffsRoom/VitARCH" target="_blank">github do projeto</a>
+          <a href="https://github.com/WolffsRoom/VitARCH" target="_blank">project github</a>
           <a href="http://brewology.com/" target="_blank">brewology</a>
           <a href="https://wololo.net/" target="_blank">wololo.net</a>
         </div>

@@ -43,6 +43,7 @@ if (firebaseConfig.apiKey !== "Sua_API_Key_Aqui") {
         }
     }).catch((error) => {
         console.error("Erro no processamento de redirecionamento de login:", error);
+        alert("Authentication Error: " + error.message + " (Code: " + error.code + ")");
     });
 }
 
