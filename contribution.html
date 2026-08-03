@@ -282,10 +282,10 @@
             <!-- Tabs Navigation -->
             <div class="colab-tabs" style="display: flex; gap: 8px; margin-top: 0.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-2, rgba(255,255,255,0.06)); padding-bottom: 10px;">
                 <button class="colab-tab active" data-tab="directory" style="display: flex; align-items: center; gap: 6px; padding: 10px 16px; background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-family: var(--mono); font-size: 13px; font-weight: bold; border-radius: var(--r); transition: all 0.2s;">
-                    <i class="ph ph-squares-four" style="font-size: 16px;"></i> Diretório
+                    <i class="ph ph-squares-four" style="font-size: 16px;"></i> Directory
                 </button>
                 <button class="colab-tab" data-tab="graph" style="display: flex; align-items: center; gap: 6px; padding: 10px 16px; background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-family: var(--mono); font-size: 13px; font-weight: bold; border-radius: var(--r); transition: all 0.2s;">
-                    <i class="ph ph-graph" style="font-size: 16px;"></i> Grafo de Conexões
+                    <i class="ph ph-graph" style="font-size: 16px;"></i> Connection Graph
                 </button>
             </div>
 
@@ -295,7 +295,7 @@
                     <!-- Cards will be dynamically injected here -->
                 </div>
                 <div id="directory-empty-msg" style="display: none; text-align: center; padding: 3rem; color: var(--text-muted); font-family: var(--mono);">
-                    Nenhum desenvolvedor ou projeto encontrado para a busca.
+                    No developers or projects found for this search.
                 </div>
             </div>
 
@@ -357,38 +357,14 @@
         <script src="js/api.js?v=3"></script>
     <script src="js/theme.js?v=2"></script>
 
-    <!-- Modal Utility (main.js não é carregado nesta página) -->
+    <!-- Modal Utility -->
     <script>
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('show');
-        }
-        function sendRequest() {
-            const title = document.getElementById('req-title').value.trim();
-            const msgBox = document.getElementById('req-msg');
-            if (!title) {
-                msgBox.style.color = '#ff4d4d';
-                msgBox.innerText = 'Por favor, informe o nome do projeto.';
-                return;
-            }
-            const today = new Date().toISOString().split('T')[0];
-            const key = `vitaseed_requests_${today}`;
-            let requestsToday = parseInt(localStorage.getItem(key) || '0');
-            if (requestsToday >= 2) {
-                msgBox.style.color = '#ff4d4d';
-                msgBox.innerText = 'Limite de 2 envios por dia atingido.';
-                return;
-            }
-            localStorage.setItem(key, (requestsToday + 1).toString());
-            msgBox.style.color = 'var(--accent-green)';
-            msgBox.innerText = 'Request enviado com sucesso!';
-            document.getElementById('req-title').value = '';
-            document.getElementById('req-link').value = '';
-            document.getElementById('req-desc').value = '';
-            setTimeout(() => { closeModal('modal-request'); msgBox.innerText = ''; }, 2000);
-        }
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                document.querySelectorAll('.modal.show').forEach(m => m.classList.remove('show'));
+                document.querySelectorAll('.modal.show, .overlay.open').forEach(m => {
+                    m.style.display = 'none';
+                    m.classList.remove('show', 'open');
+                });
             }
         });
         document.addEventListener("DOMContentLoaded", async () => {
@@ -1096,8 +1072,8 @@
         <div class="n2">by Wolff</div>
       </div>
     </div>
-    <h3>sobre o vitarch</h3>
-    <p>O VitARCH (Vita + Archive) é o novo repositório agregador para a cena homebrew do PSVita. Centralizamos Ports, Mods, Traduções, Plugins, Apps e Ferramentas.</p>
+    <h3>about vitarch</h3>
+    <p>VitARCH (Vita + Archive) is the open aggregator repository for the PS Vita homebrew scene. We centralize Ports, Mods, Translations, Plugins, Apps, and Tools.</p>
   </div>
 </div>
 
@@ -1105,12 +1081,12 @@
 <div class="overlay" id="requestOverlay">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('requestOverlay')">×</button>
-    <h3>solicitar projeto</h3>
-    <p>Não encontrou o que procurava? Envie um pedido pra adicionarmos o projeto ao catálogo.</p>
-    <input type="text" id="req-title" class="btn-ghost-sm" placeholder="nome do projeto..." style="width:100%; margin-bottom:8px; text-align:left;">
-    <input type="text" id="req-link" class="btn-ghost-sm" placeholder="link de referência..." style="width:100%; margin-bottom:8px; text-align:left;">
-    <textarea id="req-desc" placeholder="detalhes do pedido..."></textarea>
-    <button class="btn-green-sm" style="width:100%; padding:10px;" onclick="sendRequest()">enviar pedido</button>
+    <h3>request project</h3>
+    <p>Didn't find what you were looking for? Submit a request to add a new project to the catalog.</p>
+    <input type="text" id="req-title" class="btn-ghost-sm" placeholder="project name..." style="width:100%; margin-bottom:8px; text-align:left;">
+    <input type="text" id="req-link" class="btn-ghost-sm" placeholder="reference link..." style="width:100%; margin-bottom:8px; text-align:left;">
+    <textarea id="req-desc" placeholder="request details..."></textarea>
+    <button class="btn-green-sm" style="width:100%; padding:10px;" onclick="sendRequest()">submit request</button>
     <div id="req-msg" style="margin-top:8px; font-size:12px;"></div>
   </div>
 </div>

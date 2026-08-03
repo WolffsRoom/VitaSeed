@@ -343,39 +343,7 @@
         <div class="lightbox-next"><i class="ph ph-caret-right"></i></div>
     </div>
 
-<!-- LOGIN MODAL -->
-<div class="overlay" id="loginOverlay">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('loginOverlay')">×</button>
-    <h3>acesse o vitarch</h3>
-    <p>Faça login para solicitar a adição de novos jogos ao catálogo.</p>
-    <button class="oauth-btn" onclick="loginWithGoogle()"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" width="16" height="16"> entrar com google</button>
-    <button class="oauth-btn" onclick="loginWithGitHub()"><i class="fa-brands fa-github"></i> entrar com github</button>
-  </div>
-</div>
 
-<!-- ABOUT MODAL -->
-<div class="overlay" id="aboutOverlay">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('aboutOverlay')">×</button>
-    <h3>sobre o vitarch</h3>
-    <p>O VitARCH (Vita + Archive) é o novo repositório agregador para a cena homebrew do PSVita. Centralizamos Ports, Mods, Traduções, Plugins, Apps e Ferramentas.</p>
-  </div>
-</div>
-
-<!-- REQUEST MODAL -->
-<div class="overlay" id="requestOverlay">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('requestOverlay')">×</button>
-    <h3>solicitar projeto</h3>
-    <p>Não encontrou o que procurava? Envie um pedido pra adicionarmos o projeto ao catálogo.</p>
-    <input type="text" id="req-title" class="btn-ghost-sm" placeholder="nome do projeto..." style="width:100%; margin-bottom:8px; text-align:left;">
-    <input type="text" id="req-link" class="btn-ghost-sm" placeholder="link de referência..." style="width:100%; margin-bottom:8px; text-align:left;">
-    <textarea id="req-desc" placeholder="detalhes do pedido..."></textarea>
-    <button class="btn-green-sm" style="width:100%; padding:10px;" onclick="sendRequest()">enviar pedido</button>
-    <div id="req-msg" style="margin-top:8px; font-size:12px;"></div>
-  </div>
-</div>
 
     <script src="js/catalog_data.js"></script>
     <script src="js/api.js?v=3"></script>
@@ -389,18 +357,42 @@
         if(burgerBtn) burgerBtn.addEventListener('click', function(){ sidebar.classList.toggle('open'); });
     </script>
     <script>
+        var proj = null;
+        
+        window.syncFavoritesUI = function() {
+            const starBtn = document.getElementById('btn-project-star');
+            if (starBtn && proj) {
+                const isFav = window.userProfileData && window.userProfileData.favorites && window.userProfileData.favorites.includes(proj.id);
+                const icon = starBtn.querySelector('i');
+                if (isFav) {
+                    starBtn.style.color = '#fbbf24';
+                    starBtn.title = 'Remove from Favorites';
+                    if (icon) icon.className = 'ph-fill ph-star';
+                } else {
+                    starBtn.style.color = 'var(--text-muted)';
+                    starBtn.title = 'Add to Favorites';
+                    if (icon) icon.className = 'ph ph-star';
+                }
+            }
+        };
+
         document.addEventListener("DOMContentLoaded", async () => {
             const params = new URLSearchParams(window.location.search);
             const projectsData = await window.fetchCatalog();
             const id = parseInt(params.get('id'));
-            const proj = projectsData.find(p => p.id === id);
+            proj = projectsData.find(p => p.id === id);
             
             if (proj) {
+                const isFav = window.userProfileData && window.userProfileData.favorites && window.userProfileData.favorites.includes(proj.id);
                 document.title = `${proj.title} - VitARCH - Project Details`;
-                document.getElementById('proj-title').innerHTML = window.formatTitle(proj.title);
+                document.getElementById('proj-title').innerHTML = `
+                    ${window.formatTitle(proj.title)}
+                    <button id="btn-project-star" onclick="toggleFavorite(event, ${proj.id}, this)" style="background: transparent; border: none; color: ${isFav ? '#fbbf24' : 'var(--text-muted)'}; cursor: pointer; font-size: 1.5rem; vertical-align: middle; margin-left: 12px; transition: all 0.2s;" title="${isFav ? 'Remove from Favorites' : 'Add to Favorites'}">
+                        <i class="${isFav ? 'ph-fill ph-star' : 'ph ph-star'}"></i>
+                    </button>
+                `;
                 
                 document.getElementById('proj-desc').innerText = proj.description;
-                
                 document.getElementById('btn-source').href = proj.source_link;
                 
                 // Metadados

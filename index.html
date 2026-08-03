@@ -538,7 +538,7 @@
                     };
                     card.innerHTML = `
                   <div class="card-cover" style="background-image: linear-gradient(to top, rgba(10,10,11,0.95), transparent), url('${proj.bannerUrl}'); background-size: cover; background-position: center;">
-                      <button class="bookmark" onclick="event.stopPropagation(); if(!window.currentUser){ if(typeof openModal==='function') openModal('loginOverlay'); return;} this.classList.toggle('saved'); this.textContent = this.classList.contains('saved') ? '✓' : '+';">+</button>
+                      <button class="bookmark \${window.userProfileData && window.userProfileData.favorites && window.userProfileData.favorites.includes(proj.id) ? 'saved' : ''}" onclick="event.stopPropagation(); toggleFavorite(event, \${proj.id}, this)">\${window.userProfileData && window.userProfileData.favorites && window.userProfileData.favorites.includes(proj.id) ? '✓' : '+'}</button>
                       <span class="tag">${proj.category}</span>
                       <span class="name">${proj.title}</span>
                   </div>
@@ -555,9 +555,36 @@
                 });
             }
 
+            window.syncFavoritesUI = function() {
+                document.querySelectorAll('article.card').forEach(card => {
+                    const btn = card.querySelector('.bookmark');
+                    if (btn) {
+                        const onclickAttr = btn.getAttribute('onclick') || '';
+                        const match = onclickAttr.match(/toggleFavorite\(event,\s*(\d+)/);
+                        if (match && match[1]) {
+                            const projId = parseInt(match[1]);
+                            const isFav = window.userProfileData && window.userProfileData.favorites && window.userProfileData.favorites.includes(projId);
+                            if (isFav) {
+                                btn.classList.add('saved');
+                                btn.textContent = '✓';
+                            } else {
+                                btn.classList.remove('saved');
+                                btn.textContent = '+';
+                            }
+                        }
+                    }
+                });
+            }
+
             if (searchInput) {
                 searchInput.addEventListener('input', () => {
                     renderGrid();
+                    if (searchInput.value.trim().length > 0) {
+                        const catalogEl = document.getElementById('catalogo');
+                        if (catalogEl && catalogEl.getBoundingClientRect().top > window.innerHeight) {
+                            catalogEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }
                 });
             }
 
