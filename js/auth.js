@@ -134,10 +134,19 @@ async function loginWithGoogle() {
         return;
     }
     try {
-        await auth.signInWithRedirect(googleProvider);
+        await auth.signInWithPopup(googleProvider);
+        if (typeof closeModal === 'function') {
+            closeModal('loginOverlay');
+            closeModal('modal-login');
+        }
     } catch (error) {
-        console.error("Erro ao fazer login com Google:", error);
-        alert("Erro ao iniciar login. Tente novamente.");
+        console.warn("Popup blocked or failed, trying redirect flow...", error);
+        try {
+            await auth.signInWithRedirect(googleProvider);
+        } catch (err) {
+            console.error("Erro ao fazer login com Google:", err);
+            alert("Erro ao iniciar login: " + err.message);
+        }
     }
 }
 
@@ -147,10 +156,19 @@ async function loginWithGitHub() {
         return;
     }
     try {
-        await auth.signInWithRedirect(githubProvider);
+        await auth.signInWithPopup(githubProvider);
+        if (typeof closeModal === 'function') {
+            closeModal('loginOverlay');
+            closeModal('modal-login');
+        }
     } catch (error) {
-        console.error("Erro ao fazer login com GitHub:", error);
-        alert("Erro ao iniciar login. Tente novamente.");
+        console.warn("Popup blocked or failed, trying redirect flow...", error);
+        try {
+            await auth.signInWithRedirect(githubProvider);
+        } catch (err) {
+            console.error("Erro ao fazer login com GitHub:", err);
+            alert("Erro ao iniciar login: " + err.message);
+        }
     }
 }
 
