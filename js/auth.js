@@ -229,6 +229,9 @@ function openProfileModal() {
         alert('Profile still loading, please try again.');
         return;
     }
+    // Close settings if open
+    closeModal('modal-settings');
+
     const modal = document.getElementById('modal-profile');
     if (modal) {
         modal.style.display = 'flex';
@@ -289,6 +292,9 @@ async function saveProfile() {
 }
 
 function openSettingsModal() {
+    // Close profile if open
+    closeModal('modal-profile');
+
     const modal = document.getElementById('modal-settings');
     if (modal) {
         modal.style.display = 'flex';
@@ -361,12 +367,12 @@ function injectProfileDropdown() {
 function injectProfileModals() {
     if (!document.getElementById('modal-profile')) {
         const modalsHtml = `
-            <!-- Profile Modal -->
-            <div id="modal-profile" class="modal" onclick="if(event.target===this)closeModal('modal-profile')" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(8px); font-family: system-ui, -apple-system, sans-serif;">
-                <div class="modal-content" style="max-width: 500px; background: var(--bg-card, #121214); border: 1px solid var(--border-color, #29292c); border-radius: 12px; padding: 2rem; width: 90%; max-height: 90vh; overflow-y: auto; position: relative;">
+            <!-- Profile Modal Drawer -->
+            <div id="modal-profile" class="modal" onclick="if(event.target===this)closeModal('modal-profile')" style="position: fixed; top: 0; right: 0; left: auto; width: 100%; max-width: 440px; height: 100vh; background: rgba(10,10,11,0.75); z-index: 10000; display: none; align-items: stretch; justify-content: flex-end; backdrop-filter: blur(8px); font-family: system-ui, -apple-system, sans-serif;">
+                <div class="modal-content" style="width: 100%; height: 100vh; background: var(--bg-card, #121214); border-left: 1px solid var(--border-color, #29292c); border-radius: 0; padding: 2rem; overflow-y: auto; position: relative; box-shadow: -10px 0 30px rgba(0,0,0,0.5);">
                     <span class="close-btn" onclick="closeModal('modal-profile')" style="position: absolute; right: 20px; top: 20px; font-size: 24px; color: var(--text-muted); cursor: pointer;">&times;</span>
                     
-                    <h2 style="font-family: var(--mono); color: var(--text); margin-bottom: 1.5rem; font-size: 1.5rem; text-align: left;">User Profile</h2>
+                    <h2 style="font-family: var(--mono); color: var(--text); margin-bottom: 1.5rem; font-size: 1.4rem; text-align: left;">User Profile</h2>
                     
                     <div class="profile-tabs" style="display: flex; gap: 8px; border-bottom: 1px solid var(--border-color, #29292c); padding-bottom: 8px; margin-bottom: 1.5rem;">
                         <button class="profile-tab active" onclick="switchProfileTab('edit-profile-fields', this)" style="background: transparent; border: none; color: var(--green); border-bottom: 2px solid var(--green); font-family: var(--mono); font-weight: bold; cursor: pointer; padding: 6px 12px; font-size: 13px;">Edit Profile</button>
@@ -410,18 +416,18 @@ function injectProfileModals() {
                     </div>
 
                     <div id="favorites-list-tab" class="profile-tab-content" style="display: none;">
-                        <div id="favorites-container" style="max-height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin-top: 0.5rem; text-align: left;">
+                        <div id="favorites-container" style="max-height: calc(100vh - 200px); overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin-top: 0.5rem; text-align: left;">
                             <!-- Dynamically populated favorites -->
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Settings Modal -->
-            <div id="modal-settings" class="modal" onclick="if(event.target===this)closeModal('modal-settings')" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(8px); font-family: system-ui, -apple-system, sans-serif;">
-                <div class="modal-content" style="max-width: 400px; background: var(--bg-card, #121214); border: 1px solid var(--border-color, #29292c); border-radius: 12px; padding: 2rem; width: 90%; position: relative;">
+            <!-- Settings Modal Drawer -->
+            <div id="modal-settings" class="modal" onclick="if(event.target===this)closeModal('modal-settings')" style="position: fixed; top: 0; right: 0; left: auto; width: 100%; max-width: 380px; height: 100vh; background: rgba(10,10,11,0.75); z-index: 10000; display: none; align-items: stretch; justify-content: flex-end; backdrop-filter: blur(8px); font-family: system-ui, -apple-system, sans-serif;">
+                <div class="modal-content" style="width: 100%; height: 100vh; background: var(--bg-card, #121214); border-left: 1px solid var(--border-color, #29292c); border-radius: 0; padding: 2rem; overflow-y: auto; position: relative; box-shadow: -10px 0 30px rgba(0,0,0,0.5);">
                     <span class="close-btn" onclick="closeModal('modal-settings')" style="position: absolute; right: 20px; top: 20px; font-size: 24px; color: var(--text-muted); cursor: pointer;">&times;</span>
-                    <h2 style="font-family: var(--mono); color: var(--text); margin-bottom: 1.5rem; font-size: 1.5rem; text-align: left;">Settings</h2>
+                    <h2 style="font-family: var(--mono); color: var(--text); margin-bottom: 1.5rem; font-size: 1.4rem; text-align: left;">Settings</h2>
                     <div style="display: flex; flex-direction: column; gap: 1rem; text-align: left;">
                         <div>
                             <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem;">Language / Idioma</label>
