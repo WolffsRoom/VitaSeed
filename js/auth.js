@@ -718,6 +718,15 @@ window.openModal = function(id) {
     }
 };
 
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        document.querySelectorAll('.modal, .overlay').forEach(m => {
+            m.style.display = 'none';
+            m.classList.remove('show', 'open');
+        });
+    }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     injectProfileDropdown();
     injectProfileModals();
