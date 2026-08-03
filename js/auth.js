@@ -56,7 +56,9 @@ function updateAuthUI(user) {
         // Hide sign-in buttons on all pages
         loginBtns.forEach(btn => btn.style.display = 'none');
         
-        const avatarHtml = `<img src="${user.photoURL || 'https://via.placeholder.com/32'}" alt="Avatar" style="width:36px; height:36px; border-radius:50%; border:2px solid var(--accent-green); cursor:pointer;" onclick="toggleProfileMenu(event)" title="Account Options">`;
+        const photoUrl = (userProfileData && userProfileData.avatar_url) ? userProfileData.avatar_url : (user.photoURL || 'https://via.placeholder.com/32');
+        const displayName = (userProfileData && userProfileData.display_name) ? userProfileData.display_name : (user.displayName || 'Viteiro');
+        const avatarHtml = `<img src="${photoUrl}" alt="Avatar" style="width:36px; height:36px; border-radius:50%; border:2px solid var(--accent-green); cursor:pointer; object-fit:cover;" onclick="toggleProfileMenu(event)" title="Account Options">`;
         
         dropdownContainers.forEach(container => {
             container.classList.remove('hidden');
@@ -65,12 +67,12 @@ function updateAuthUI(user) {
             if (!avatarImg) {
                 container.insertAdjacentHTML('afterbegin', avatarHtml);
             } else {
-                avatarImg.src = user.photoURL || 'https://via.placeholder.com/32';
+                avatarImg.src = photoUrl;
             }
             
             const menuName = container.querySelector('#menu-user-name');
             const menuEmail = container.querySelector('#menu-user-email');
-            if(menuName) menuName.innerText = user.displayName || 'Viteiro';
+            if(menuName) menuName.innerText = displayName;
             if(menuEmail) menuEmail.innerText = user.email || '';
             
             const adminPanelBtn = container.querySelector('#menu-admin-panel');
@@ -209,7 +211,8 @@ async function fetchUserProfile() {
                 const adminBtn = document.getElementById('menu-admin-publish');
                 if (adminBtn) adminBtn.classList.remove('hidden');
             }
-            // If we have a favorites renderer, run it to sync UI
+            // Update UI with newly loaded profile
+            updateAuthUI(currentUser);
             if (typeof syncFavoritesUI === 'function') {
                 syncFavoritesUI();
             }
