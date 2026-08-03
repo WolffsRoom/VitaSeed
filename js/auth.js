@@ -505,7 +505,7 @@ window.toggleFavorite = async function(event, projectId, buttonElement) {
         event.stopPropagation();
     }
     
-    if (!currentUser || !userProfileData) {
+    if (!currentUser) {
         if (typeof openModal === 'function') {
             openModal('loginOverlay');
         } else {
@@ -514,6 +514,9 @@ window.toggleFavorite = async function(event, projectId, buttonElement) {
         }
         return;
     }
+
+    if (!userProfileData) userProfileData = { favorites: [] };
+    if (!userProfileData.favorites) userProfileData.favorites = [];
     
     try {
         const token = await currentUser.getIdToken();
@@ -528,9 +531,8 @@ window.toggleFavorite = async function(event, projectId, buttonElement) {
         
         if (res.ok) {
             const data = await res.json();
-            if (!userProfileData.favorites) userProfileData.favorites = [];
-            
             const isAdded = data.status === 'added';
+            
             if (isAdded) {
                 if (!userProfileData.favorites.some(id => id == projectId)) {
                     userProfileData.favorites.push(projectId);
@@ -550,15 +552,11 @@ window.toggleFavorite = async function(event, projectId, buttonElement) {
                     if (isAdded) {
                         buttonElement.style.color = '#fbbf24';
                         buttonElement.title = 'Remove from Favorites';
-                        if (icon) {
-                            icon.className = 'ph-fill ph-star';
-                        }
+                        if (icon) icon.className = 'ph-fill ph-star';
                     } else {
                         buttonElement.style.color = 'var(--text-muted)';
                         buttonElement.title = 'Add to Favorites';
-                        if (icon) {
-                            icon.className = 'ph ph-star';
-                        }
+                        if (icon) icon.className = 'ph ph-star';
                     }
                 } else {
                     if (isAdded) {
