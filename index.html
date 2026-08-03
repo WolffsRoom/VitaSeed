@@ -536,9 +536,10 @@
                         if (e.target.closest('.bookmark')) return;
                         window.location.href = `project.html?id=${proj.id}`;
                     };
+                    const isFav = window.userProfileData && window.userProfileData.favorites && window.userProfileData.favorites.includes(proj.id);
                     card.innerHTML = `
                   <div class="card-cover" style="background-image: linear-gradient(to top, rgba(10,10,11,0.95), transparent), url('${proj.bannerUrl}'); background-size: cover; background-position: center;">
-                      <button class="bookmark \${window.userProfileData && window.userProfileData.favorites && window.userProfileData.favorites.includes(proj.id) ? 'saved' : ''}" onclick="event.stopPropagation(); toggleFavorite(event, \${proj.id}, this)">\${window.userProfileData && window.userProfileData.favorites && window.userProfileData.favorites.includes(proj.id) ? '✓' : '+'}</button>
+                      <button class="bookmark ${isFav ? 'saved' : ''}" onclick="event.stopPropagation(); toggleFavorite(event, ${proj.id}, this)">${isFav ? '✓' : '+'}</button>
                       <span class="tag">${proj.category}</span>
                       <span class="name">${proj.title}</span>
                   </div>
