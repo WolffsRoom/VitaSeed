@@ -368,9 +368,9 @@ function injectProfileModals() {
     if (!document.getElementById('modal-profile')) {
         const modalsHtml = `
             <!-- Profile Modal Drawer -->
-            <div id="modal-profile" class="modal" onclick="if(event.target===this)closeModal('modal-profile')" style="position: fixed; top: 0; right: 0; left: auto; width: 100%; max-width: 440px; height: 100vh; background: rgba(10,10,11,0.75); z-index: 10000; display: none; align-items: stretch; justify-content: flex-end; backdrop-filter: blur(8px); font-family: system-ui, -apple-system, sans-serif;">
-                <div class="modal-content" style="width: 100%; height: 100vh; background: var(--bg-card, #121214); border-left: 1px solid var(--border-color, #29292c); border-radius: 0; padding: 2rem; overflow-y: auto; position: relative; box-shadow: -10px 0 30px rgba(0,0,0,0.5);">
-                    <span class="close-btn" onclick="closeModal('modal-profile')" style="position: absolute; right: 20px; top: 20px; font-size: 24px; color: var(--text-muted); cursor: pointer;">&times;</span>
+            <div id="modal-profile" class="modal" onclick="if(event.target===this)closeModal('modal-profile')" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10,10,11,0.75); z-index: 10000; display: none; align-items: stretch; justify-content: flex-end; backdrop-filter: blur(8px); font-family: system-ui, -apple-system, sans-serif;">
+                <div class="modal-content" onclick="event.stopPropagation()" style="width: 100%; max-width: 440px; height: 100vh; background: var(--bg-card, #121214); border-left: 1px solid var(--border-color, #29292c); border-radius: 0; padding: 2rem; overflow-y: auto; position: relative; box-shadow: -10px 0 30px rgba(0,0,0,0.5);">
+                    <button class="close-btn" onclick="closeModal('modal-profile')" style="position: absolute; right: 20px; top: 20px; font-size: 24px; background: transparent; border: none; color: var(--text-muted); cursor: pointer; line-height: 1;">&times;</button>
                     
                     <h2 style="font-family: var(--mono); color: var(--text); margin-bottom: 1.5rem; font-size: 1.4rem; text-align: left;">User Profile</h2>
                     
@@ -424,13 +424,13 @@ function injectProfileModals() {
             </div>
             
             <!-- Settings Modal Drawer -->
-            <div id="modal-settings" class="modal" onclick="if(event.target===this)closeModal('modal-settings')" style="position: fixed; top: 0; right: 0; left: auto; width: 100%; max-width: 380px; height: 100vh; background: rgba(10,10,11,0.75); z-index: 10000; display: none; align-items: stretch; justify-content: flex-end; backdrop-filter: blur(8px); font-family: system-ui, -apple-system, sans-serif;">
-                <div class="modal-content" style="width: 100%; height: 100vh; background: var(--bg-card, #121214); border-left: 1px solid var(--border-color, #29292c); border-radius: 0; padding: 2rem; overflow-y: auto; position: relative; box-shadow: -10px 0 30px rgba(0,0,0,0.5);">
-                    <span class="close-btn" onclick="closeModal('modal-settings')" style="position: absolute; right: 20px; top: 20px; font-size: 24px; color: var(--text-muted); cursor: pointer;">&times;</span>
+            <div id="modal-settings" class="modal" onclick="if(event.target===this)closeModal('modal-settings')" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10,10,11,0.75); z-index: 10000; display: none; align-items: stretch; justify-content: flex-end; backdrop-filter: blur(8px); font-family: system-ui, -apple-system, sans-serif;">
+                <div class="modal-content" onclick="event.stopPropagation()" style="width: 100%; max-width: 380px; height: 100vh; background: var(--bg-card, #121214); border-left: 1px solid var(--border-color, #29292c); border-radius: 0; padding: 2rem; overflow-y: auto; position: relative; box-shadow: -10px 0 30px rgba(0,0,0,0.5);">
+                    <button class="close-btn" onclick="closeModal('modal-settings')" style="position: absolute; right: 20px; top: 20px; font-size: 24px; background: transparent; border: none; color: var(--text-muted); cursor: pointer; line-height: 1;">&times;</button>
                     <h2 style="font-family: var(--mono); color: var(--text); margin-bottom: 1.5rem; font-size: 1.4rem; text-align: left;">Settings</h2>
                     <div style="display: flex; flex-direction: column; gap: 1rem; text-align: left;">
                         <div>
-                            <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem;">Language / Idioma</label>
+                            <label style="font-size: 0.85rem; color: var(--text-muted); display block; margin-bottom: 0.5rem;">Language / Idioma</label>
                             <select id="settings-lang-select" class="filter-select" style="width: 100%; background: var(--surface); border: 1px solid var(--border-2); border-radius: var(--r); padding: 8px 12px; color: var(--text);" onchange="changeLanguage(this.value)">
                                 <option value="pt-BR">Português (Brasil)</option>
                                 <option value="en" selected>English</option>
