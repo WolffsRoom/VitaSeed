@@ -688,7 +688,7 @@ footer .wrap { position: relative; z-index: 1; }
   line-height: 1;
 }
 .bookmark:hover { color: var(--green); border-color: var(--green-dim); }
-.bookmark.saved { color: var(--green); border-color: var(--green-dim); }
+.bookmark.saved { background: var(--green) !important; color: #08090A !important; border-color: var(--green) !important; font-weight: 900; box-shadow: 0 0 10px rgba(0, 230, 118, 0.4); }
 .rating { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; font-family: var(--mono); }
 .rating .stars { letter-spacing: 1px; font-size: 12px; color: var(--border-2); }
 .rating .stars .fill { color: var(--green); }
