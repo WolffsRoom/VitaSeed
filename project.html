@@ -362,7 +362,8 @@
         window.syncFavoritesUI = function() {
             const starBtn = document.getElementById('btn-project-star');
             if (starBtn && proj) {
-                const isFav = window.userProfileData && window.userProfileData.favorites && window.userProfileData.favorites.includes(proj.id);
+                const favs = (window.userProfileData && window.userProfileData.favorites) ? window.userProfileData.favorites : [];
+                const isFav = favs.some(fId => fId == proj.id);
                 const icon = starBtn.querySelector('i');
                 if (isFav) {
                     starBtn.style.color = '#fbbf24';
@@ -383,7 +384,8 @@
             proj = projectsData.find(p => p.id === id);
             
             if (proj) {
-                const isFav = window.userProfileData && window.userProfileData.favorites && window.userProfileData.favorites.includes(proj.id);
+                const favs = (window.userProfileData && window.userProfileData.favorites) ? window.userProfileData.favorites : [];
+                const isFav = favs.some(fId => fId == proj.id);
                 document.title = `${proj.title} - VitARCH - Project Details`;
                 document.getElementById('proj-title').innerHTML = `
                     ${window.formatTitle(proj.title)}

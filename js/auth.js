@@ -526,7 +526,7 @@ window.toggleFavorite = async function(event, projectId, buttonElement) {
             
             const isAdded = data.status === 'added';
             if (isAdded) {
-                if (!userProfileData.favorites.includes(projectId)) {
+                if (!userProfileData.favorites.some(id => id == projectId)) {
                     userProfileData.favorites.push(projectId);
                 }
             } else {
