@@ -792,13 +792,30 @@
                     }
                 });
 
-                // On drag start: hide tooltip only
+                // On drag start: hide tooltip and select dev + connected projects to drag together
                 network.on("dragStart", function (params) {
                     hideTooltip(true);
                     if (params.nodes.length > 0) {
+                        const draggedId = params.nodes[0];
+                        const node = nodes.get(draggedId);
                         network.unselectAll();
-                        network.selectNodes([params.nodes[0]]);
+                        
+                        if (node && node.group === 'dev') {
+                            const connectedNodeIds = network.getConnectedNodes(draggedId);
+                            const connectedProjects = connectedNodeIds.filter(id => {
+                                const n = nodes.get(id);
+                                return n && n.group === 'project';
+                            });
+                            network.selectNodes([draggedId, ...connectedProjects]);
+                        } else {
+                            network.selectNodes([draggedId]);
+                        }
                     }
+                });
+
+                // Clear selection on drag end
+                network.on("dragEnd", function () {
+                    network.unselectAll();
                 });
             }
 
