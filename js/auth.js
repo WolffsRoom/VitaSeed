@@ -29,6 +29,21 @@ if (firebaseConfig.apiKey !== "Sua_API_Key_Aqui") {
         if(user) fetchUserProfile();
         else userProfileData = null;
     });
+
+    auth.getRedirectResult().then((result) => {
+        if (result && result.user) {
+            const loginModal = document.querySelector('.overlay.open') || document.querySelector('.modal.show');
+            if (loginModal) {
+                loginModal.classList.remove('open', 'show');
+            }
+            if (typeof closeModal === 'function') {
+                closeModal('loginOverlay');
+                closeModal('modal-login');
+            }
+        }
+    }).catch((error) => {
+        console.error("Erro no processamento de redirecionamento de login:", error);
+    });
 }
 
 function updateAuthUI(user) {
@@ -104,12 +119,10 @@ async function loginWithGoogle() {
         return;
     }
     try {
-        await auth.signInWithPopup(googleProvider);
-        closeModal('loginOverlay');
-        if (typeof closeModal === 'function') closeModal('modal-login');
+        await auth.signInWithRedirect(googleProvider);
     } catch (error) {
-        console.error("Erro ao fazer login:", error);
-        alert("Erro ao fazer login. Tente novamente.");
+        console.error("Erro ao fazer login com Google:", error);
+        alert("Erro ao iniciar login. Tente novamente.");
     }
 }
 
@@ -119,12 +132,10 @@ async function loginWithGitHub() {
         return;
     }
     try {
-        await auth.signInWithPopup(githubProvider);
-        closeModal('loginOverlay');
-        if (typeof closeModal === 'function') closeModal('modal-login');
+        await auth.signInWithRedirect(githubProvider);
     } catch (error) {
         console.error("Erro ao fazer login com GitHub:", error);
-        alert("Erro ao fazer login. Tente novamente.");
+        alert("Erro ao iniciar login. Tente novamente.");
     }
 }
 
