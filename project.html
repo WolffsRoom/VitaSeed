@@ -661,7 +661,8 @@
                 }
 
                 window.setRating = function(starsCount) {
-                    if (!window.currentUser) {
+                    const activeUser = window.currentUser || (typeof auth !== 'undefined' && auth ? auth.currentUser : null);
+                    if (!activeUser) {
                         const fb = document.getElementById('vote-feedback');
                         if (fb) fb.innerText = `⚠️ Sign in to vote on this project!`;
                         if (typeof openModal === 'function') openModal('loginOverlay');

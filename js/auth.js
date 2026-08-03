@@ -532,6 +532,10 @@ window.toggleFavorite = async function(event, projectId, buttonElement) {
             
             // Update button element UI if provided
             if (buttonElement) {
+                buttonElement.style.transition = 'transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                buttonElement.style.transform = 'scale(1.35)';
+                setTimeout(() => { buttonElement.style.transform = 'scale(1)'; }, 200);
+
                 if (buttonElement.id === 'btn-project-star') {
                     const icon = buttonElement.querySelector('i');
                     if (isAdded) {
@@ -556,6 +560,10 @@ window.toggleFavorite = async function(event, projectId, buttonElement) {
                         buttonElement.textContent = '+';
                     }
                 }
+            }
+            
+            if (typeof showToast === 'function') {
+                showToast(isAdded ? 'Added to your favorites!' : 'Removed from your favorites', 'info');
             }
             
             // Trigger global syncs
