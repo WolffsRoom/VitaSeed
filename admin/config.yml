@@ -1,11 +1,11 @@
 backend:
   name: github
-  repo: WolffsRoom/VitaSeed
+  repo: WolffsRoom/vitarch
   branch: main
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 locale: pt_BR
-logo_url: "https://wolffsroom.github.io/VitaSeed/seed.svg"
+logo_url: "https://wolffsroom.github.io/vitarch/seed.svg"
 
 collections:
   - name: "catalog"
