@@ -420,6 +420,8 @@
 
     <script src="js/catalog_data.js"></script>
     <script src="js/api.js?v=3"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/theme.js?v=3"></script>
     <script>
@@ -486,38 +488,7 @@
                 if (top10Prev) top10Prev.addEventListener('click', () => top10Viewport.scrollBy({ left: -320, behavior: 'smooth' }));
                 if (top10Next) top10Next.addEventListener('click', () => top10Viewport.scrollBy({ left: 320, behavior: 'smooth' }));
 
-                let hoverScrollInterval = null;
-                top10Viewport.addEventListener('mousemove', (e) => {
-                    const rect = top10Viewport.getBoundingClientRect();
-                    const mouseX = e.clientX - rect.left;
-                    const edgeThreshold = 100;
-                    const maxSpeed = 14;
-
-                    if (mouseX < edgeThreshold) {
-                        const speed = Math.round((1 - mouseX / edgeThreshold) * maxSpeed);
-                        if (!hoverScrollInterval) {
-                            hoverScrollInterval = setInterval(() => top10Viewport.scrollBy({ left: -speed, behavior: 'auto' }), 16);
-                        }
-                    } else if (mouseX > rect.width - edgeThreshold) {
-                        const distFromRight = rect.width - mouseX;
-                        const speed = Math.round((1 - distFromRight / edgeThreshold) * maxSpeed);
-                        if (!hoverScrollInterval) {
-                            hoverScrollInterval = setInterval(() => top10Viewport.scrollBy({ left: speed, behavior: 'auto' }), 16);
-                        }
-                    } else {
-                        if (hoverScrollInterval) {
-                            clearInterval(hoverScrollInterval);
-                            hoverScrollInterval = null;
-                        }
-                    }
-                });
-
-                top10Viewport.addEventListener('mouseleave', () => {
-                    if (hoverScrollInterval) {
-                        clearInterval(hoverScrollInterval);
-                        hoverScrollInterval = null;
-                    }
-                });
+                // Automatic scroll removed by user request
             }
 
             let currentFilterCat = 'all';
