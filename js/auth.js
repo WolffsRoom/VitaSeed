@@ -367,9 +367,51 @@ function injectProfileDropdown() {
 function injectProfileModals() {
     if (!document.getElementById('modal-profile')) {
         const modalsHtml = `
+            <style>
+                .side-drawer-overlay {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    height: 100vh;
+                    background: rgba(10, 10, 11, 0.7);
+                    z-index: 10000;
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: stretch;
+                    backdrop-filter: blur(8px);
+                    opacity: 0;
+                    pointer-events: none;
+                    transition: opacity 0.3s ease;
+                    font-family: system-ui, -apple-system, sans-serif;
+                }
+                .side-drawer-overlay.active {
+                    opacity: 1;
+                    pointer-events: auto;
+                }
+                .side-drawer-panel {
+                    width: 100%;
+                    max-width: 440px;
+                    height: 100vh;
+                    background: var(--bg-card, #121214);
+                    border-left: 1px solid var(--border-color, #29292c);
+                    border-radius: 0;
+                    padding: 2rem;
+                    box-sizing: border-box;
+                    overflow-y: auto;
+                    position: relative;
+                    box-shadow: -10px 0 35px rgba(0, 0, 0, 0.6);
+                    transform: translateX(100%);
+                    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+                }
+                .side-drawer-overlay.active .side-drawer-panel {
+                    transform: translateX(0);
+                }
+            </style>
+
             <!-- Profile Modal Drawer -->
-            <div id="modal-profile" class="modal" onclick="if(event.target===this)closeModal('modal-profile')" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10,10,11,0.75); z-index: 10000; display: none; align-items: stretch; justify-content: flex-end; backdrop-filter: blur(8px); font-family: system-ui, -apple-system, sans-serif;">
-                <div class="modal-content" onclick="event.stopPropagation()" style="width: 100%; max-width: 440px; height: 100vh; background: var(--bg-card, #121214); border-left: 1px solid var(--border-color, #29292c); border-radius: 0; padding: 2rem; overflow-y: auto; position: relative; box-shadow: -10px 0 30px rgba(0,0,0,0.5);">
+            <div id="modal-profile" class="side-drawer-overlay" onclick="if(event.target===this)closeModal('modal-profile')">
+                <div class="side-drawer-panel" onclick="event.stopPropagation()">
                     <button class="close-btn" onclick="closeModal('modal-profile')" style="position: absolute; right: 20px; top: 20px; font-size: 24px; background: transparent; border: none; color: var(--text-muted); cursor: pointer; line-height: 1;">&times;</button>
                     
                     <h2 style="font-family: var(--mono); color: var(--text); margin-bottom: 1.5rem; font-size: 1.4rem; text-align: left;">User Profile</h2>
@@ -424,13 +466,13 @@ function injectProfileModals() {
             </div>
             
             <!-- Settings Modal Drawer -->
-            <div id="modal-settings" class="modal" onclick="if(event.target===this)closeModal('modal-settings')" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10,10,11,0.75); z-index: 10000; display: none; align-items: stretch; justify-content: flex-end; backdrop-filter: blur(8px); font-family: system-ui, -apple-system, sans-serif;">
-                <div class="modal-content" onclick="event.stopPropagation()" style="width: 100%; max-width: 380px; height: 100vh; background: var(--bg-card, #121214); border-left: 1px solid var(--border-color, #29292c); border-radius: 0; padding: 2rem; overflow-y: auto; position: relative; box-shadow: -10px 0 30px rgba(0,0,0,0.5);">
+            <div id="modal-settings" class="side-drawer-overlay" onclick="if(event.target===this)closeModal('modal-settings')">
+                <div class="side-drawer-panel" style="max-width: 380px;" onclick="event.stopPropagation()">
                     <button class="close-btn" onclick="closeModal('modal-settings')" style="position: absolute; right: 20px; top: 20px; font-size: 24px; background: transparent; border: none; color: var(--text-muted); cursor: pointer; line-height: 1;">&times;</button>
                     <h2 style="font-family: var(--mono); color: var(--text); margin-bottom: 1.5rem; font-size: 1.4rem; text-align: left;">Settings</h2>
                     <div style="display: flex; flex-direction: column; gap: 1rem; text-align: left;">
                         <div>
-                            <label style="font-size: 0.85rem; color: var(--text-muted); display block; margin-bottom: 0.5rem;">Language / Idioma</label>
+                            <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem;">Language / Idioma</label>
                             <select id="settings-lang-select" class="filter-select" style="width: 100%; background: var(--surface); border: 1px solid var(--border-2); border-radius: var(--r); padding: 8px 12px; color: var(--text);" onchange="changeLanguage(this.value)">
                                 <option value="pt-BR">Português (Brasil)</option>
                                 <option value="en" selected>English</option>
@@ -693,13 +735,21 @@ async function sendRequest() {
     }
 }
 
-// Global modal open/close override/wrapper to handle the flex display
+// Global modal open/close override/wrapper to handle display and animations
 const originalCloseModal = window.closeModal;
 window.closeModal = function(id) {
     const el = document.getElementById(id);
     if (el) {
-        el.style.display = 'none';
-        el.classList.remove('show', 'open');
+        el.classList.remove('show', 'open', 'active');
+        if (el.classList.contains('side-drawer-overlay')) {
+            setTimeout(() => {
+                if (!el.classList.contains('active')) {
+                    el.style.display = 'none';
+                }
+            }, 350);
+        } else {
+            el.style.display = 'none';
+        }
     }
     if (typeof originalCloseModal === 'function') {
         try {
@@ -712,15 +762,25 @@ window.openModal = function(id) {
     const el = document.getElementById(id);
     if (el) {
         el.style.display = 'flex';
-        el.classList.add('open', 'show');
+        setTimeout(() => {
+            el.classList.add('open', 'show', 'active');
+        }, 10);
     }
 };
 
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-        document.querySelectorAll('.modal, .overlay').forEach(m => {
-            m.style.display = 'none';
-            m.classList.remove('show', 'open');
+        document.querySelectorAll('.modal, .overlay, .side-drawer-overlay').forEach(m => {
+            m.classList.remove('show', 'open', 'active');
+            if (m.classList.contains('side-drawer-overlay')) {
+                setTimeout(() => {
+                    if (!m.classList.contains('active')) {
+                        m.style.display = 'none';
+                    }
+                }, 350);
+            } else {
+                m.style.display = 'none';
+            }
         });
     }
 });
