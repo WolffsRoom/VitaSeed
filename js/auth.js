@@ -225,21 +225,25 @@ async function fetchUserProfile() {
 }
 
 function openProfileModal() {
-    if (!userProfileData) {
-        alert('Profile still loading, please try again.');
-        return;
-    }
     // Close settings if open
     closeModal('modal-settings');
 
-    const modal = document.getElementById('modal-profile');
-    if (modal) {
-        modal.style.display = 'flex';
-        modal.classList.add('show');
+    if (!userProfileData) {
+        userProfileData = {};
+    }
+
+    if (typeof openModal === 'function') {
+        openModal('modal-profile');
+    } else {
+        const modal = document.getElementById('modal-profile');
+        if (modal) {
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('show', 'open', 'active'), 10);
+        }
     }
     
     document.getElementById('profile-edit-name').value = userProfileData.display_name || '';
-    document.getElementById('profile-edit-avatar-preview').src = userProfileData.avatar_url || 'https://via.placeholder.com/64';
+    document.getElementById('profile-edit-avatar-preview').src = userProfileData.avatar_url || (currentUser ? currentUser.photoURL : '') || 'https://via.placeholder.com/64';
     document.getElementById('profile-edit-langs').value = userProfileData.languages || '';
     document.getElementById('profile-edit-site').value = userProfileData.website || '';
     document.getElementById('profile-edit-donations').value = userProfileData.donation_links || '';
@@ -295,10 +299,14 @@ function openSettingsModal() {
     // Close profile if open
     closeModal('modal-profile');
 
-    const modal = document.getElementById('modal-settings');
-    if (modal) {
-        modal.style.display = 'flex';
-        modal.classList.add('show');
+    if (typeof openModal === 'function') {
+        openModal('modal-settings');
+    } else {
+        const modal = document.getElementById('modal-settings');
+        if (modal) {
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('show', 'open', 'active'), 10);
+        }
     }
 }
 
