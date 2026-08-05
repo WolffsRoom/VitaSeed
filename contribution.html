@@ -565,7 +565,9 @@
                     group: 'project',
                     shape: 'circularImage',
                     image: banner,
-                    size: 20,
+                    size: 26,
+                    borderWidth: 2,
+                    borderWidthSelected: 4,
                     projData: proj
                 });
 
@@ -579,7 +581,9 @@
                             label: devName,
                             group: 'dev',
                             shape: 'dot',
-                            size: 18
+                            size: 24,
+                            borderWidth: 3,
+                            borderWidthSelected: 5
                         });
                     }
 
@@ -587,8 +591,8 @@
                         from: devName,
                         to: proj.id,
                         dashes: false,
-                        color: { color: 'rgba(0, 230, 118, 0.25)', highlight: '#00E676', hover: '#00E676' },
-                        width: 1.2
+                        color: { color: 'rgba(0, 230, 118, 0.35)', highlight: '#00E676', hover: '#00E676' },
+                        width: 1.8
                     });
                 });
             });
@@ -607,7 +611,7 @@
                     return {
                         fontColor: '#0F172A',
                         strokeColor: '#FFFFFF',
-                        edgeColor: 'rgba(15, 23, 42, 0.15)',
+                        edgeColor: 'rgba(15, 23, 42, 0.2)',
                         edgeHighlight: '#00C853',
                         devFontColor: '#00C853',
                         projectFontColor: '#0F172A'
@@ -616,7 +620,7 @@
                     return {
                         fontColor: '#E2E8F0',
                         strokeColor: '#0B132B',
-                        edgeColor: 'rgba(226, 232, 240, 0.18)',
+                        edgeColor: 'rgba(226, 232, 240, 0.25)',
                         edgeHighlight: '#00E676',
                         devFontColor: '#00E676',
                         projectFontColor: '#E2E8F0'
@@ -625,7 +629,7 @@
                     return {
                         fontColor: '#E8E8E9',
                         strokeColor: '#0A0A0B',
-                        edgeColor: 'rgba(255, 255, 255, 0.15)',
+                        edgeColor: 'rgba(255, 255, 255, 0.25)',
                         edgeHighlight: '#00E676',
                         devFontColor: '#00E676',
                         projectFontColor: '#E8E8E9'
@@ -674,15 +678,15 @@
                             color: '#E8E8E9', 
                             size: 13,
                             face: 'monospace',
-                            strokeWidth: 2,
+                            strokeWidth: 3,
                             strokeColor: '#0A0A0B'
                         },
                         borderWidth: 2,
-                        shadow: { enabled: true, color: 'rgba(0, 230, 118, 0.3)', size: 10, x: 0, y: 0 }
+                        shadow: { enabled: true, color: 'rgba(0, 230, 118, 0.4)', size: 14, x: 0, y: 0 }
                     },
                     edges: {
-                        color: { color: 'rgba(255, 255, 255, 0.15)', highlight: '#00E676', hover: 'rgba(0, 230, 118, 0.8)' },
-                        width: 1.5,
+                        color: { color: 'rgba(255, 255, 255, 0.25)', highlight: '#00E676', hover: 'rgba(0, 230, 118, 0.9)' },
+                        width: 1.8,
                         smooth: { type: 'continuous' }
                     },
                     groups: {
@@ -692,35 +696,36 @@
                                 border: '#00B0FF', 
                                 highlight: { background: '#00E676', border: '#FFFFFF' } 
                             }, 
-                            font: { color: '#00E676', size: 14, strokeWidth: 3, strokeColor: '#0A0A0B' } 
+                            font: { color: '#00E676', size: 15, strokeWidth: 4, strokeColor: '#0A0A0B' } 
                         },
                         project: { 
                             color: { 
-                                background: '#fbbf24', 
-                                border: '#d97706', 
-                                highlight: { background: '#fbbf24', border: '#FFFFFF' } 
+                                background: '#131315', 
+                                border: '#00E676', 
+                                highlight: { background: '#00E676', border: '#FFFFFF' } 
                             }, 
-                            font: { color: '#E8E8E9', size: 12, strokeWidth: 2, strokeColor: '#0A0A0B' } 
+                            font: { color: '#E8E8E9', size: 12, strokeWidth: 3, strokeColor: '#0A0A0B' } 
                         }
                     },
                     physics: {
                         barnesHut: {
-                            gravitationalConstant: -1800,
-                            centralGravity: 0.15,
-                            springLength: 100,
-                            springConstant: 0.03,
-                            damping: 0.5
+                            gravitationalConstant: -4500,
+                            centralGravity: 0.25,
+                            springLength: 160,
+                            springConstant: 0.04,
+                            damping: 0.35,
+                            avoidOverlap: 0.8
                         },
-                        maxVelocity: 25,
+                        maxVelocity: 40,
                         solver: 'barnesHut',
-                        timestep: 0.4,
+                        timestep: 0.35,
                         stabilization: {
                             enabled: true,
-                            iterations: 120,
+                            iterations: 150,
                             updateInterval: 10
                         }
                     },
-                    interaction: { hover: true, tooltipDelay: 100, zoomView: true, dragView: true, dragNodes: true, multiselect: false }
+                    interaction: { hover: true, tooltipDelay: 50, zoomView: true, dragView: true, dragNodes: true, multiselect: false }
                 };
 
                 network = new vis.Network(graphContainer, data, options);
@@ -730,19 +735,13 @@
                 network.on('stabilizationProgress', (params) => {
                     const progressPct = 40 + Math.round((params.iterations / params.total) * 60);
                     if (progressBar) progressBar.style.width = progressPct + '%';
-                    if (statusText) statusText.innerText = `Stabilizing connections (${progressPct}%)...`;
+                    if (statusText) statusText.innerText = `Stabilizing galaxy network (${progressPct}%)...`;
                 });
 
                 network.on('stabilizationIterationsDone', () => {
                     if (progressBar) progressBar.style.width = '100%';
                     if (statusText) statusText.innerText = 'Ready!';
                     
-                    network.setOptions({
-                        physics: {
-                            enabled: false
-                        }
-                    });
-
                     if (loader) {
                         loader.style.opacity = '0';
                         setTimeout(() => { loader.style.display = 'none'; }, 400);

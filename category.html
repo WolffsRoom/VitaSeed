@@ -224,6 +224,16 @@
                             window.location.href = `project.html?id=${proj.id}`;
                         };
                         const bannerUrl = proj.bannerUrl || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400';
+                        const ratingScore = proj.rating_score || proj.rating || 0;
+                        const ratingVotes = proj.rating_count || proj.ratings_count || 0;
+                        let ratingHTML = '<div class="rating none"><span style="font-size:11px; color:var(--muted-2);">No ratings yet</span></div>';
+                        
+                        if (ratingScore > 0 || ratingVotes > 0) {
+                            const scoreVal = ratingScore > 0 ? ratingScore.toFixed(1) : '4.8';
+                            const fullStars = Math.round(scoreVal);
+                            ratingHTML = `<div class="rating"><span class="stars"><span class="fill">${'★'.repeat(fullStars)}</span>${'☆'.repeat(5 - fullStars)}</span><span class="score">${scoreVal}/5</span></div>`;
+                        }
+
                         card.innerHTML = `
                             <div class="card-cover" style="background-image: linear-gradient(to top, rgba(10,10,11,0.95), transparent), url('${bannerUrl}'); background-size: cover; background-position: ${proj.bgPosition || 'center'};">
                                 <button class="bookmark" onclick="event.stopPropagation(); if(!window.currentUser){ if(typeof openModal==='function') openModal('loginOverlay'); return;} this.classList.toggle('saved'); this.textContent = this.classList.contains('saved') ? '✓' : '+';">+</button>
@@ -235,7 +245,7 @@
                                     <div class="card-info-title">${proj.title}</div>
                                     <div class="sub">${proj.responsibles || 'Wolff'} · v${proj.version || '1.0'}</div>
                                 </div>
-                                <div class="rating"><span class="stars"><span class="fill">★★★★</span>☆</span><span class="score">4.8/5</span></div>
+                                ${ratingHTML}
                                 <div class="row">
                                     <span class="status ok">${proj.status || 'Completed'}</span>
                                     <a href="project.html?id=${proj.id}" class="btn-small">view post →</a>

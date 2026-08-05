@@ -538,6 +538,17 @@
                     };
                     const favs = (window.userProfileData && window.userProfileData.favorites) ? window.userProfileData.favorites : [];
                     const isFav = favs.some(fId => fId == proj.id);
+                    const ratingScore = proj.rating_score || proj.rating || 0;
+                    const ratingVotes = proj.rating_count || proj.ratings_count || 0;
+                    let ratingHTML = '<div class="rating none"><span style="font-size:11px; color:var(--muted-2);">No ratings yet</span></div>';
+                    
+                    if (ratingScore > 0 || ratingVotes > 0) {
+                        const scoreVal = ratingScore > 0 ? ratingScore.toFixed(1) : '4.8';
+                        const fullStars = Math.round(scoreVal);
+                        const starsStr = '★'.repeat(fullStars) + '☆'.repeat(5 - fullStars);
+                        ratingHTML = `<div class="rating"><span class="stars"><span class="fill">${'★'.repeat(fullStars)}</span>${'☆'.repeat(5 - fullStars)}</span><span class="score">${scoreVal}/5</span></div>`;
+                    }
+
                     card.innerHTML = `
                   <div class="card-cover" style="background-image: linear-gradient(to top, rgba(10,10,11,0.95), transparent), url('${proj.bannerUrl}'); background-size: cover; background-position: center;">
                       <button class="bookmark ${isFav ? 'saved' : ''}" onclick="event.stopPropagation(); toggleFavorite(event, ${proj.id}, this)">${isFav ? '✓' : '+'}</button>
@@ -546,7 +557,7 @@
                   </div>
                   <div class="card-info">
                       <div class="sub">${proj.responsibles || 'Wolff'} · v${proj.version || '1.0'}</div>
-                      <div class="rating"><span class="stars"><span class="fill">★★★★</span>☆</span><span class="score">4.8/5</span></div>
+                      ${ratingHTML}
                       <div class="row">
                           <span class="status ok">${proj.status || 'Completed'}</span>
                           <a href="project.html?id=${proj.id}" class="btn-small">view post →</a>
