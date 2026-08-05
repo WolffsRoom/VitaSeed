@@ -224,14 +224,21 @@
                             window.location.href = `project.html?id=${proj.id}`;
                         };
                         const bannerUrl = proj.bannerUrl || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400';
-                        const ratingScore = proj.rating_score || proj.rating || 0;
-                        const ratingVotes = proj.rating_count || proj.ratings_count || 0;
+                        const localCount = parseInt(localStorage.getItem(`vitarch_vote_count_${proj.id}`) || '0');
+                        const localSum = parseFloat(localStorage.getItem(`vitarch_vote_sum_${proj.id}`) || '0');
+
+                        const apiScore = proj.rating_score || proj.rating || 0;
+                        const apiVotes = proj.rating_count || proj.ratings_count || 0;
+
+                        const totalCount = apiVotes + localCount;
+                        const totalSum = (apiScore * apiVotes) + localSum;
+
                         let ratingHTML = '<div class="rating none"><span style="font-size:11px; color:var(--muted-2);">No ratings yet</span></div>';
                         
-                        if (ratingScore > 0 || ratingVotes > 0) {
-                            const scoreVal = ratingScore > 0 ? ratingScore.toFixed(1) : '4.8';
-                            const fullStars = Math.round(scoreVal);
-                            ratingHTML = `<div class="rating"><span class="stars"><span class="fill">${'★'.repeat(fullStars)}</span>${'☆'.repeat(5 - fullStars)}</span><span class="score">${scoreVal}/5</span></div>`;
+                        if (totalCount > 0) {
+                            const scoreVal = (totalSum / totalCount).toFixed(1);
+                            const fullStars = Math.round(parseFloat(scoreVal));
+                            ratingHTML = `<div class="rating"><span class="stars"><span class="fill">${'★'.repeat(fullStars)}</span>${'☆'.repeat(5 - fullStars)}</span><span class="score">${scoreVal}/5 (${totalCount})</span></div>`;
                         }
 
                         card.innerHTML = `
